@@ -1,9 +1,25 @@
+import { PROFILE, TRAFFIC, GEOTHERMAL } from '@/constants';
+
 export default [
   {
-    name: 'about',
-    path: '/',
+    name: PROFILE,
+    path: `/${PROFILE}`,
     component: () => import(
-      '@/views/About'
+      '@/views/Profile'
+    ),
+  },
+  {
+    name: TRAFFIC,
+    path: `/${TRAFFIC}`,
+    component: () => import(
+      '@/views/Profile/Traffic'
+    )
+  },
+  {
+    name: GEOTHERMAL,
+    path: `/${GEOTHERMAL}`,
+    component: () => import(
+      '@/views/Profile/Geothermal'
     )
   }
 ];

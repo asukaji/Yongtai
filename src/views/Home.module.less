@@ -1,0 +1,31 @@
+.home {
+  width: 100%;
+  height: 100%;
+
+  :global .amap-icon {
+    width: 20px !important;;
+    height: 24px !important;
+    & img {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  :global .amap-marker:first-child {
+    color: #FB3F62;
+  }
+
+  :global .amap-marker:not(:first-child) {
+    color: #0078FF;
+  }
+
+  :global .amap-marker-label {
+    background: transparent;
+    border-width: 0;
+    text-shadow: 0 1px 4px #fff;
+    font-size: 20px;
+    font-weight: bold;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+    -webkit-text-stroke-width: 1px;
+  }
+}
