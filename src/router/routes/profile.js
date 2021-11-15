@@ -4,22 +4,25 @@ export default [
   {
     name: PROFILE,
     path: `/${PROFILE}`,
-    component: () => import(
-      '@/views/Profile'
-    ),
-  },
-  {
-    name: TRAFFIC,
-    path: `/${TRAFFIC}`,
-    component: () => import(
-      '@/views/Profile/Traffic'
-    )
-  },
-  {
-    name: GEOTHERMAL,
-    path: `/${GEOTHERMAL}`,
-    component: () => import(
-      '@/views/Profile/Geothermal'
-    )
+    component: () => import('@/views/Profile/Container'),
+    redirect: { name: 'profileIndex' },
+
+    children: [
+      {
+        name: 'profileIndex',
+        path: 'index',
+        component: () => import('@/views/Profile')
+      },
+      {
+        name: TRAFFIC,
+        path: TRAFFIC,
+        component: () => import('@/views/Profile/Traffic')
+      },
+      {
+        name: GEOTHERMAL,
+        path: GEOTHERMAL,
+        component: () => import('@/views/Profile/Geothermal')
+      }
+    ]
   }
 ];
