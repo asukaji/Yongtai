@@ -1,5 +1,15 @@
 import styles from './index.module.less';
 
+import {
+  TRAFFIC,
+  GEOTHERMAL,
+  ECOLOGICAL,
+  INDUSTRIAL,
+  URBAN,
+  LIVELIHOOD,
+  HOTEL,
+  WATER
+} from '@/constants';
 import bg1 from '@/assets/Bg/profile-bg1.png';
 import bg2 from '@/assets/Bg/profile-bg2.png';
 import bg3 from '@/assets/Bg/profile-bg3.png';
@@ -10,14 +20,14 @@ import bg7 from '@/assets/Bg/profile-bg7.png';
 import bg8 from '@/assets/Bg/profile-bg8.png';
 
 const CARDS = [
-  { title: '生态文明', name: 'Ecological Civilization', path:'', image: bg1},
-  { title: '产业基础', name: 'Industrial Foundation', path:'', image: bg2},
-  { title: '城市建设', name: 'Urban Construction', path:'', image: bg3},
-  { title: '民生事业', name: 'Livelihood Cause', path:'', image: bg4},
-  { title: '交通情况', name: 'Traffic Conditions', path:'', image: bg5},
-  { title: '地热情况', name: 'Geothermal Conditions', path:'geothermal', image: bg6},
-  { title: '酒店情况', name: 'Hotel Conditions', path:'', image: bg7},
-  { title: '水域水流', name: 'Water Flow', path:'', image: bg8}
+  { title: '生态文明', name: 'Ecological Civilization', path: ECOLOGICAL, image: bg1},
+  { title: '产业基础', name: 'Industrial Foundation', path: INDUSTRIAL, image: bg2},
+  { title: '城市建设', name: 'Urban Construction', path: URBAN, image: bg3},
+  { title: '民生事业', name: 'Livelihood Cause', path: LIVELIHOOD, image: bg4},
+  { title: '交通情况', name: 'Traffic Conditions', path: TRAFFIC, image: bg5},
+  { title: '地热情况', name: 'Geothermal Conditions', path:GEOTHERMAL, image: bg6},
+  { title: '酒店情况', name: 'Hotel Conditions', path: HOTEL, image: bg7},
+  { title: '水域水流', name: 'Water Flow', path: WATER, image: bg8}
 ];
 
 export default {

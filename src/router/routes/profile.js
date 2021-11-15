@@ -1,4 +1,12 @@
-import { PROFILE, TRAFFIC, GEOTHERMAL } from '@/constants';
+import { PROFILE, 
+  TRAFFIC,
+  GEOTHERMAL,
+  ECOLOGICAL,
+  INDUSTRIAL,
+  URBAN,
+  LIVELIHOOD,
+  HOTEL,
+  WATER } from '@/constants';
 
 export default [
   {
@@ -22,6 +30,26 @@ export default [
         name: GEOTHERMAL,
         path: GEOTHERMAL,
         component: () => import('@/views/Profile/Geothermal')
+      },
+      {
+        name: URBAN,
+        path: URBAN,
+        component: () => import('@/views/Profile/Urban')
+      },
+      {
+        name: HOTEL,
+        path: HOTEL,
+        component: () => import('@/views/Profile/Hotel')
+      },
+      {
+        name: WATER,
+        path: WATER,
+        component: () => import('@/views/Profile/Water')
+      },
+      {
+        name: ECOLOGICAL,
+        path: ECOLOGICAL,
+        component: () => import('@/views/Profile/Ecological')
       }
     ]
   }

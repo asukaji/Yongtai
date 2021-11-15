@@ -20,3 +20,9 @@ export const homeRoutes = [
 
 export const TRAFFIC = 'traffic';
 export const GEOTHERMAL = 'geothermal';
+export const ECOLOGICAL = 'ecological';
+export const INDUSTRIAL = 'industrial';
+export const URBAN = 'u+rban';
+export const LIVELIHOOD = 'livelihood';
+export const HOTEL = 'hotel';
+export const WATER = 'water';

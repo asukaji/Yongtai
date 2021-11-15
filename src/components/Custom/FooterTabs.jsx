@@ -1,5 +1,5 @@
 import VueTypes from 'vue-types';
-import styles from './Map.module.less';
+import styles from './FooterTabs.module.less';
 
 export default {
   name: 'FooterTabs',
