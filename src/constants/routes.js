@@ -18,14 +18,21 @@ export const homeRoutes = [
   [VIDEO, '视频连线']
 ];
 
-export const TRAFFIC = 'traffic';
-export const GEOTHERMAL = 'geothermal';
-export const ECOLOGICAL = 'ecological';
-export const INDUSTRIAL = 'industrial';
-export const URBAN = 'urban';
-export const LIVELIHOOD = 'livelihood';
-export const HOTEL = 'hotel';
-export const WATER = 'water';
+export const PROFILE_TRAFFIC = 'profile.traffic';
+
+export const PROFILE_TRAFFIC_SERVICE = 'profile.traffic.service';
+export const PROFILE_TRAFFIC_RAILWAY = 'profile.traffic.railway';
+export const PROFILE_TRAFFIC_HIGHWAY = 'profile.traffic.highway';
+export const PROFILE_TRAFFIC_NATIONAL = 'profile.traffic.national';
+export const PROFILE_TRAFFIC_PROVINCIAL = 'profile.traffic.provincial';
+
+export const PROFILE_GEOTHERMAL = 'profile.geothermal';
+export const PROFILE_ECOLOGICAL = 'profile.ecological';
+export const PROFILE_INDUSTRIAL = 'profile.industrial';
+export const PROFILE_URBAN = 'profile.urban';
+export const PROFILE_LIVELIHOOD = 'profile.livelihood';
+export const PROFILE_HOTEL = 'profile.hotel';
+export const PROFILE_WATER = 'profile.water';
 
 export const BUSINESS_EVALUATION = 'business.evaluation';
 export const BUSINESS_SCHEDULE = 'business.schedule';
