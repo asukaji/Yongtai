@@ -22,7 +22,15 @@ export const TRAFFIC = 'traffic';
 export const GEOTHERMAL = 'geothermal';
 export const ECOLOGICAL = 'ecological';
 export const INDUSTRIAL = 'industrial';
-export const URBAN = 'u+rban';
+export const URBAN = 'urban';
 export const LIVELIHOOD = 'livelihood';
 export const HOTEL = 'hotel';
 export const WATER = 'water';
+
+export const BUSINESS_EVALUATION = 'business.evaluation';
+export const BUSINESS_SCHEDULE = 'business.schedule';
+
+export const businessRoutes = [
+  [BUSINESS_EVALUATION, '考评情况'],
+  [BUSINESS_SCHEDULE, '任务序时进度']
+];

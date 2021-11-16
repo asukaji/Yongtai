@@ -6,6 +6,7 @@ import project from './routes/project';
 import tour from './routes/tour';
 import promote from './routes/promote';
 import video from './routes/video';
+import business from './routes/business';
 
 Vue.use(VueRouter);
 
@@ -19,7 +20,8 @@ const routes = [
   ...project,
   ...promote,
   ...tour,
-  ...video
+  ...video,
+  ...business
 ];
 
 const router = new VueRouter({
