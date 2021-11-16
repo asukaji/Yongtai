@@ -1,20 +1,38 @@
 import { createInstance } from './utils';
+import _ from 'lodash';
 
-const instance = createInstance({ baseURL: 'http://http://120.77.38.5:16810/jeecg-boot/xiangcun' });
+const instance = createInstance({ baseURL: 'http://120.77.38.5:16810/xiangcun' });
+const staticPath = 'http://120.77.38.5:16810/sys/common/static/**';
 
 /**
  * 重点项目-二级详情页
  * @param {string} projectId
  */
 export function fetchProjectDetail(projectId) {
-  return instance.get(`/project/detail/${projectId}`);
+  return instance.get(`/project/detail/${projectId}`).then(({ result }) => ({
+    content: result.content,
+    belong: result.belong,
+    investments: `${result.investments}亿元`,
+    media: _.map(result.fileList, ({ filePath, fileType }) => ({ src: `${staticPath}${filePath}`, type: fileType === '.jpg' ? 'image' : 'video' }))
+  }));
 }
 
 /**
  * 重点项目-地图坐标分布
  */
 export function fetchProjectList() {
-  return instance.get('/project/list');
+  return instance.get('/project/list').then(({ result }) => ({
+    completed: result.junGong,
+    ready: result.kaiGong,
+    working: result.zaiJian,
+    planing: result.zhengQian,
+    list: _.map(result.projectList, ({ id, latitudes, longitudes, projectName, projectType }) => ({
+      id,
+      position: [longitudes, latitudes],
+      title: projectName,
+      type: projectType
+    }))
+  }));
 }
 
 /**

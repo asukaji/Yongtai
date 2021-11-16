@@ -29,6 +29,7 @@ export default {
             strokeWeight={1}
             fillColor={FILL_COLORS[index % 4]}
             fillOpacity={0.3}
+            onClick={this.$emit.bind(this, 'streetClick')}
           />
       )}
     </Fragment>;

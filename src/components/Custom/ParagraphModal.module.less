@@ -1,0 +1,47 @@
+.modal {
+  top: 60px;
+  left: 70px;
+  right: 70px;
+  bottom: 60px;
+  margin-top: 0 !important;
+  margin: 0;
+  width: calc(100% - 140px);
+
+  :local .pre {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: #0078FF;
+    font-size: 18px;
+    margin-top: 25px;
+
+    :global img {
+      width: 20px;
+    }
+    
+    :global img + span {
+      margin-left: 8px;
+    }
+
+    :global span + img {
+      margin-left: 48px;
+    }
+  }
+
+  :global .el-dialog__header,
+  :global .el-dialog__body {
+    padding: 0;
+  }
+
+  :global .media {
+    display: flex;
+    max-width: 100%;
+    overflow-x: auto;
+
+    img, video {
+      width: 240px;
+      height: 160px;
+      border-radius: 8px;
+    }
+  }
+}

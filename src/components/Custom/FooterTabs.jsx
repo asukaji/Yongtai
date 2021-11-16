@@ -1,6 +1,8 @@
 import VueTypes from 'vue-types';
 import styles from './FooterTabs.module.less';
 
+import _ from 'lodash';
+
 export default {
   name: 'FooterTabs',
 
@@ -17,20 +19,22 @@ export default {
   render() {
     return (
       <div class={styles.footer}>
-        {this.tabs.map(({ name, title, icon, activeIcon }) => (
-          <router-link to={{ name }}>
-            <div
-              key={name}
-              class={[
-                styles.tabItem,
-                this.activeName === name && styles.active
-              ]}
-            >
-              <img src={this.activeName === name ? activeIcon : icon} />
-              {title}
-            </div>
-          </router-link>
-        ))}
+        {_.isEmpty(this.tabs) ?
+          this.$slots.default
+          :_.map(this.tabs, ({ name, title, icon, activeIcon }) => (
+            <router-link to={{ name }}>
+              <div
+                key={name}
+                class={[
+                  styles.tabItem,
+                  this.activeName === name && styles.active
+                ]}
+              >
+                <img src={this.activeName === name ? activeIcon : icon} />
+                {title}
+              </div>
+            </router-link>
+          ))}
       </div>
     );
   }

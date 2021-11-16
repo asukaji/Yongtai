@@ -17,6 +17,7 @@ export default {
         zoom={zoom}
         class={styles.map}
         attrs={{...mapProps}}
+        onClick={this.$emit.bind(this, 'mapClick')}
       >
         <Config />
         {this.$slots.default}
