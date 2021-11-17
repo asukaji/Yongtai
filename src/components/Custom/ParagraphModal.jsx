@@ -57,10 +57,6 @@ export default {
       }
     },
 
-    onClick() {
-      console.log(111);
-    },
-
     renderMedia() {
       return (
         <div class="media">
@@ -68,7 +64,7 @@ export default {
             type === 'image' ? (
               <img src={src} />
             ) : (
-              <div to={src} class="video" onClick={this.onClick}>
+              <div to={src} class="video">
                 <video controls>
                   <source src={src} />
                 </video>
