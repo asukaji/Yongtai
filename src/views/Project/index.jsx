@@ -1,10 +1,11 @@
 import YtMap from '@/components/YtMap';
-import { Marker, InfoWindow } from '@amap/amap-vue';
+import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { StreetsPolygon } from '@/components/Map';
 import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
 import styles from './index.module.less';
 
 import { fetchProjectList, fetchProjectDetail } from '@/api';
+import { validPosition } from '@/utils';
 import _ from 'lodash';
 
 import markerCircle from '@/assets/MapPlugin/marker-circle.png';
@@ -32,25 +33,41 @@ export default {
   computed: {
     planingProjects() {
       return this.state.showPlaning
-        ? _.filter(this.projects?.list, ['type', 1])
+        ? _.filter(
+            this.projects?.list,
+            ({ type, position }) => type === 1 && validPosition(position)
+            // eslint-disable-next-line
+          )
         : [];
     },
 
     readyProjects() {
       return this.state.showReady
-        ? _.filter(this.projects?.list, ['type', 2])
+        ? _.filter(
+            this.projects?.list,
+            ({ type, position }) => type === 2 && validPosition(position)
+            // eslint-disable-next-line
+          )
         : [];
     },
 
     workingProjects() {
       return this.state.showWorking
-        ? _.filter(this.projects?.list, ['type', 3])
+        ? _.filter(
+            this.projects?.list,
+            ({ type, position }) => type === 3 && validPosition(position)
+            // eslint-disable-next-line
+          )
         : [];
     },
 
     completedProjects() {
       return this.state.showCompleted
-        ? _.filter(this.projects?.list, ['type', 4])
+        ? _.filter(
+            this.projects?.list,
+            ({ type, position }) => type === 4 && validPosition(position)
+            // eslint-disable-next-line
+          )
         : [];
     },
 
@@ -106,49 +123,54 @@ export default {
       this.onMarkerClick(id, title, position);
     },
 
+    iconType(type) {
+      switch (type) {
+        case 1:
+          return markerCircle;
+        case 2:
+          return markerTriangle;
+        case 3:
+          return markerStar;
+        case 4:
+          return markerDiamond;
+        default:
+          return null;
+      }
+    },
+
     renderProjects() {
-      return [
-        ..._.map(this.planingProjects, ({ position, title, id }) => (
-          <Marker
-            position={position}
-            label={{
-              content: title
-            }}
-            icon={markerCircle}
-            onClick={this.onMarkerClick.bind(null, id, title, position)}
-          />
-        )),
-        ..._.map(this.readyProjects, ({ position, title, id }) => (
-          <Marker
-            position={position}
-            label={{
-              content: title
-            }}
-            icon={markerTriangle}
-            onClick={this.onMarkerClick.bind(null, id, title, position)}
-          />
-        )),
-        ..._.map(this.workingProjects, ({ position, title, id }) => (
-          <Marker
-            position={position}
-            label={{
-              content: title
-            }}
-            icon={markerStar}
-            onClick={this.onMarkerClick.bind(null, id, title, position)}
-          />
-        )),
-        ..._.map(this.completedProjects, ({ position, title, id }) => (
-          <Marker
-            position={position}
-            label={{
-              content: title
-            }}
-            icon={markerDiamond}
-            onClick={this.onMarkerClick.bind(null, id, title, position)}
-          />
-        ))
-      ];
+      return _.map(this.filterProjects, ({ position, title, id, type }) => (
+        <Marker
+          position={position}
+          icon={this.iconType(type)}
+          onClick={this.onMarkerClick.bind(null, id, title, position)}
+        />
+      ));
+    },
+
+    colorType(type) {
+      switch (type) {
+        case 2:
+          return '#0078ff';
+        case 3:
+          return '#ff7937';
+        case 4:
+          return '#28d2b0';
+        default:
+          return '#fb3f62';
+      }
+    },
+
+    renderText() {
+      return _.map(this.filterProjects, ({ position, title, id, type }) => (
+        <Text
+          position={position}
+          text={title}
+          offset={[20, 2]}
+          domStyle={{ color: this.colorType(type) }}
+          onClick={this.onMarkerClick.bind(null, id, title, position)}
+        />
+      ));
     },
 
     renderFooter() {
@@ -215,6 +237,7 @@ export default {
           <StreetsPolygon onStreetClick={this.onMapClick} />
 
           {this.renderProjects()}
+          {this.renderText()}
 
           <InfoWindow
             visible={this.state.visible}

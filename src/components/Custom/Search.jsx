@@ -32,7 +32,6 @@ export default {
 
   methods: {
     onInputChange(value) {
-      console.log(value);
       this.state.value = value;
 
       _.isEmpty(value)

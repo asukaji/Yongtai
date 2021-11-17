@@ -7,6 +7,7 @@ export default {
 
   mounted() {
     this.$map.setLimitBounds(this.$map.getBounds());
+    console.log(this.$map.setFeatures);
   },
 
   render() {
