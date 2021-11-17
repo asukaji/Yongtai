@@ -7,6 +7,16 @@ import { CENTER, ZOOM } from '@/constants';
 export default {
   name: 'YtMap',
 
+  methods: {
+    setZoom(zoom) {
+      this.$refs.Config.setZoom(zoom);
+    },
+
+    setFeatures(features) {
+      this.$refs.Config.setFeatures(features);
+    }
+  },
+
   render() {
     const { zoom = ZOOM, ...mapProps } = this.$attrs;
 
@@ -19,7 +29,7 @@ export default {
         attrs={{...mapProps}}
         onClick={this.$emit.bind(this, 'mapClick')}
       >
-        <Config />
+        <Config ref="Config" />
         {this.$slots.default}
       </Amap>
     );

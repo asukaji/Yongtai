@@ -1,6 +1,5 @@
 import { Dialog } from 'element-ui';
 import Paragraph from './Paragraph';
-import { Fragment } from 'vue-fragment';
 import styles from './ParagraphModal.module.less';
 
 import iconBelong from '@/assets/Icon/icon-belong.png';
@@ -97,18 +96,21 @@ export default {
           {this.state.content === undefined ? (
             this.$slots.default
           ) : (
-            <Fragment>
+            <div>
               <h1>{this.title}</h1>
-              <div class={styles.pre}>
-                <img src={iconBelong} />
-                <span>{this.belong}</span>
-                <img src={iconInvestments} />
-                <span>{this.investments}</span>
-              </div>
+              {
+                (this.belong || this.investments) && <div class={styles.pre}>
+                  <img src={iconBelong} />
+                  <span>{this.belong}</span>
+                  <img src={iconInvestments} />
+                  <span>{this.investments}</span>
+                </div>
+              }
+              
               {this.name && <pre>{this.name}</pre>}
               <p>{this.content}</p>
               {this.renderMedia()}
-            </Fragment>
+            </div>
           )}
         </Paragraph>
       </Dialog>

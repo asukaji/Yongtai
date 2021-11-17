@@ -23,6 +23,7 @@ export default {
         strokeWeight={1}
         fillColor="#fff"
         fillOpacity={0.6}
+        onClick={this.$emit.bind(this, 'maskClick')}
       />
     );
   }

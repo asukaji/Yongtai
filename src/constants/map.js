@@ -7,7 +7,7 @@ import pointRailwayBlue from '@/assets/MapPlugin/point-railway-blue.png';
 import pointRailwayRed from '@/assets/MapPlugin/point-railway-red.png';
 
 /** 地图中心 */
-export const CENTER = [118.830089, 25.864825];
+export const CENTER = [118.830089, 25.78825];
 
 /** 缩放 */
 export const ZOOM = 10.5;
@@ -16,7 +16,8 @@ export const ZOOM = 10.5;
 export const FUZHOU = [119.300537, 26.07991];
 
 /** 永泰 */
-export const YONGTAI = [118.78949, 25.852196];
+export const YONGTAI = [118.93326759338379,
+  25.863008074133162];
 
 /** 交通 - 点 */
 export const TRAFFIC_POINTS = [
@@ -53,21 +54,21 @@ export const TRAFFIC_POINTS = [
     icon: pointRailwayGreen,
     distance: '2.8km',
     color: '#28D2B0',
-    position: [119.92082214355469, 25.856751966503136]
+    position: [118.92082214355469, 25.856751966503136]
   },
   {
     name: '永泰梧桐 高速入口',
     icon: pointRailwayOrange,
     distance: '21.1km',
     color: '#FF7937',
-    position: [119.7574005126953, 25.728776827446488]
+    position: [118.7574005126953, 25.728776827446488]
   },
   {
     name: '永泰嵩口 高速入口',
     icon: pointRailwayRed,
     distance: '35.8km',
     color: '#FF409E',
-    position: [119.57955932617188, 25.812872679567928]
+    position: [118.57955932617188, 25.812872679567928]
   }
 ];
 

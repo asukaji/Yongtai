@@ -61,21 +61,15 @@ export function fetchTourDetail(areaId) {
  * 全域旅游-地图坐标分布
  */
 export function fetchTourList() {
-  return instance.get('/quanyu/list').then(({ result }) => ({
-    completed: result.junGong,
-    ready: result.kaiGong,
-    working: result.zaiJian,
-    planing: result.zhengQian,
-    list: _.map(
-      result.projectList,
-      ({ id, latitudes, longitudes, projectName, projectType }) => ({
-        id,
-        position: [longitudes, latitudes],
-        title: projectName,
-        type: projectType
-      })
-    )
-  }));
+  return instance.get('/quanyu/list').then(({ result }) => _.map(
+    _.filter(result, ({ id }) => !!id),
+    ({ id, latitudes, longitudes, area, areaType }) => ({
+      id,
+      position: [longitudes, latitudes],
+      title: area,
+      type: areaType
+    })
+  ));
 }
 
 /**
@@ -85,6 +79,7 @@ export function fetchTourList() {
 export function fetchTownDetail(areaId) {
   return instance.get(`/town/detail/${areaId}`).then(({ result }) => ({
     content: result.content,
+    name: 'Village Profile',
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: `${staticPath}${filePath}`,
       type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
@@ -99,11 +94,10 @@ export function fetchTownList() {
   return instance.get('/town/list').then(({ result }) =>
     _.map(
       _.filter(result, ({ id }) => !!id),
-      ({ id, latitudes, longitudes, projectName, projectType }) => ({
+      ({ id, latitudes, longitudes, area }) => ({
         id,
         position: [longitudes, latitudes],
-        title: projectName,
-        type: projectType
+        title: area
       })
     )
   );
@@ -118,6 +112,7 @@ export function fetchGeothermalDetail(areaId) {
     .get(`/xiankuang/dire/detail/${areaId}`)
     .then(({ result }) => ({
       content: result.content,
+      name: 'Geothermal Conditions',
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
         src: `${staticPath}${filePath}`,
         type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
@@ -132,11 +127,10 @@ export function fetchGeothermalList() {
   return instance.get('/xiankuang/dire/list').then(({ result }) =>
     _.map(
       _.filter(result, ({ id }) => !!id),
-      ({ id, latitudes, longitudes, projectName, projectType }) => ({
+      ({ id, latitudes, longitudes, area }) => ({
         id,
         position: [longitudes, latitudes],
-        title: projectName,
-        type: projectType
+        title: area
       })
     )
   );
@@ -221,11 +215,12 @@ export function fetchPromoteList() {
   return instance.get('/zhengxing/list').then(({ result }) =>
     _.map(
       _.filter(result, ({ id }) => !!id),
-      ({ id, latitudes, longitudes, projectName, projectType }) => ({
+      ({ id, latitudes, longitudes, area, description, title }) => ({
         id,
         position: [longitudes, latitudes],
-        title: projectName,
-        type: projectType
+        title,
+        description,
+        area
       })
     )
   );

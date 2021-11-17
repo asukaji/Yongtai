@@ -1,7 +1,14 @@
+import Header from '../Header';
+
 export default {
   name: 'ProfileContainer',
 
   render() {
-    return <router-view></router-view>;
+    return(
+      <div style={{ height: '100%' }}>
+        <Header />
+        <router-view></router-view>
+      </div>
+    );
   }
 };

@@ -12,7 +12,7 @@ export default {
 
   computed: {
     activeName() {
-      return this.$route.name;
+      return _.last(this.$route.path.split('/'));
     }
   },
 
@@ -22,7 +22,7 @@ export default {
         {_.isEmpty(this.tabs) ?
           this.$slots.default
           :_.map(this.tabs, ({ name, title, icon, activeIcon }) => (
-            <router-link to={{ name }}>
+            <router-link to={name} replace>
               <div
                 key={name}
                 class={[

@@ -32,6 +32,7 @@ export default [
         name: PROFILE_TRAFFIC,
         path: 'traffic',
         component: () => import('@/views/Profile/Traffic'),
+        redirect: { name: PROFILE_TRAFFIC_SERVICE },
 
         children: [
           {
@@ -42,22 +43,22 @@ export default [
           {
             name: PROFILE_TRAFFIC_RAILWAY,
             path: 'railway',
-            component: () => import('@/views/Profile/TrafficService')
+            component: () => import('@/views/Profile/TrafficRailway')
           },
           {
             name: PROFILE_TRAFFIC_HIGHWAY,
             path: 'highway',
-            component: () => import('@/views/Profile/TrafficService')
+            component: () => import('@/views/Profile/TrafficHighway')
           },
           {
             name: PROFILE_TRAFFIC_NATIONAL,
             path: 'national',
-            component: () => import('@/views/Profile/TrafficService')
+            component: () => import('@/views/Profile/TrafficHighway')
           },
           {
             name: PROFILE_TRAFFIC_PROVINCIAL,
             path: 'provincial',
-            component: () => import('@/views/Profile/TrafficService')
+            component: () => import('@/views/Profile/TrafficHighway')
           }
         ]
       },

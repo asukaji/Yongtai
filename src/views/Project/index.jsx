@@ -2,6 +2,7 @@ import YtMap from '@/components/YtMap';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { StreetsPolygon } from '@/components/Map';
 import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
+import Header from '../Header';
 import styles from './index.module.less';
 
 import { fetchProjectList, fetchProjectDetail } from '@/api';
@@ -233,6 +234,7 @@ export default {
   render() {
     return (
       <div class={styles.home}>
+        <Header />
         <YtMap onMapClick={this.onMapClick}>
           <StreetsPolygon onStreetClick={this.onMapClick} />
 

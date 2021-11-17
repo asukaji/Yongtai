@@ -65,7 +65,7 @@ export default {
         <Input
           slot="reference"
           value={this.state.value}
-          placeholder="请输入项目名称或关键字搜索"
+          placeholder="请输入名称或关键字搜索"
           class={styles.input}
           onInput={this.onInputChange}
         >

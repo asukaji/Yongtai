@@ -7,7 +7,17 @@ export default {
 
   mounted() {
     this.$map.setLimitBounds(this.$map.getBounds());
-    console.log(this.$map.setFeatures);
+    this.$map.setFeatures(['bg', 'road']);
+  },
+
+  methods: {
+    setZoom(zoom) {
+      this.$map.setZoom(zoom);
+    },
+
+    setFeatures(...features) {
+      this.$map.setFeatures(['bg', ...features]);
+    }
   },
 
   render() {
