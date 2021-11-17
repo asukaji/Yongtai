@@ -11,14 +11,14 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: #0078FF;
+    color: #0078ff;
     font-size: 18px;
     margin-top: 25px;
 
     :global img {
       width: 20px;
     }
-    
+
     :global img + span {
       margin-left: 8px;
     }
@@ -38,10 +38,16 @@
     max-width: 100%;
     overflow-x: auto;
 
-    img, video {
+    img,
+    video {
       width: 240px;
       height: 160px;
       border-radius: 8px;
+    }
+    * + img,
+    * + video,
+    * + .video {
+      margin-left: 4px;
     }
   }
 }

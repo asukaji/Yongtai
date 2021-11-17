@@ -6,7 +6,6 @@ import styles from './ParagraphModal.module.less';
 import iconBelong from '@/assets/Icon/icon-belong.png';
 import iconInvestments from '@/assets/Icon/icon-investments.png';
 
-
 export default {
   name: 'ParagraphModal',
 
@@ -52,18 +51,30 @@ export default {
       if (fetchDetail) {
         this.state.content = null;
         this.state.loading = true;
-        this.state.content = { ...await fetchDetail(), title };
+        this.state.content = { ...(await fetchDetail()), title };
         this.state.loading = false;
       } else {
         this.state.content = undefined;
       }
     },
 
+    onClick() {
+      console.log(111);
+    },
+
     renderMedia() {
       return (
         <div class="media">
           {this.media?.map(({ src, type }) =>
-            type === 'image' ? <img src={src} /> : <video src={src} />
+            type === 'image' ? (
+              <img src={src} />
+            ) : (
+              <div to={src} class="video" onClick={this.onClick}>
+                <video controls>
+                  <source src={src} />
+                </video>
+              </div>
+            )
           )}
         </div>
       );

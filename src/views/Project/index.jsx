@@ -52,6 +52,15 @@ export default {
       return this.state.showCompleted
         ? _.filter(this.projects?.list, ['type', 4])
         : [];
+    },
+
+    filterProjects() {
+      return [
+        ...this.planingProjects,
+        ...this.readyProjects,
+        ...this.workingProjects,
+        ...this.completedProjects
+      ];
     }
   },
 
@@ -61,6 +70,8 @@ export default {
 
   methods: {
     onSwitchState(stateName) {
+      this.onMapClick();
+
       _.assign(this.state, { [stateName]: !this.state[stateName] });
     },
 
@@ -80,14 +91,19 @@ export default {
 
     onInfoWindowClick() {
       this.$refs.modal?.open(
-        fetchProjectDetail.bind(
-          null,
-          this.state.infoWindowContent?.id
-        ),
+        fetchProjectDetail.bind(null, this.state.infoWindowContent?.id),
         this.state.infoWindowContent?.title
       );
 
       this.onMapClick();
+    },
+
+    onSearchClick([id, title, position]) {
+      if (_.some(position, _.isNil) || !title) {
+        this.onMapClick();
+        return;
+      }
+      this.onMarkerClick(id, title, position);
     },
 
     renderProjects() {
@@ -206,12 +222,16 @@ export default {
             isCustom
             autoMove
           >
-            <div class="info-window" style={{ visibility: this.state.infoVisible ? '' :'hidden' }} onClick={this.onInfoWindowClick}>
+            <div
+              class="info-window"
+              style={{ visibility: this.state.infoVisible ? '' : 'hidden' }}
+              onClick={this.onInfoWindowClick}
+            >
               {this.state.infoWindowContent?.title}
             </div>
           </InfoWindow>
 
-          <Search />
+          <Search options={this.filterProjects} onClick={this.onSearchClick} />
           <FooterTabs>{this.renderFooter()}</FooterTabs>
         </YtMap>
 
