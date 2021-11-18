@@ -56,3 +56,15 @@
     overflow-y: auto;
   }
 }
+
+.inputs {
+  & > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    :global .el-input {
+      margin-right: 8px;
+    }
+  }
+}

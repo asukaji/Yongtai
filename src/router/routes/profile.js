@@ -12,7 +12,10 @@ import {
   PROFILE_TRAFFIC_RAILWAY,
   PROFILE_TRAFFIC_HIGHWAY,
   PROFILE_TRAFFIC_NATIONAL,
-  PROFILE_TRAFFIC_PROVINCIAL
+  PROFILE_TRAFFIC_PROVINCIAL,
+  PROFILE_WATER_BRANCH,
+  PROFILE_WATER_ELECTRIC,
+  PROFILE_WATER_MAIN
 } from '@/constants';
 
 export default [
@@ -80,7 +83,26 @@ export default [
       {
         name: PROFILE_WATER,
         path: 'water',
-        component: () => import('@/views/Profile/Water')
+        component: () => import('@/views/Profile/Water'),
+        redirect: { name: PROFILE_WATER_BRANCH },
+
+        children: [
+          {
+            name: PROFILE_WATER_BRANCH,
+            path: 'branch',
+            component: () => import('@/views/Profile/WaterBranch')
+          },
+          {
+            name: PROFILE_WATER_ELECTRIC,
+            path: 'electric',
+            component: () => import('@/views/Profile/WaterElectric')
+          },
+          {
+            name: PROFILE_WATER_MAIN,
+            path: 'main',
+            component: () => import('@/views/Profile/WaterBranch')
+          }
+        ]
       },
       {
         name: PROFILE_ECOLOGICAL,
@@ -90,12 +112,12 @@ export default [
       {
         name: PROFILE_INDUSTRIAL,
         path: 'industrial',
-        component: () => import('@/views/Profile/Water')
+        component: () => import('@/views/Profile/Industrial')
       },
       {
         name: PROFILE_LIVELIHOOD,
         path: 'livelihood',
-        component: () => import('@/views/Profile/Ecological')
+        component: () => import('@/views/Profile/Livelihood')
       }
     ]
   }

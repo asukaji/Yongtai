@@ -19,7 +19,7 @@ export default {
     return (
       <Polygon
         path={_.concat(outer, [coordinates])}
-        strokeColor="#0078FF"
+        strokeColor="transparent"
         strokeWeight={1}
         fillColor="#fff"
         fillOpacity={0.6}

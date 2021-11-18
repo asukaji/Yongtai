@@ -34,8 +34,15 @@ export const PROFILE_LIVELIHOOD = 'profile.livelihood';
 export const PROFILE_HOTEL = 'profile.hotel';
 export const PROFILE_WATER = 'profile.water';
 
+export const PROFILE_WATER_BRANCH = 'profile.water.branch';
+export const PROFILE_WATER_ELECTRIC = 'profile.water.electric';
+export const PROFILE_WATER_MAIN = 'profile.water.main';
+
 export const BUSINESS_EVALUATION = 'business.evaluation';
 export const BUSINESS_SCHEDULE = 'business.schedule';
+
+export const ECONOMY_PROFILE = 'economy.profile';
+export const ECONOMY_DETAIL = 'economy.detail';
 
 export const businessRoutes = [
   [BUSINESS_EVALUATION, '考评情况'],

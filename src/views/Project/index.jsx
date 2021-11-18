@@ -168,7 +168,13 @@ export default {
           position={position}
           text={title}
           offset={[20, 2]}
-          domStyle={{ color: this.colorType(type) }}
+          domStyle={{
+            color: this.colorType(type),
+            width: '60px',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis'
+          }}
           onClick={this.onMarkerClick.bind(null, id, title, position)}
         />
       ));

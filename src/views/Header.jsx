@@ -17,11 +17,17 @@ const routeTitleMap = new Map([
   ['profile.geothermal', '地热情况'],
   ['profile.hotel', '酒店情况'],
   ['profile.water', '水域水流'],
+  ['profile.water.electric', '水域水流'],
+  ['profile.water.main', '水域水流'],
+  ['profile.water.branch', '水域水流'],
   ['project', '重点项目'],
   ['tour', '县情县况'],
   ['promote', '乡村振兴'],
-  ['control', '县情县况'],
   ['video', '视频连线'],
+  ['control', '重点督查'],
+  ['economy', '经济运行'],
+  ['economy.profile', '经济运行'],
+  ['business.evaluation', '招商管理']
 ]);
 
 export default {
@@ -34,9 +40,13 @@ export default {
   },
 
   render() {
-    return <div class={styles.header}>
-      <div class="img" onClick={() => this.$router.go(-1)}>
-        <img src={IconBack} />
-      </div>{this.title}</div>;
+    return (
+      <div class={styles.header}>
+        <div class="img" onClick={() => this.$router.go(-1)}>
+          <img src={IconBack} />
+        </div>
+        {this.title}
+      </div>
+    );
   }
 };

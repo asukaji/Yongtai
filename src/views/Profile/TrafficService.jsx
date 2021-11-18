@@ -11,17 +11,15 @@ export default {
   inject: ['map'],
 
   mounted() {
-    this.map.$refs.Map.setFeatures();
+    // this.map.$refs.Map.setFeatures();
     this.map.$refs.Map.setZoom(9.6);
   },
 
   methods: {
     renderMarkers() {
-      return _.map(TRAFFIC_POINTS, ({ icon, position }) => <Marker
-        position={position}
-        icon={icon}
-        offset={[-10, -10]}
-      />);
+      return _.map(TRAFFIC_POINTS, ({ icon, position }) => (
+        <Marker position={position} icon={icon} offset={[-10, -10]} />
+      ));
     },
 
     renderPolyline() {
@@ -36,20 +34,25 @@ export default {
     },
 
     renderText() {
-      return _.map(TRAFFIC_POINTS, ({ position, name, color, distance }) => ([
-        <Text
-          position={position}
-          text={name}
-          offset={[-20, 10]}
-          domStyle={{ color }}
-        />,
-        <Text
-          position={[(position[0] + YONGTAI[0]) / 2, (position[1] + YONGTAI[1]) / 2]}
-          text={distance}
-          offset={[-20, -20]}
-          domStyle={{ color }}
-        />
-      ]).flat());
+      return _.map(TRAFFIC_POINTS, ({ position, name, color, distance }) =>
+        [
+          <Text
+            position={position}
+            text={name}
+            offset={[-20, 10]}
+            domStyle={{ color }}
+          />,
+          <Text
+            position={[
+              (position[0] + YONGTAI[0]) / 2,
+              (position[1] + YONGTAI[1]) / 2
+            ]}
+            text={distance}
+            offset={[-20, -20]}
+            domStyle={{ color }}
+          />
+        ].flat()
+      );
     }
   },
 

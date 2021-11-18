@@ -1,7 +1,8 @@
 import YtMap from '@/components/YtMap';
+import Header from '../Header';
 import { StreetsPolygon } from '@/components/Map';
 import { Text, InfoWindow } from '@amap/amap-vue';
-import { ParagraphModal, Float } from '@/components/Custom';
+import { ParagraphModal, SelectModal, Float } from '@/components/Custom';
 import styles from './index.module.less';
 
 import { fetchTownList, fetchTownDetail } from '@/api';
@@ -22,6 +23,10 @@ export default {
 
   async mounted() {
     this.area = await fetchTownList();
+
+    setTimeout(() => {
+      this.$refs.Map?.setFeatures('road');
+    }, 2048);
   },
 
   methods: {
@@ -55,7 +60,14 @@ export default {
           text={title}
           offset={[-20, 0]}
           domStyle={{ color: '#0078FF' }}
-          onClick={this.onMarkerClick.bind(null, id, title, position, area, description)}
+          onClick={this.onMarkerClick.bind(
+            null,
+            id,
+            title,
+            position,
+            area,
+            description
+          )}
         />
       ));
     }
@@ -64,9 +76,10 @@ export default {
   render() {
     return (
       <div class={styles.home}>
-        <YtMap onMapClick={this.onMapClick}>
-          <StreetsPolygon onStreetClick={this.onMapClick}/>
-          
+        <Header />
+        <YtMap ref="Map" onMapClick={this.onMapClick}>
+          <StreetsPolygon onStreetClick={this.onMapClick} />
+
           {this.renderText()}
 
           <InfoWindow
@@ -84,10 +97,11 @@ export default {
             </div>
           </InfoWindow>
 
-          <Float onClick={() => this.$refs.modal?.open()} />
+          <Float type="camera" onClick={() => this.$refs.selectModal?.open()} />
         </YtMap>
-        <ParagraphModal ref="modal">
-        </ParagraphModal>
+
+        <SelectModal ref="selectModal" options={this.area} />
+        <ParagraphModal ref="modal"></ParagraphModal>
       </div>
     );
   }

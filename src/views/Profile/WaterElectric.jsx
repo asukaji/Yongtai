@@ -1,17 +1,14 @@
-import YtMap from '@/components/YtMap';
-import { StreetsPolygon } from '@/components/Map';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
+import { StreetsPolygon } from '@/components/Map';
 import { ParagraphModal } from '@/components/Custom';
-import Header from '../Header';
-import styles from './index.module.less';
 
-import { fetchPromoteList, fetchPromoteDetail } from '@/api';
+import { fetchElectricList, fetchElectricDetail } from '@/api';
 import _ from 'lodash';
 
-import markerRace from '@/assets/MapPlugin/marker-race.png';
+import markerElectric from '@/assets/MapPlugin/marker-electric.png';
 
 export default {
-  name: 'Promote',
+  name: 'WaterElectric',
 
   data() {
     return {
@@ -24,7 +21,7 @@ export default {
   },
 
   async mounted() {
-    this.area = await fetchPromoteList();
+    this.area = await fetchElectricList();
   },
 
   methods: {
@@ -44,7 +41,7 @@ export default {
 
     onInfoWindowClick() {
       this.$refs.modal?.open(
-        fetchPromoteDetail.bind(null, this.state.infoWindowContent?.id),
+        fetchElectricDetail.bind(null, this.state.infoWindowContent?.id),
         this.state.infoWindowContent?.title
       );
 
@@ -55,7 +52,7 @@ export default {
       return _.map(this.area, ({ position, title, id, area, description }) => (
         <Marker
           position={position}
-          icon={markerRace}
+          icon={markerElectric}
           onClick={this.onMarkerClick.bind(
             null,
             id,
@@ -73,8 +70,8 @@ export default {
         <Text
           position={position}
           text={title}
-          offset={[-10, 2]}
-          domStyle={{ color: '#FB3F62' }}
+          offset={[-10, 20]}
+          domStyle={{ color: '#0078FF' }}
           onClick={this.onMarkerClick.bind(
             null,
             id,
@@ -90,34 +87,27 @@ export default {
 
   render() {
     return (
-      <div class={styles.home}>
-        <Header />
-        <YtMap onMapClick={this.onMapClick}>
-          <StreetsPolygon onStreetClick={this.onMapClick} />
-          {/* <PromoteLayer /> */}
+      <div>
+        <StreetsPolygon />
+        {this.renderProjects()}
+        {this.renderText()}
 
-          {this.renderProjects()}
-          {this.renderText()}
-
-          <InfoWindow
-            visible={this.state.visible}
-            position={this.state.infoWindowContent?.position}
-            isCustom
-            autoMove
+        <InfoWindow
+          visible={this.state.visible}
+          position={this.state.infoWindowContent?.position}
+          isCustom
+          autoMove
+        >
+          <div
+            class="info-window"
+            style={{ visibility: this.state.infoVisible ? '' : 'hidden' }}
+            onClick={this.onInfoWindowClick}
           >
-            <div
-              class="info-window"
-              style={{ visibility: this.state.infoVisible ? '' : 'hidden' }}
-              onClick={this.onInfoWindowClick}
-            >
-              <h3>{this.state.infoWindowContent?.title}</h3>
-              <p>{this.state.infoWindowContent?.description}</p>
-              {this.state.infoWindowContent?.area}
-            </div>
-          </InfoWindow>
-        </YtMap>
+            {this.state.infoWindowContent?.title}
+          </div>
+        </InfoWindow>
 
-        <ParagraphModal ref="modal" />
+        <ParagraphModal ref="modal"></ParagraphModal>
       </div>
     );
   }

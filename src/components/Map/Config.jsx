@@ -7,7 +7,7 @@ export default {
 
   mounted() {
     this.$map.setLimitBounds(this.$map.getBounds());
-    this.$map.setFeatures(['bg', 'road']);
+    // this.$map.setFeatures(['bg', 'road']);
   },
 
   methods: {

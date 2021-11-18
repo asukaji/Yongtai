@@ -61,15 +61,17 @@ export function fetchTourDetail(areaId) {
  * 全域旅游-地图坐标分布
  */
 export function fetchTourList() {
-  return instance.get('/quanyu/list').then(({ result }) => _.map(
-    _.filter(result, ({ id }) => !!id),
-    ({ id, latitudes, longitudes, area, areaType }) => ({
-      id,
-      position: [longitudes, latitudes],
-      title: area,
-      type: areaType
-    })
-  ));
+  return instance.get('/quanyu/list').then(({ result }) =>
+    _.map(
+      _.filter(result, ({ id }) => !!id),
+      ({ id, latitudes, longitudes, area, areaType }) => ({
+        id,
+        position: [longitudes, latitudes],
+        title: area,
+        type: areaType
+      })
+    )
+  );
 }
 
 /**
@@ -140,22 +142,30 @@ export function fetchGeothermalList() {
  * 县情县况-电力-详情介绍
  * @param {string} areaId
  */
-export function fetchElecticDetail(areaId) {
-  return instance.get(`/xiankuang/electic/detail/${areaId}`);
+export function fetchElectricDetail(areaId) {
+  return instance
+    .get(`/xiankuang/electic/detail/${areaId}`)
+    .then(({ result }) => ({
+      content: result.content,
+      name: 'Electric Conditions',
+      media: _.map(result.fileList, ({ filePath, fileType }) => ({
+        src: `${staticPath}${filePath}`,
+        type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+      }))
+    }));
 }
 
 /**
  * 县情县况-电力-地图坐标分布
  */
-export function fetchElecticList() {
+export function fetchElectricList() {
   return instance.get('/xiankuang/electic/list').then(({ result }) =>
     _.map(
       _.filter(result, ({ id }) => !!id),
-      ({ id, latitudes, longitudes, projectName, projectType }) => ({
+      ({ id, latitudes, longitudes, area }) => ({
         id,
         position: [longitudes, latitudes],
-        title: projectName,
-        type: projectType
+        title: area
       })
     )
   );
@@ -221,6 +231,64 @@ export function fetchPromoteList() {
         title,
         description,
         area
+      })
+    )
+  );
+}
+
+/**
+ * 视频会议-获取会议链接
+ */
+export function createMeeting(params) {
+  return instance.post('/createeeting', params).then(({ result }) => ({
+    title: result.conferenceTitle,
+    url: result.attendeeJoinUrl
+  }));
+}
+
+/**
+ * 县情县况-流域-详情介绍
+ * @param {string} areaId
+ */
+export function fetchHotelDetail(areaId) {
+  return instance
+    .get(`/xiankuang/hotel/detail/${areaId}`)
+    .then(({ result }) => ({
+      content: result.content,
+      media: _.map(result.fileList, ({ filePath, fileType }) => ({
+        src: `${staticPath}${filePath}`,
+        type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+      }))
+    }));
+}
+
+/**
+ * 县情县况-流域-地图坐标分布
+ */
+export function fetchHotelList() {
+  return instance.get('/xiankuang/hotel/list').then(({ result }) =>
+    _.map(
+      _.filter(result, ({ id }) => !!id),
+      ({ id, latitudes, longitudes, area }) => ({
+        id,
+        position: [longitudes, latitudes],
+        title: area
+      })
+    )
+  );
+}
+
+/**
+ * 县情县况-流域-地图坐标分布
+ */
+export function fetchHighwayList() {
+  return instance.get('/jiaotong/gaosu/list').then(({ result }) =>
+    _.map(
+      _.filter(result, ({ id }) => !!id),
+      ({ id, latitudes, longitudes, area }) => ({
+        id,
+        position: [longitudes, latitudes],
+        title: area
       })
     )
   );

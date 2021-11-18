@@ -2,14 +2,14 @@ import { Carousel, CarouselItem, Card } from 'element-ui';
 import { Paragraph } from '@/components/Custom';
 import styles from './Ecological.module.less';
 
-import bg0 from '@/assets/Bg/0.jpg';
-import bg1 from '@/assets/Bg/1.jpg';
-import bg2 from '@/assets/Bg/2.jpg';
-import bg3 from '@/assets/Bg/3.jpg';
+import bg0 from '@/assets/Bg/Livelihood1.png';
+import bg1 from '@/assets/Bg/Livelihood2.png';
+import bg2 from '@/assets/Bg/Livelihood3.png';
+import bg3 from '@/assets/Bg/Livelihood4.png';
 
 const backgroundImages = [bg0, bg1, bg2, bg3];
 export default {
-  name: 'Ecological',
+  name: 'Livelihood',
 
   data() {
     return {
@@ -35,13 +35,10 @@ export default {
       >
         <Card>
           <Paragraph>
-            <h2>生态文明</h2>
-            <pre>Ecological Civilization</pre>
+            <h2>民生事业</h2>
+            <pre>Livelihood Cause</pre>
             <p>
-              在永泰2241平方公里的土地上，温和的气候、丰沛的雨量、舒适的阳光，滋养着39万永泰人民。永泰县以总成绩第一获评2018年度"中国天然氧吧”，亦是福州市首个获此殊荣的县。
-            </p>
-            <p>
-              绿色是永泰最鲜亮的底色，生态是永泰最大的优势、最大的财富。3年来，永泰始终坚持践行"两山”理念，守护好青山绿水，走生态绿色发展之路。永泰不仅是福建建设生态之省"绿富美”的杰出代表之一，也是首批国家生态文明建设示范县、首批国家全域旅游示范区、国家农业绿色发展先行区。如今，永泰正以全新的姿态迎接“中国天然氧吧”复评工作。
+              每年县财政用于民生支出均达到80%以上，累计投入130亿元。新改扩建学校27所，新增校舍面积11.4万平方米、新增学位7475个，普惠性学额覆盖率提升至98.6%，福州工商学院建成开学，结束永泰没有本科高校的历史。完成中医院、妇幼保健院迁建和192个村卫生所标准化建设，县域就诊率从28.6%提升至50.9%。实现城乡社区养老服务设施、文化服务中心全覆盖。城乡低保标准从每年每人3000元提高至9120元。荣获全国信访“三无”县、全国法治县创建工作先进县、省级平安县、全市扫黑除恶先进县等称号。
             </p>
           </Paragraph>
         </Card>
