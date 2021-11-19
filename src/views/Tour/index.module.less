@@ -1,0 +1,153 @@
+.home {
+  width: 100%;
+  height: 100%;
+
+  :global .amap-icon {
+    width: 24px !important;
+    height: 24px !important;
+    & img {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  :global .amap-marker-label {
+    background: transparent;
+    border-width: 0;
+    text-shadow: 0 1px 4px #fff;
+    font-size: 10px;
+    font-weight: bold;
+    color: #fb3f62;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
+    -webkit-text-stroke-width: 1px;
+  }
+
+  :global .amap-overlay-text-container {
+    background: transparent;
+    border-width: 0;
+    text-shadow: 0 1px 4px #fff;
+    font-size: 10px;
+    font-weight: bold;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
+    -webkit-text-stroke-width: 1px;
+  }
+
+  :global .info-window {
+    position: relative;
+    width: 240px;
+    padding: 14px 12px;
+    font-size: 13px;
+    text-align: left;
+    border-radius: 4px;
+    color: #4f5256;
+    background-color: #fff;
+    box-shadow: 0px 0px 40px 0px rgba(161, 168, 175, 0.3);
+
+    &::after {
+      content: '➔';
+      position: absolute;
+      right: 12px;
+      height: 50%;
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  width: 100%;
+
+  & > div {
+    position: relative;
+    flex: 1;
+    height: 100%;
+
+    :local .legend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex: 1;
+
+      img {
+        width: 44px;
+      }
+
+      pre {
+        margin-left: 4px;
+      }
+
+      &.planing pre {
+        color: #fb3f62;
+      }
+
+      &.ready pre {
+        color: #0078ff;
+      }
+
+      &.working pre {
+        color: #ff7937;
+      }
+
+      &.completed pre {
+        color: #28d2b0;
+      }
+    }
+
+    :local .status {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      width: 40px;
+      height: 20px;
+      margin-left: -20px;
+      border-radius: 10px;
+      border: 1px solid #dde0e4;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        margin-top: -6px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #dde0e4;
+      }
+
+      &.inverse::before {
+        left: auto;
+        right: 4px;
+      }
+
+      &.active::before {
+        background-color: #0078ff;
+      }
+
+      &::after {
+        content: ' ';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -1px;
+        margin-left: -16px;
+        width: 32px;
+        border-top: 2px solid #dde0e4;
+      }
+
+      &.active::after {
+        border-top-color: #0078ff;
+      }
+    }
+  }
+}
+
+:global .el-popover {
+  padding: 0;
+
+  .el-menu {
+    max-height: 280px;
+    width: 320px;
+    overflow-y: auto;
+  }
+}
