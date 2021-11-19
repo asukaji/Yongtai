@@ -58,11 +58,7 @@ export default {
 
     renderOptions() {
       return (
-        <CheckboxGroup
-          value={this.towns}
-          checked={this.towns}
-          onChange={console.log}
-        >
+        <CheckboxGroup value={this.towns} checked={this.towns}>
           {_.map(this.options, ({ id, title }) => (
             <Checkbox
               label={title}

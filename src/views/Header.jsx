@@ -21,7 +21,7 @@ const routeTitleMap = new Map([
   ['profile.water.main', '水域水流'],
   ['profile.water.branch', '水域水流'],
   ['project', '重点项目'],
-  ['tour', '县情县况'],
+  ['tour', '全域旅游'],
   ['promote', '乡村振兴'],
   ['video', '视频连线'],
   ['control', '重点督查'],
