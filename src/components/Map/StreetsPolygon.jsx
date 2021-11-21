@@ -1,6 +1,8 @@
 import { Polygon } from '@amap/amap-vue';
 import { Fragment } from 'vue-fragment';
+import { Text } from '@amap/amap-vue';
 
+import { fetchTownList } from '@/api';
 import VueTypes from 'vue-types';
 import _ from 'lodash';
 
@@ -10,7 +12,14 @@ export default {
   name: 'StreetsPolygon',
 
   props: {
-    fillColor: VueTypes.string.def()
+    fillColor: VueTypes.string.def(),
+    mark: VueTypes.bool.def(true)
+  },
+
+  data() {
+    return {
+      area: undefined
+    };
   },
 
   computed: {
@@ -21,6 +30,25 @@ export default {
       );
 
       return _.sortBy(coordinates, ['1', '0']);
+    }
+  },
+
+  async mounted() {
+    if (this.mark) {
+      this.area = await fetchTownList();
+    }
+  },
+
+  methods: {
+    renderText() {
+      return _.map(this.area, ({ position, title }) => (
+        <Text
+          position={position}
+          text={title}
+          offset={[-36, -16]}
+          domStyle={{ color: this.mark ? 'rgba(0, 34, 250, 0.6)' : '#0022fa' }}
+        />
+      ));
     }
   },
 
@@ -37,6 +65,7 @@ export default {
             onClick={this.$emit.bind(this, 'streetClick')}
           />
         ))}
+        {this.renderText()}
       </Fragment>
     );
   }

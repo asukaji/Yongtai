@@ -1414,6 +1414,13 @@
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
 
+"@vue/composition-api@^1.4.0":
+  version "1.4.0"
+  resolved "http://npm.meitu-int.com/@vue%2fcomposition-api/-/composition-api-1.4.0.tgz#784450d0da1ecfd82f4094053ca593849cbd2e37"
+  integrity sha1-eERQ0Noez9gvQJQFPKWThJy9Ljc=
+  dependencies:
+    tslib "^2.3.1"
+
 "@vue/preload-webpack-plugin@^1.1.0":
   version "1.1.2"
   resolved "https://registry.nlark.com/@vue/preload-webpack-plugin/download/@vue/preload-webpack-plugin-1.1.2.tgz#ceb924b4ecb3b9c43871c7a429a02f8423e621ab"
@@ -3359,6 +3366,14 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+echarts@^5.2.2:
+  version "5.2.2"
+  resolved "http://npm.meitu-int.com/echarts/-/echarts-5.2.2.tgz#ec3c8b2a151cbba71ba3c2c7cf9b2f2047ce4370"
+  integrity sha1-7DyLKhUcu6cbo8LHz5svIEfOQ3A=
+  dependencies:
+    tslib "2.3.0"
+    zrender "5.2.1"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -7138,6 +7153,11 @@ reselect@^4.0.0:
   resolved "http://npm.meitu-int.com/reselect/-/reselect-4.1.2.tgz#7bf642992d143d4f3b0f2dca8aa52018808a1d51"
   integrity sha1-e/ZCmS0UPU87Dy3KiqUgGICKHVE=
 
+resize-detector@^0.3.0:
+  version "0.3.0"
+  resolved "http://npm.meitu-int.com/resize-detector/-/resize-detector-0.3.0.tgz#fe495112e184695500a8f51e0389f15774cb1cfc"
+  integrity sha1-/klREuGEaVUAqPUeA4nxV3TLHPw=
+
 resize-observer-polyfill@^1.5.0:
   version "1.5.1"
   resolved "http://npm.meitu-int.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
@@ -7960,6 +7980,11 @@ throttle-debounce@^1.0.1:
   resolved "http://npm.meitu-int.com/throttle-debounce/-/throttle-debounce-1.1.0.tgz#51853da37be68a155cb6e827b3514a3c422e89cd"
   integrity sha1-UYU9o3vmihVctugns1FKPEIuic0=
 
+throttle-debounce@^2.0.1:
+  version "2.3.0"
+  resolved "http://npm.meitu-int.com/throttle-debounce/-/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
+  integrity sha1-/TGGXmZQIHHkEYF+JBRls+nDcuI=
+
 through2@^2.0.0:
   version "2.0.5"
   resolved "https://registry.nlark.com/through2/download/through2-2.0.5.tgz#01c1e39eb31d07cb7d03a96a70823260b23132cd"
@@ -8067,12 +8092,17 @@ ts-pnp@^1.1.6:
   resolved "https://registry.nlark.com/ts-pnp/download/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha1-pQCtCEsHmPHDBxrzkeZZEshrypI=
 
+tslib@2.3.0:
+  version "2.3.0"
+  resolved "http://npm.meitu-int.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha1-gDuM2rPhK6WBpMpByIObuw2ssJ4=
+
 tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.nlark.com/tslib/download/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=
 
-tslib@^2.3.0:
+tslib@^2.3.0, tslib@^2.3.1:
   version "2.3.1"
   resolved "http://npm.meitu-int.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha1-6KM1rdXOrlGqJh0ypJAVjvBC7wE=
@@ -8331,6 +8361,14 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.nlark.com/uuid/download/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha1-sj5DWK+oogL+ehAK8fX4g/AgB+4=
 
+v-viewer@^1.6.4:
+  version "1.6.4"
+  resolved "http://npm.meitu-int.com/v-viewer/-/v-viewer-1.6.4.tgz#39e36b534baab34076fb816704c6a734de0dc72f"
+  integrity sha1-OeNrU0uqs0B2+4FnBManNN4Nxy8=
+  dependencies:
+    throttle-debounce "^2.0.1"
+    viewerjs "^1.5.0"
+
 v8-compile-cache@^2.0.3:
   version "2.3.0"
   resolved "https://registry.nlark.com/v8-compile-cache/download/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
@@ -8363,10 +8401,28 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+viewerjs@^1.5.0:
+  version "1.10.2"
+  resolved "http://npm.meitu-int.com/viewerjs/-/viewerjs-1.10.2.tgz#de16fa10668e4da6325969836a3264a046e3ef9a"
+  integrity sha1-3hb6EGaOTaYyWWmDajJkoEbj75o=
+
 vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "https://registry.nlark.com/vm-browserify/download/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
+
+vue-demi@^0.11.2:
+  version "0.11.4"
+  resolved "http://npm.meitu-int.com/vue-demi/-/vue-demi-0.11.4.tgz#6101992fe4724cf5634018a16e953f3052e94e2a"
+  integrity sha1-YQGZL+RyTPVjQBihbpU/MFLpTio=
+
+vue-echarts@^6.0.0:
+  version "6.0.0"
+  resolved "http://npm.meitu-int.com/vue-echarts/-/vue-echarts-6.0.0.tgz#480263fc6ed2125b886bb1b7f05bf9273edee552"
+  integrity sha1-SAJj/G7SEluIa7G38Fv5Jz7e5VI=
+  dependencies:
+    resize-detector "^0.3.0"
+    vue-demi "^0.11.2"
 
 vue-eslint-parser@^7.0.0:
   version "7.11.0"
@@ -8390,6 +8446,11 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.nlark.com/vue-hot-reload-api/download/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
   integrity sha1-UylVzB6yCKPZkLOp+acFdGV+CPI=
+
+vue-lazyload@^1.3.3:
+  version "1.3.3"
+  resolved "http://npm.meitu-int.com/vue-lazyload/-/vue-lazyload-1.3.3.tgz#4df50a271bde9b74c3caf7a228d6e0af50d5682f"
+  integrity sha1-TfUKJxvem3TDyveiKNbgr1DVaC8=
 
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   version "16.8.3"
@@ -8798,3 +8859,10 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+zrender@5.2.1:
+  version "5.2.1"
+  resolved "http://npm.meitu-int.com/zrender/-/zrender-5.2.1.tgz#5f4bbda915ba6d412b0b19dc2431beaad05417bb"
+  integrity sha1-X0u9qRW6bUErCxncJDG+qtBUF7s=
+  dependencies:
+    tslib "2.3.0"

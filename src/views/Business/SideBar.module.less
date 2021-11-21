@@ -1,0 +1,55 @@
+.sideBar {
+  width: 250px;
+  height: 100%;
+  box-shadow: 0px 0px 40px 0px rgba(161, 168, 175, 0.2);
+
+  :global .el-tabs__header {
+    width: 101%;
+    background-image: url('../../assets/Bg/bg-business-sidebar.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+
+    .el-tabs__nav {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      height: 100%;
+      white-space: normal;
+
+      .el-tabs__item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        height: 60px;
+        width: 88%;
+        margin-bottom: 40px;
+        font-size: 15px;
+        line-height: 1.2;
+      }
+
+      .el-tabs__item.is-active {
+        background: linear-gradient(-90deg, rgba(0,120,255, 0.1) 0%, rgba(0, 120, 255, 0) 100%);
+
+        &::after {
+          content: ' ';
+          position: absolute;
+          top: 0;
+          right: 4px;
+          height: 100%;
+          border-right: 2px solid #0078FF;
+        }
+      }
+
+      .el-tabs__item + .el-tabs__item {
+        margin-top: 40px;
+      }
+
+      &::after {
+        content: '';
+      }
+    }
+  }
+}

@@ -242,7 +242,6 @@ export default {
       <div class={styles.home}>
         <Header />
         <YtMap onMapClick={this.onMapClick}>
-          <StreetsPolygon onStreetClick={this.onMapClick} />
 
           {this.renderProjects()}
           {this.renderText()}
@@ -261,6 +260,7 @@ export default {
               {this.state.infoWindowContent?.title}
             </div>
           </InfoWindow>
+          <StreetsPolygon onStreetClick={this.onMapClick} />
 
           <Search options={this.filterProjects} onClick={this.onSearchClick} />
           <FooterTabs>{this.renderFooter()}</FooterTabs>

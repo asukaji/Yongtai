@@ -1,0 +1,44 @@
+.tabButtons {
+  height: 40px;
+
+  :global .el-tabs__header {
+    height: 40px;
+    margin-bottom: 0;
+
+    .el-tabs__nav-wrap {
+      &::after {
+        display: none;
+      }
+
+      .el-tabs__nav {
+        display: flex;
+      }
+
+      .el-tabs__active-bar {
+        display: none;
+      }
+
+      .el-tabs__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 140px;
+        height: 40px;
+        background: #FFFFFF;
+        box-shadow: 4px 7px 32px 0px rgba(161, 168, 175, 0.1);
+        border-radius: 8px;
+        padding: 0;
+        font-size: 15px;
+
+        & + .el-tabs__item {
+          margin-left: 20px;
+        }
+
+        &.is-active {
+          color: #FFFFFF;
+          background: linear-gradient(90deg, #0078FF 0%, #2BA8FF 100%);
+        }
+      }
+    }
+  }
+}

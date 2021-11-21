@@ -44,7 +44,7 @@ export default {
             </p>
           </Paragraph>
         </Card>
-        <Carousel type="card" autoplay={false} onChange={this.onChange}>
+        <Carousel type="card" onChange={this.onChange}>
           <CarouselItem
             key="bg0"
             style={{ backgroundImage: `url(${bg0})` }}

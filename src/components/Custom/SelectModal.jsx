@@ -158,12 +158,12 @@ export default {
             {this.renderInputs()}
             <Input
               value={this.userName}
-              placeholder="请输入参加会议人名称"
+              placeholder="请输入发起人的名称"
               onInput={this.onUserInput}
             />
             <Input
               value={this.name}
-              placeholder="请输入会议名称"
+              placeholder="请输入本次会议的会议名称"
               onInput={this.onNameInput}
               style={{ marginTop: '8px' }}
             />

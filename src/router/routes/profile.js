@@ -84,7 +84,7 @@ export default [
         name: PROFILE_WATER,
         path: 'water',
         component: () => import('@/views/Profile/Water'),
-        redirect: { name: PROFILE_WATER_BRANCH },
+        redirect: { name: PROFILE_WATER_ELECTRIC },
 
         children: [
           {

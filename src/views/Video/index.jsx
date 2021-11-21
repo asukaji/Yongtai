@@ -23,10 +23,6 @@ export default {
 
   async mounted() {
     this.area = await fetchTownList();
-
-    setTimeout(() => {
-      this.$refs.Map?.setFeatures('road');
-    }, 2048);
   },
 
   methods: {
@@ -78,7 +74,7 @@ export default {
       <div class={styles.home}>
         <Header />
         <YtMap ref="Map" onMapClick={this.onMapClick}>
-          <StreetsPolygon onStreetClick={this.onMapClick} />
+          <StreetsPolygon mark={false} onStreetClick={this.onMapClick} />
 
           {this.renderText()}
 

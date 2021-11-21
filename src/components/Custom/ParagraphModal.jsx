@@ -62,7 +62,7 @@ export default {
         <div class="media">
           {this.media?.map(({ src, type }) =>
             type === 'image' ? (
-              <img src={src} />
+              <img src={src} vViewer/>
             ) : (
               <div to={src} class="video">
                 <video controls>

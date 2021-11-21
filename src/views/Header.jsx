@@ -27,7 +27,19 @@ const routeTitleMap = new Map([
   ['control', '重点督查'],
   ['economy', '经济运行'],
   ['economy.profile', '经济运行'],
-  ['business.evaluation', '招商管理']
+  ['business.evaluation', '招商管理'],
+  ['business.schedule', '招商管理'],
+  ['business.project', '招商管理'],
+  ['business.task', '招商管理'],
+  ['business.evaluation.profile', '招商管理'],
+  ['business.evaluation.unit', '招商管理'],
+  ['business.evaluation.unit.street', '招商管理'],
+  ['business.evaluation.unit.town', '招商管理'],
+  ['business.schedule.unit', '招商管理'],
+  ['business.schedule.town', '招商管理'],
+  ['business.schedule.street', '招商管理'],
+  ['business.task.unit', '招商管理'],
+  ['business.task.town', '招商管理'],
 ]);
 
 export default {
