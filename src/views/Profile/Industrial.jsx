@@ -2,9 +2,13 @@ import { Carousel, CarouselItem, Card } from 'element-ui';
 import { Paragraph } from '@/components/Custom';
 import styles from './Ecological.module.less';
 
-import bg0 from '@/assets/Bg/Industrial1.png';
+import bg0 from '@/assets/Bg/Industrial1.jpeg';
+import bg1 from '@/assets/Bg/Industrial2.jpeg';
+import bg2 from '@/assets/Bg/Industrial3.jpeg';
+import bg3 from '@/assets/Bg/Industrial4.jpeg';
+import bg4 from '@/assets/Bg/Industrial5.jpeg';
 
-const backgroundImages = [bg0];
+const backgroundImages = [bg0, bg1, bg2, bg3, bg4];
 export default {
   name: 'Industrial',
 
