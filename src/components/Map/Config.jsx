@@ -6,7 +6,7 @@ export default {
   mixins: [withAmap],
 
   mounted() {
-    this.$map.setLimitBounds(this.$map.getBounds());
+    // this.$map.setLimitBounds(this.$map.getBounds());
     this.$map.setFeatures(['bg', 'road']);
   },
 

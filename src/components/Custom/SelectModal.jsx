@@ -1,4 +1,4 @@
-import { Input, Dialog, Button, CheckboxGroup, Checkbox } from 'element-ui';
+import { Input, Dialog, Button, Checkbox as ElCheckbox } from 'element-ui';
 import styles from './ParagraphModal.module.less';
 
 import VueTypes from 'vue-types';
@@ -58,16 +58,24 @@ export default {
 
     renderOptions() {
       return (
-        <CheckboxGroup value={this.towns} checked={this.towns}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            marginBottom: '20px'
+          }}
+        >
           {_.map(this.options, ({ id, title }) => (
-            <Checkbox
+            <ElCheckbox
               label={title}
               value={id}
               checked={_.includes(this.towns, id)}
+              style={{ flex: '28%', marginRight: '4px', marginTop: '8px' }}
               onChange={this.onChange.bind(null, id)}
             />
           ))}
-        </CheckboxGroup>
+        </div>
       );
     },
 
@@ -154,7 +162,7 @@ export default {
           this.renderHref()
         ) : (
           <div>
-            {/* {this.renderOptions()} */}
+            {this.renderOptions()}
             {this.renderInputs()}
             <Input
               value={this.userName}

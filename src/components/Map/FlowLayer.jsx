@@ -1,7 +1,8 @@
-import { ImageLayer } from '@amap/amap-vue';
+import { ImageLayer, Text } from '@amap/amap-vue';
 import Mask from './Mask';
 
 import layerFlow from '@/assets/MapPlugin/layer-flow.png';
+import { CENTER } from '@/constants';
 
 export default {
   name: 'FlowLayer',
@@ -9,6 +10,17 @@ export default {
   render() {
     return (
       <div>
+        <Text
+          position={CENTER}
+          text="大樟溪流域"
+          offset={[-200, -100]}
+          domStyle={{
+            color: 'rgba(0, 120, 255, 0.3)',
+            fontSize: '64px',
+            letterSpacing: '20px'
+          }}
+        />
+        <Mask />
         <ImageLayer
           url={layerFlow}
           bounds={[
@@ -16,7 +28,6 @@ export default {
             [119.22009926757814, 26.111021607777472]
           ]}
         />
-        <Mask />
       </div>
     );
   }

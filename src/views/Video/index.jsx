@@ -93,7 +93,11 @@ export default {
             </div>
           </InfoWindow>
 
-          <Float type="camera" onClick={() => this.$refs.selectModal?.open()} />
+          <Float
+            type="camera"
+            left
+            onClick={() => this.$refs.selectModal?.open()}
+          />
         </YtMap>
 
         <SelectModal ref="selectModal" options={this.area} />

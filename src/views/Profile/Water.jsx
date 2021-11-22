@@ -1,9 +1,7 @@
 import YtMap from '@/components/YtMap';
-import { Text } from '@amap/amap-vue';
 import { FooterTabs } from '@/components/Custom';
 import styles from './index.module.less';
 
-import { CENTER } from '@/constants';
 // import iconFlowBranch from '@/assets/Icon/icon-flow-branch.png';
 // import iconFlowBranchActive from '@/assets/Icon/icon-flow-branch-active.png';
 import iconElectric from '@/assets/Icon/icon-electric.png';
@@ -39,12 +37,6 @@ export default {
     return (
       <div class={styles.home}>
         <YtMap>
-          <Text
-            position={CENTER}
-            text="大樟溪流域"
-            offset={[-200, -100]}
-            domStyle={{ color: 'rgba(0, 120, 255, 0.3)', fontSize: '64px', letterSpacing: '20px'  }}
-          />
           <router-view></router-view>
           <FooterTabs tabs={TABS} />
         </YtMap>

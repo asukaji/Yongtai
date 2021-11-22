@@ -173,7 +173,9 @@ export default {
             width: '60px',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
-            textOverflow: 'ellipsis'
+            textOverflow: 'ellipsis',
+            fontWeight: 'bolder',
+            fontSize: '15px'
           }}
           onClick={this.onMarkerClick.bind(null, id, title, position)}
         />
@@ -242,7 +244,6 @@ export default {
       <div class={styles.home}>
         <Header />
         <YtMap onMapClick={this.onMapClick}>
-
           {this.renderProjects()}
           {this.renderText()}
 

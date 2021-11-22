@@ -73,7 +73,11 @@ export default {
           position={position}
           text={title}
           offset={[-3, 20]}
-          domStyle={{ color: '#FB3F62' }}
+          domStyle={{
+            color: '#FB3F62',
+            fontWeight: 'bolder',
+            fontSize: '15px'
+          }}
           onClick={this.onMarkerClick.bind(
             null,
             id,

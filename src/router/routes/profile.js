@@ -56,12 +56,12 @@ export default [
           {
             name: PROFILE_TRAFFIC_NATIONAL,
             path: 'national',
-            component: () => import('@/views/Profile/TrafficHighway')
+            component: () => import('@/views/Profile/TrafficNational')
           },
           {
             name: PROFILE_TRAFFIC_PROVINCIAL,
             path: 'provincial',
-            component: () => import('@/views/Profile/TrafficHighway')
+            component: () => import('@/views/Profile/TrafficProvincial')
           }
         ]
       },

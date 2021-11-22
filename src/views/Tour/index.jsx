@@ -35,16 +35,17 @@ export default {
 
   computed: {
     planingProjects() {
+      // prettier-ignore
       return this.state.showPlaning
         ? _.filter(
           this.area,
           ({ type, position }) => type === '1' && validPosition(position)
-          // eslint-disable-next-line
-          )
+        )
         : [];
     },
 
     readyProjects() {
+      // prettier-ignore
       return this.state.showReady
         ? _.filter(
           this.area,
@@ -55,6 +56,7 @@ export default {
     },
 
     workingProjects() {
+      // prettier-ignore
       return this.state.showWorking
         ? _.filter(
           this.area,
@@ -65,6 +67,7 @@ export default {
     },
 
     completedProjects() {
+      // prettier-ignore
       return this.state.showCompleted
         ? _.filter(
           this.area,
@@ -74,13 +77,14 @@ export default {
         : [];
     },
 
-    pendingProjects(){
+    pendingProjects() {
+      // prettier-ignore
       return this.state.showCompleted
-        ? _.filter(
+        ?
+        _.filter(
           this.area,
           ({ type, position }) => type === '5' && validPosition(position)
-          // eslint-disable-next-line
-          )
+        )
         : [];
     },
 
@@ -185,14 +189,24 @@ export default {
           position={position}
           text={title}
           offset={[20, 2]}
-          domStyle={{ color: this.colorType(type) }}
+          domStyle={{
+            color: this.colorType(type),
+            fontWeight: 'bolder',
+            fontSize: '15px'
+          }}
           onClick={this.onMarkerClick.bind(null, id, title, position)}
         />
       ));
     },
 
     renderFooter() {
-      const { showPlaning, showReady, showWorking, showCompleted, showPending } = this.state;
+      const {
+        showPlaning,
+        showReady,
+        showWorking,
+        showCompleted,
+        showPending
+      } = this.state;
 
       return (
         <div class={styles.footer}>
@@ -220,12 +234,7 @@ export default {
               风景区
               <pre>{_.size(_.filter(this.area, ['type', '3']))}项</pre>
             </div>
-            <div
-              class={[
-                styles.status,
-                showWorking && styles.active
-              ]}
-            />
+            <div class={[styles.status, showWorking && styles.active]} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
@@ -234,12 +243,7 @@ export default {
               特色庄寨
               <pre>{_.size(_.filter(this.area, ['type', '4']))}项</pre>
             </div>
-            <div
-              class={[
-                styles.status,
-                showCompleted && styles.active
-              ]}
-            />
+            <div class={[styles.status, showCompleted && styles.active]} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showPending')}>
@@ -248,12 +252,7 @@ export default {
               重点项目
               <pre>{_.size(_.filter(this.area, ['type', '5']))}项</pre>
             </div>
-            <div
-              class={[
-                styles.status,
-                showPending && styles.active
-              ]}
-            />
+            <div class={[styles.status, showPending && styles.active]} />
           </div>
         </div>
       );

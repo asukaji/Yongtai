@@ -7,7 +7,7 @@ import pointRailwayBlue from '@/assets/MapPlugin/point-railway-blue.png';
 import pointRailwayRed from '@/assets/MapPlugin/point-railway-red.png';
 
 /** 地图中心 */
-export const CENTER = [118.830089, 25.78825];
+export const CENTER = [118.830089, 25.88825];
 
 /** 缩放 */
 export const ZOOM = 10.5;
@@ -16,8 +16,7 @@ export const ZOOM = 10.5;
 export const FUZHOU = [119.300537, 26.07991];
 
 /** 永泰 */
-export const YONGTAI = [118.93326759338379,
-  25.863008074133162];
+export const YONGTAI = [118.93326759338379, 25.863008074133162];
 
 /** 交通 - 点 */
 export const TRAFFIC_POINTS = [
