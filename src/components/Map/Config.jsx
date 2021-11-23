@@ -1,5 +1,7 @@
 import { withAmap } from '@amap/amap-vue';
 
+import _ from 'lodash';
+
 export default {
   name: 'MapConfig',
 
@@ -8,6 +10,11 @@ export default {
   mounted() {
     // this.$map.setLimitBounds(this.$map.getBounds());
     this.$map.setFeatures(['bg', 'road']);
+    this.$map.on('zoomend', _.debounce(() => {
+      this.$nextTick(() => {
+        this.$forceUpdate();
+      });
+    }, 2048));
   },
 
   methods: {
