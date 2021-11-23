@@ -15,6 +15,7 @@
     "echarts": "^5.2.2",
     "element-ui": "^2.15.6",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "v-viewer": "^1.6.4",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.0",

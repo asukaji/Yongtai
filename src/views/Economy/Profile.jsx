@@ -1,6 +1,9 @@
 import { Card } from 'element-ui';
 import styles from './Profile.module.less';
 
+import { fetchIndustry } from '@/api';
+
+import { ECONOMY_DETAIL } from '@/constants';
 import bgCard from '@/assets/Bg/bg-card.png';
 
 const cards = [
@@ -21,31 +24,37 @@ const cards = [
 export default {
   name: 'EconomyProfile',
 
+  mounted() {
+    fetchIndustry();
+  },
+
   render() {
     return (
       <div class={styles.cards}>
         {cards.map(({ name, rate, cumulative }, index) => (
-          <Card key={index} style={{ backgroundImage: `url(${bgCard})` }}>
-            <h3>{name}</h3>
-            <div class={styles.data}>
-              <div>
-                <span>Growth rate</span>
-                <span class={styles.label}>增长率</span>
-                <pre>
-                  {rate}
-                  <span>%</span>
-                </pre>
+          <router-link to={{ name: ECONOMY_DETAIL, params: { name, id: index }}}>
+            <Card key={index} style={{ backgroundImage: `url(${bgCard})` }} >
+              <h3>{name}</h3>
+              <div class={styles.data}>
+                <div>
+                  <span>Growth rate</span>
+                  <span class={styles.label}>增长率</span>
+                  <pre>
+                    {rate}
+                    <span>%</span>
+                  </pre>
+                </div>
+                <div>
+                  <span>Cumulative</span>
+                  <span class={styles.label}>累计(亿元)</span>
+                  <pre>
+                    {cumulative}
+                    <span>亿元</span>
+                  </pre>
+                </div>
               </div>
-              <div>
-                <span>Cumulative</span>
-                <span class={styles.label}>累计(亿元)</span>
-                <pre>
-                  {cumulative}
-                  <span>亿元</span>
-                </pre>
-              </div>
-            </div>
-          </Card>
+            </Card>
+          </router-link>
         ))}
       </div>
     );

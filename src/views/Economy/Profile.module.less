@@ -3,65 +3,70 @@
   display: flex;
   flex-wrap: wrap;
 
-  :global .el-card {
+  :global a {
     position: relative;
     height: 180px;
     flex: 22%;
     margin-right: 12px;
     margin-top: 12px;
-    background-size: contain;
-    background-repeat: no-repeat;
 
-    &::after {
-      content: ' ';
-      position: absolute;
-      top: 40px;
-      left: 20px;
-      width: 160px;
-      height: 2px;
-      background: linear-gradient(90deg, #0078ff 0%, #0fdaff 100%);
-    }
-
-    h3 {
-      position: absolute;
-      top: -10px;
-      left: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #272a2d;
-    }
-
-    :local .data {
-      position: absolute;
-      bottom: 0px;
-      left: 20px;
-      width: calc(100% - 40px);
-      display: flex;
-
-      & > div {
-        flex: 1;
+    .el-card {
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+  
+      &::after {
+        content: ' ';
+        position: absolute;
+        top: 40px;
+        left: 20px;
+        width: 160px;
+        height: 2px;
+        background: linear-gradient(90deg, #0078ff 0%, #0fdaff 100%);
+      }
+  
+      h3 {
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #272a2d;
+      }
+  
+      :local .data {
+        position: absolute;
+        bottom: 0px;
+        left: 20px;
+        width: calc(100% - 40px);
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        span {
-          color: #4f5256;
-          font-size: 13px;
-        }
-
-        :local .label {
-          font-size: 20px;
-        }
-
-        pre {
-          color: #0078ff;
-          font-size: 24px;
-
+  
+        & > div {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+  
           span {
-            color: #a1a8af;
+            color: #4f5256;
+            font-size: 13px;
+          }
+  
+          :local .label {
+            font-size: 20px;
+          }
+  
+          pre {
+            color: #0078ff;
+            font-size: 24px;
+  
+            span {
+              color: #a1a8af;
+            }
           }
         }
       }
     }
   }
+  
 }

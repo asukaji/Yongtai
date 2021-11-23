@@ -47,7 +47,7 @@ export default {
 
   computed: {
     title() {
-      return routeTitleMap.get(this.$route.name) ?? this.$route.name;
+      return routeTitleMap.get(this.$route.name) ?? this.$route.params?.name ?? this.$route.name;
     }
   },
 

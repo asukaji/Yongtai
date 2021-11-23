@@ -15,8 +15,8 @@ export default [
       },
       {
         name: ECONOMY_DETAIL,
-        path: 'detail',
-        component: () => import('@/views/Economy/Profile')
+        path: ':name/:id',
+        component: () => import('@/views/Economy/Detail')
       }
     ]
   }
