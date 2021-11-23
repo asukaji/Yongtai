@@ -264,8 +264,6 @@ export default {
       <div class={styles.home}>
         <Header />
         <YtMap onMapClick={this.onMapClick}>
-          <TourLayer />
-
           {this.renderProjects()}
           {this.renderText()}
 
@@ -283,6 +281,7 @@ export default {
               {this.state.infoWindowContent?.title}
             </div>
           </InfoWindow>
+          <TourLayer />
 
           <Search options={this.filterProjects} onClick={this.onSearchClick} />
           <FooterTabs>{this.renderFooter()}</FooterTabs>
