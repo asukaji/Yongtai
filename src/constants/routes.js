@@ -52,6 +52,7 @@ export const BUSINESS_SCHEDULE_TOWN = 'business.schedule.town';
 export const BUSINESS_SCHEDULE_STREET = 'business.schedule.street';
 export const BUSINESS_TASK_UNIT = 'business.task.unit';
 export const BUSINESS_TASK_TOWN = 'business.task.town';
+export const BUSINESS_TASK_STREET = 'business.task.street';
 
 export const ECONOMY_PROFILE = 'economy.profile';
 export const ECONOMY_DETAIL = 'economy.detail';

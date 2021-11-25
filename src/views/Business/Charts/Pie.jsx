@@ -27,12 +27,22 @@ export default {
   props: {
     data: VueTypes.array.def([]),
 
-    title: VueTypes.string.def()
+    title: VueTypes.string.def(),
+
+    total: VueTypes.array.def([0, 0]),
   },
 
   computed: {
     legend() {
       return _.map(this.data, ({ name, unit }) => `${name}${unit ? `：${unit}` : ''}`);
+    },
+
+    innerData() {
+      return _.filter(this.data, ['inner', 1]);
+    },
+
+    outerData() {
+      return _.filter(this.data, ['inner', 0]);
     },
 
     option() {
@@ -46,22 +56,34 @@ export default {
         legend: {
           orient: 'vertical',
           right: '0',
-          data: this.legend
+          data: this.legend,
+          formatter: (name) => {
+            const data = _.filter(this.data, ['name', name]);
+            return `${name}\n\n本季度投资任务：${data?.[0]?.value} 亿元\n已完成：${data?.[1]?.value} 亿元`;
+          }
         },
         series: [
           {
             name: 'Traffic Sources',
             type: 'pie',
             label: {
-              show: false,
-              position: 'center'
+              position: 'center',
+              formatter: `总投资额(亿元)\n{a|${this.total[0]}}\n已完成投资额(亿元)\n{a|${this.total[1]}}`,
+              rich: {
+                a: { fontSize: '20px' }
+              }
             },
             labelLine: {
               show: false
             },
-            radius: ['35%', '45%'],
+            radius: ['55%', '65%'],
             center: ['25%', '50%'],
-            data: this.data
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            data: this.innerData
           },
           {
             name: 'Traffic Sources',
@@ -73,9 +95,14 @@ export default {
             labelLine: {
               show: false
             },
-            radius: ['50%', '60%'],
+            radius: ['70%', '80%'],
             center: ['25%', '50%'],
-            data: this.data
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            data: this.outerData
           }
         ]
       };

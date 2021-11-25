@@ -5,7 +5,8 @@ import { GaugeChart } from 'echarts/charts';
 import {
   TitleComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  GridComponent
 } from 'echarts/components';
 import VChart from 'vue-echarts';
 import VueTypes from 'vue-types';
@@ -16,7 +17,8 @@ use([
   GaugeChart,
   TitleComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  GridComponent
 ]);
 
 export default {
@@ -29,21 +31,27 @@ export default {
 
     max: VueTypes.number.def(100),
 
-    color: VueTypes.string.def('#0078FF')
+    color: VueTypes.string.def('#0078FF'),
+
+    small: VueTypes.bool.def(false),
   },
 
   computed: {
     legend() {
-      return _.map(this.data, ({ name, unit }) => `${name}${unit ? `：${unit}` : ''}`);
+      return _.map(
+        this.data,
+        ({ name, unit }) => `${name}${unit ? `：${unit}` : ''}`
+      );
     },
 
     option() {
       return {
         tooltip: {
-          trigger: 'axis',
+          trigger: 'axis'
         },
         grid: {
-          bottom: 20
+          bottom: 20,
+          left: 0,
         },
         legend: {
           orient: 'vertical',
@@ -97,7 +105,7 @@ export default {
               width: 50,
               height: 50,
               fontSize: 20,
-              formatter: '{value}'
+              formatter: () => this.max
             }
           }
         ]
@@ -106,8 +114,24 @@ export default {
   },
 
   render() {
-    return <div style={{marginTop: '16px', textAlign: 'left', fontWeight: 'bold', fontSize: '16px', flex: 1}}>{this.title}
-      <Card style={{marginTop: '8px'}}><VChart option={this.option}  style={{height: '150px'}} /></Card>
-    </div>;
+    return (
+      <div
+        style={{
+          marginTop: '16px',
+          textAlign: 'left',
+          fontWeight: 'bold',
+          fontSize: '16px',
+          flex: 1
+        }}
+      >
+        {this.title}
+        <Card style={{ marginTop: '8px' }}>
+          <div style={{ display: 'flex', marginLeft: '-20px' }}>
+            <VChart option={this.option} style={{ height: this.small ? '120px' : '150px', flex: 1 }} />
+            {this.$slots.default}
+          </div>
+        </Card>
+      </div>
+    );
   }
 };

@@ -1,6 +1,6 @@
-import { Table, TableColumn, Pagination} from 'element-ui';
+import { Table, TableColumn } from 'element-ui';
 
-import { fetchCompletion } from '@/api';
+import { fetchImportant } from '@/api';
 import _ from 'lodash';
 
 export default {
@@ -9,10 +9,7 @@ export default {
   data() {
     return {
       state: {
-        list: [],
-        pageNo: 1,
-        pageSize: 10,
-        total: 0
+        records: undefined
       }
     };
   },
@@ -22,41 +19,25 @@ export default {
   },
 
   methods: {
-    async fetchData(pageNo) {
-      _.assign(this.state, await fetchCompletion('pro', pageNo ?? 1));
-    }    
+    async fetchData() {
+      _.assign(this.state, await fetchImportant());
+    }
   },
 
   render() {
-    const { list, total, pageSize, pageNo } = this.state;
+    const { records } = this.state;
 
-    return <div>
-      <Table
-        data={list}
-        style={{marginTop: '20px'}}
-      >
-        <TableColumn
-          type="index"
-          label="序号"
-        />
-        <TableColumn
-          prop="name"
-          label="项目名称"
-        />
-        <TableColumn
-          prop="teamId_dictText"
-          label="投资方名称"
-        />
-        <TableColumn
-          prop="teamId_dictText"
-          label="责任单位"
-        />
-        <TableColumn
-          prop="process"
-          label="完成情况"
-        />
-      </Table>
-      <Pagination total={total} pageSize={pageSize} currentPage={pageNo} onCurrentChange={pageNo => this.fetchData(pageNo)} />
-    </div>;
+    return (
+      <div>
+        <Table  data={records} 
+          height={512} style={{ marginTop: '20px' }}>
+          <TableColumn type="index" label="序号" />
+          <TableColumn prop="projectName" label="项目名称" />
+          <TableColumn prop="investor" label="投资方名称" />
+          <TableColumn prop="teamId_dictText" label="责任单位" />
+          <TableColumn prop="state" label="完成情况" />
+        </Table>
+      </div>
+    );
   }
 };

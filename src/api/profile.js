@@ -4,7 +4,7 @@ import _ from 'lodash';
 const instance = createInstance({
   baseURL: `${process.env.VUE_APP_BASE_URL}/xiangcun`
 });
-const staticPath = `${process.env.VUE_APP_BASE_URL}/sys/common/static`;
+export const staticPath = `${process.env.VUE_APP_BASE_URL}/sys/common/static`;
 
 /**
  * 重点项目-二级详情页

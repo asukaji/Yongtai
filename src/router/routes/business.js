@@ -1,4 +1,10 @@
-import { BUSINESS, BUSINESS_EVALUATION, BUSINESS_SCHEDULE, BUSINESS_PROJECT, BUSINESS_TASK, BUSINESS_EVALUATION_PROFILE,
+import {
+  BUSINESS,
+  BUSINESS_EVALUATION,
+  BUSINESS_SCHEDULE,
+  BUSINESS_PROJECT,
+  BUSINESS_TASK,
+  BUSINESS_EVALUATION_PROFILE,
   BUSINESS_EVALUATION_UNIT,
   BUSINESS_EVALUATION_UNIT_TOWN,
   BUSINESS_EVALUATION_UNIT_STREET,
@@ -6,7 +12,9 @@ import { BUSINESS, BUSINESS_EVALUATION, BUSINESS_SCHEDULE, BUSINESS_PROJECT, BUS
   BUSINESS_SCHEDULE_TOWN,
   BUSINESS_SCHEDULE_STREET,
   BUSINESS_TASK_UNIT,
-  BUSINESS_TASK_TOWN } from '@/constants';
+  BUSINESS_TASK_TOWN,
+  BUSINESS_TASK_STREET
+} from '@/constants';
 
 export default [
   {
@@ -88,6 +96,11 @@ export default [
           },
           {
             name: BUSINESS_TASK_TOWN,
+            path: 'town',
+            component: () => import('@/views/Business/TaskUnit')
+          },
+          {
+            name: BUSINESS_TASK_STREET,
             path: 'town',
             component: () => import('@/views/Business/TaskUnit')
           }

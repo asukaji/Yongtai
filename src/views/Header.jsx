@@ -40,6 +40,7 @@ const routeTitleMap = new Map([
   ['business.schedule.street', '招商管理'],
   ['business.task.unit', '招商管理'],
   ['business.task.town', '招商管理'],
+  ['business.task.street', '招商管理'],
 ]);
 
 export default {

@@ -16,13 +16,13 @@ function formatDate(date) {
  * @param {number} pageNo
  * @param {number} pageSize
  */
-export function fetchAppraisal(groups, pageNo = 1, pageSize = 10) {
+export function fetchAppraisal(groups, pageNo = 1, pageSize = 500) {
   return instance.post('/appraisal', {
     // datetime: formatDate(),
     groups,
     pageNo,
     pageSize
-  });
+  }).then(({ result }) => result);
 }
 
 /**
@@ -31,17 +31,13 @@ export function fetchAppraisal(groups, pageNo = 1, pageSize = 10) {
  * @param {number} pageNo
  * @param {number} pageSize
  */
-export function fetchChronological(groups, pageNo = 1, pageSize = 10) {
+export function fetchChronological(groups, pageNo = 1, pageSize = 500) {
   return instance.post('/chronological', {
     // datetime: formatDate(),
     groups,
     pageNo,
     pageSize
-  }).then(({ result: { list } }) => ({
-    total: list.total,
-    pageNo: list.current,
-    list: list.records
-  }));
+  }).then(({ result }) => result);
 }
 
 /**
@@ -49,15 +45,16 @@ export function fetchChronological(groups, pageNo = 1, pageSize = 10) {
  * @param {number} pageNo
  * @param {number} pageSize
  */
-export function fetchImportant(pageNo = 1, pageSize = 10) {
+export function fetchImportant(pageNo = 1, pageSize = 500) {
   return instance.post('/important', {
     // datetime: formatDate(),
     pageNo,
     pageSize
-  }).then(({ result: { list } }) => ({
-    total: list.total,
-    pageNo: list.current,
-    list: list.records
+  }).then(({ result }) => ({
+    records: _.map(result.records, ({ state, ...record }) => ({
+      ...record,
+      state: state === '2' ? '已完成' : '未完成'
+    }))
   }));
 }
 
@@ -67,15 +64,11 @@ export function fetchImportant(pageNo = 1, pageSize = 10) {
  * @param {number} pageNo
  * @param {number} pageSize
  */
-export function fetchCompletion(groups, pageNo = 1, pageSize = 10) {
+export function fetchCompletion(groups, pageNo = 1, pageSize = 500) {
   return instance.post('/completion', {
     // datetime: formatDate(),
     groups,
     pageNo,
     pageSize
-  }).then(({ result: { list } }) => ({
-    total: list.total,
-    pageNo: list.current,
-    list: list.records
-  }));
+  }).then(({ result}) => result);
 }
