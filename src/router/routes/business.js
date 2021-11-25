@@ -20,7 +20,7 @@ export default [
         name: BUSINESS_EVALUATION,
         path: 'evaluation',
         component: () => import('@/views/Business/Evaluation'),
-        redirect: { name: BUSINESS_EVALUATION_PROFILE },
+        redirect: { name: BUSINESS_EVALUATION_UNIT },
 
         children: [
           {

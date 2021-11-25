@@ -5,7 +5,8 @@ import { PieChart } from 'echarts/charts';
 import {
   TitleComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  GridComponent
 } from 'echarts/components';
 import VChart from 'vue-echarts';
 import VueTypes from 'vue-types';
@@ -16,7 +17,8 @@ use([
   PieChart,
   TitleComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  GridComponent
 ]);
 
 export default {

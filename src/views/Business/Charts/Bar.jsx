@@ -30,7 +30,11 @@ export default {
 
     category: VueTypes.array.def([]),
 
-    title: VueTypes.string.def()
+    title: VueTypes.string.def(),
+
+    innerTitle: VueTypes.bool.def(false),
+
+    inverse: VueTypes.bool.def(false)
   },
 
   computed: {
@@ -57,6 +61,13 @@ export default {
 
     option() {
       return {
+        title: {
+          show: this.innerTitle,
+          text: this.title,
+          textStyle: this.inverse ? {
+            color: '#fff'
+          } : undefined
+        },
         tooltip: {
           trigger: 'axis',
         },
@@ -69,9 +80,11 @@ export default {
           left: '30%',
           data: this.legend
         },
-        yAxis: {
+        yAxis: [{
           type: 'value'
-        },
+        },{
+          type: 'value'
+        }],
         xAxis: this.xAxis,
         series: [
           ...this.lines,
@@ -82,7 +95,7 @@ export default {
   },
 
   render() {
-    return <div style={{marginTop: '16px', textAlign: 'left', fontWeight: 'bold', fontSize: '16px', flex: 1}}>{this.title}
+    return <div style={{marginTop: '16px', textAlign: 'left', fontWeight: 'bold', fontSize: '16px', flex: 1}}>{!this.innerTitle && this.title}
       <Card style={{marginTop: '8px'}}><VChart option={this.option}  style={{height: '200px'}} /></Card>
     </div>;
   }

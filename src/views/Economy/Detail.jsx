@@ -1,3 +1,5 @@
+import Bar from '@/views/Business/Charts/Bar';
+import styles from './Profile.module.less';
 
 import { fetchIndustryRankingById, fetchIndustryInstrumentById } from '@/api';
 import _ from 'lodash';
@@ -28,7 +30,55 @@ export default {
   },
 
   render() {
-    return <div>
+    const { ranking, instrument} = this.state;
+
+    return <div class={styles.detail}>
+      <div>
+        <Bar
+          title='当季同比增长'
+          category={['']}
+          data={[
+            {
+              name: '同比增长',
+              unit: '项',
+              type: 'bar',
+              barWidth: '25%',
+              data: [instrument?.ratio]
+            },
+            {
+              name: '同比增长率',
+              type: 'line',
+              data: [instrument?.cityIncrease]
+            }
+          ]}
+          innerTitle
+          inverse
+        />
+      </div>
+      
+      <div style={{ padding: '0 40px', marginTop: '-80px'}}>
+        <Bar
+          title='全市各区县排名情况'
+          category={ranking?.category}
+          data={[
+            {
+              name: '完成值',
+              unit: '亿元',
+              type: 'bar',
+              barWidth: 10,
+              data: ranking?.barData
+            },
+            {
+              name: '增长率',
+              unit: '%',
+              type: 'line',
+              yAxisIndex: 1,
+              data: ranking?.lineData
+            }
+          ]}
+          innerTitle
+        />
+      </div>
     </div>;
   }
 };

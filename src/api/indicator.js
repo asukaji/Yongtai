@@ -7,7 +7,7 @@ const instance = createInstance({
 });
 
 function formatDate(date) {
-  return moment(date).format('YYYYMM');
+  return moment(date).subtract(2, 'months').format('YYYYMM');
 }
 
 /**
@@ -18,7 +18,13 @@ export function fetchIndustry() {
     date: formatDate(),
     area: '永泰县',
     state: '1'
-  });
+  }).then(({ data }) => _.map(data, ({ cumulative, industryId, industryName, ratio, unit }) => ({
+    cumulative: cumulative.replace(/^\s*/g, '').replace(unit, ''),
+    id: industryId,
+    name: industryName,
+    rate: ratio,
+    unit
+  })));
 }
 
 /**
@@ -29,7 +35,11 @@ export function fetchIndustryRankingById(industryId) {
   return instance.post('/indicators/queryRanking', {
     industryId,
     area: '永泰县'
-  });
+  }).then(({ data }) => ({
+    category: data.areaList,
+    barData: data.cumulativeList,
+    lineData: data.ratioList
+  }));
 }
 
 /**
@@ -40,5 +50,5 @@ export function fetchIndustryInstrumentById(industryId) {
   return instance.post('/indicators/queryInstrumentPanel', {
     industryId,
     area: '永泰县'
-  });
+  }).then(({ data }) => data);
 }

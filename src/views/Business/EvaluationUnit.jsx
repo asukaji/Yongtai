@@ -1,6 +1,10 @@
 import Gauge from './Charts/Gauge';
 import { Table, TableColumn} from 'element-ui';
 
+import { fetchAppraisal } from '@/api';
+
+import { groupsMap } from '@/constants';
+
 const dataSource = [
   { name: '信亚先进光电器件及模组技术研发中心', projectNum1:20, projectNum2: 10.5, userNum1: 70, userNum2: 38.53},
   {},
@@ -8,6 +12,32 @@ const dataSource = [
 
 export default {
   name: 'EvaluationProfile',
+
+  data() {
+    return {
+      state: {
+        list: [],
+        pageNo: 1,
+        pageSize: 10,
+        total: 0
+      }
+    };
+  },
+
+  computed: {
+    groups() {
+      return this.$route.name;
+    }
+  },
+
+  watch: {
+    groups: {
+      immediate: true,
+      async handler(groups) {
+        await fetchAppraisal(groupsMap[groups]);
+      }
+    }
+  },
 
   render() {
     return (

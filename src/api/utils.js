@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 export function createInstance(config) {
-  const instance = axios.create(
-    Object.assign({}, config, { withCredentials: true })
-  );
+  const instance = axios.create(config);
   instance.interceptors.request.use((config) => {
     return config;
   });
