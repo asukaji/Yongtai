@@ -6,25 +6,36 @@ const instance = createInstance({
   baseURL: `${process.env.VUE_APP_BASE_DOMAIN}/index`
 });
 
-function formatDate(date) {
-  return moment(date).subtract(2, 'months').format('YYYYMM');
+function formatDate(month) {
+  return moment().subtract(month, 'months').format('YYYYMM');
 }
 
 /**
  * 经济指标一级页面（指标总览页）
  */
-export function fetchIndustry() {
-  return instance.post('/indicatorBreakdown/queryIndustryNameList', {
-    date: formatDate(),
-    area: '永泰县',
-    state: '1'
-  }).then(({ data }) => _.map(data, ({ cumulative, industryId, industryName, ratio, unit }) => ({
-    cumulative: cumulative.replace(/^\s*/g, '').replace(unit, ''),
-    id: industryId,
-    name: industryName,
-    rate: ratio,
-    unit
-  })));
+export function fetchIndustry(month = 2) {
+  return instance
+    .post('/indicatorBreakdown/queryIndustryNameList', {
+      date: formatDate(month),
+      area: '永泰县',
+      state: '1'
+    })
+    .then(({ data }) => {
+      if (_.isUndefined(data)) {
+        throw new Error('data is undefined');
+      }
+
+      return _.map(
+        data,
+        ({ cumulative, industryId, industryName, ratio, unit }) => ({
+          cumulative: cumulative.replace(/^\s*/g, '').replace(unit, ''),
+          id: industryId,
+          name: industryName,
+          rate: ratio,
+          unit
+        })
+      );
+    });
 }
 
 /**
@@ -32,14 +43,16 @@ export function fetchIndustry() {
  * @param {string} industryId
  */
 export function fetchIndustryRankingById(industryId) {
-  return instance.post('/indicators/queryRanking', {
-    industryId,
-    area: '永泰县'
-  }).then(({ data }) => ({
-    category: data.areaList,
-    barData: data.cumulativeList,
-    lineData: data.ratioList
-  }));
+  return instance
+    .post('/indicators/queryRanking', {
+      industryId,
+      area: '永泰县'
+    })
+    .then(({ data }) => ({
+      category: data.areaList,
+      barData: data.cumulativeList,
+      lineData: data.ratioList
+    }));
 }
 
 /**
@@ -47,8 +60,10 @@ export function fetchIndustryRankingById(industryId) {
  * @param {string} industryId
  */
 export function fetchIndustryInstrumentById(industryId) {
-  return instance.post('/indicators/queryInstrumentPanel', {
-    industryId,
-    area: '永泰县'
-  }).then(({ data }) => data);
+  return instance
+    .post('/indicators/queryInstrumentPanel', {
+      industryId,
+      area: '永泰县'
+    })
+    .then(({ data }) => data);
 }

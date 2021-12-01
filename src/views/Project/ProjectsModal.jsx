@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Popover, Empty } from 'element-ui';
+import { Menu, MenuItem, Popover, Empty, Tag } from 'element-ui';
 import styles from './ProjectModal.module.less';
 
 import _ from 'lodash';
@@ -25,24 +25,6 @@ export default {
 
       this.state.visible = true;
       this.state.projects = projects;
-    },
-
-    renderMedia() {
-      return (
-        <div class="media">
-          {this.media?.map(({ src, type }) =>
-            type === 'image' ? (
-              <img src={src} vViewer/>
-            ) : (
-              <div to={src} class="video">
-                <video controls>
-                  <source src={src} />
-                </video>
-              </div>
-            )
-          )}
-        </div>
-      );
     },
 
     onClick({ id, position, title }) {
@@ -72,7 +54,8 @@ export default {
                 index={`${index}`}
                 onClick={this.onClick.bind(null, option)}
               >
-                {option.title}
+                <p>{option.title}</p>
+                {_.map(option.tags, tag => <Tag size="mini">{tag}</Tag>)}
               </MenuItem>
             ))
           )}

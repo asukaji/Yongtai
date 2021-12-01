@@ -37,7 +37,7 @@ export default {
       return this.state.showPlaning
         ? _.filter(
             this.projects?.list,
-            ({ type, position }) => type === 1 && validPosition(position)
+            ({ type }) => type === 1
             // eslint-disable-next-line
           )
         : [];
@@ -47,7 +47,7 @@ export default {
       return this.state.showReady
         ? _.filter(
             this.projects?.list,
-            ({ type, position }) => type === 2 && validPosition(position)
+            ({ type }) => type === 2
             // eslint-disable-next-line
           )
         : [];
@@ -57,7 +57,7 @@ export default {
       return this.state.showWorking
         ? _.filter(
             this.projects?.list,
-            ({ type, position }) => type === 3 && validPosition(position)
+            ({ type }) => type === 3
             // eslint-disable-next-line
           )
         : [];
@@ -67,19 +67,19 @@ export default {
       return this.state.showCompleted
         ? _.filter(
             this.projects?.list,
-            ({ type, position }) => type === 4 && validPosition(position)
+            ({ type }) => type === 4
             // eslint-disable-next-line
           )
         : [];
     },
 
     filterProjects() {
-      return [
+      return _.filter([
         ...this.planingProjects,
         ...this.readyProjects,
         ...this.workingProjects,
-        ...this.completedProjects
-      ];
+        ...this.completedProjects,
+      ], ({ position }) => validPosition(position));
     }
   },
 

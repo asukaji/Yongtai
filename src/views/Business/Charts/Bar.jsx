@@ -54,6 +54,7 @@ export default {
 
     legend() {
       return _.map(this.data, 'name');
+      // return _.map(this.data, ({ name, unit }) => `${name}${unit ? `：${unit}` : ''}`);
     },
 
     lines() {
@@ -85,7 +86,8 @@ export default {
           left: '30%',
           data: this.legend,
           textStyle: this.inverse ? {color: '#fff'
-          } : undefined
+          } : undefined,
+          formatter: (name) => `${name} ${_.find(this.data, ['name', name])?.unit ?? ''}`
         },
         yAxis: [{
           type: 'value',

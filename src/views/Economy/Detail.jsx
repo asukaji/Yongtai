@@ -43,13 +43,22 @@ export default {
               unit: '项',
               type: 'bar',
               barWidth: '25%',
+              label: {
+                show: true,
+                position: 'top'
+              },
               data: [instrument?.ratio]
             },
             {
               name: '同比增长率',
+              unit: '%',
               type: 'bar',
               yAxisIndex: 1,
               barWidth: '25%',
+              label: {
+                show: true,
+                position: 'top'
+              },
               data: [instrument?.cityIncrease]
             }
           ]}
@@ -68,6 +77,10 @@ export default {
               unit: '亿元',
               type: 'bar',
               barWidth: 10,
+              label: {
+                show: true,
+                position: 'top'
+              },
               data: ranking?.barData
             },
             {
@@ -75,6 +88,10 @@ export default {
               unit: '%',
               type: 'line',
               yAxisIndex: 1,
+              label: {
+                show: true,
+                position: 'top'
+              },
               data: ranking?.lineData
             }
           ]}

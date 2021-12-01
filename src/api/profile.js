@@ -32,12 +32,13 @@ export function fetchProjectList() {
     working: result.zaiJian,
     planing: result.zhengQian,
     list: _.map(
-      result.projectList,
-      ({ id, latitudes, longitudes, projectName, projectType }) => ({
+      _.concat(result.junGongList, result.kaiGongList, result.zaiJianList, result.zhengQianList),
+      ({ id, latitudes, longitudes, projectName, projectType, tags }) => ({
         id,
         position: [longitudes, latitudes],
         title: projectName,
-        type: projectType
+        type: projectType,
+        tags
       })
     )
   }));
