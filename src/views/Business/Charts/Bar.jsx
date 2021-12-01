@@ -42,7 +42,12 @@ export default {
       return [
         {
           type: 'category',
-          data: this.category
+          data: this.category,
+          axisLine: this.inverse ? {
+            lineStyle: {
+              color: '#fff'
+            }
+          } : undefined
         }
       ];
     },
@@ -78,18 +83,31 @@ export default {
         },
         legend: {
           left: '30%',
-          data: this.legend
+          data: this.legend,
+          textStyle: this.inverse ? {color: '#fff'
+          } : undefined
         },
         yAxis: [{
-          type: 'value'
+          type: 'value',
+          axisLabel:  this.inverse ? {
+            color: '#fff'
+          } : {
+            color: '#333'
+          },
         },{
-          type: 'value'
+          type: 'value',
+          axisLabel:  this.inverse ? {
+            color: '#fff'
+          } : {
+            color: '#333'
+          },
         }],
         xAxis: this.xAxis,
         series: [
           ...this.lines,
           ...this.bars
-        ]
+        ],
+        color: ['#0078FF', '#FF7937', '#70F1B6']
       };
     }
   },

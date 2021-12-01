@@ -100,7 +100,7 @@ export default {
         >
           <TableColumn
             type="index"
-            label="排名"
+            label="序号"
           />
           <TableColumn
             prop="teamId_dictText"

@@ -41,6 +41,11 @@ export default {
 
     onClick({ id, position, title }) {
       this.$emit('click', [id, title, position]);
+    },
+
+    close() {
+      this.state.visible = false;
+      this.state.value = '';
     }
   },
 

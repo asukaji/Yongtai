@@ -18,7 +18,7 @@ const TABS = [
   // },
   {
     name: 'electric',
-    title: '发电站',
+    title: '水电站',
     icon: iconElectric,
     activeIcon: iconElectricActive
   },

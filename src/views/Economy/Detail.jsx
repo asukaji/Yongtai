@@ -47,7 +47,9 @@ export default {
             },
             {
               name: '同比增长率',
-              type: 'line',
+              type: 'bar',
+              yAxisIndex: 1,
+              barWidth: '25%',
               data: [instrument?.cityIncrease]
             }
           ]}

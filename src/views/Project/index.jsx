@@ -1,6 +1,7 @@
 import YtMap from '@/components/YtMap';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { StreetsPolygon } from '@/components/Map';
+import ProjectsModal from './ProjectsModal';
 import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
 import Header from '../Header';
 import styles from './index.module.less';
@@ -89,6 +90,7 @@ export default {
   methods: {
     onSwitchState(stateName) {
       this.onMapClick();
+      this.$refs.ProjectsModal.close();
 
       _.assign(this.state, { [stateName]: !this.state[stateName] });
     },
@@ -100,11 +102,17 @@ export default {
       });
     },
 
-    onMapClick() {
+    onMapClick(e) {
       _.assign(this.state, {
         infoWindowContent: undefined,
         infoVisible: false
       });
+
+      if (_.isUndefined(e)) {
+        return;
+      }
+
+      this.$refs.ProjectsModal.close();
     },
 
     onInfoWindowClick() {
@@ -122,6 +130,18 @@ export default {
         return;
       }
       this.onMarkerClick(id, title, position);
+    },
+
+    onStateClick(hasProjects, stateName, event) {
+      event?.preventDefault();
+      event?.stopPropagation();
+
+      if (!this.state[_.camelCase(`show_${stateName}`)] || !hasProjects) {
+        return;
+      }
+
+      this.$refs.search.close();
+      this.$refs.ProjectsModal.open(this[`${stateName}Projects`]);
     },
 
     iconType(type) {
@@ -188,28 +208,28 @@ export default {
       return (
         <div class={styles.footer}>
           <div onClick={this.onSwitchState.bind(null, 'showPlaning')}>
-            <div class={[styles.legend, styles.planing]}>
+            <div class={[styles.legend, showPlaning && styles.planing]}>
               <img src={markerCircle} />
               征迁项目
-              <pre>{this.projects?.planing ?? 0}项</pre>
+              <pre onClick={this.onStateClick.bind(null, !!this.projects?.planing, 'planing')}>{this.projects?.planing ?? 0}项</pre>
             </div>
             <div class={[styles.status, showPlaning && styles.active]} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showReady')}>
-            <div class={[styles.legend, styles.ready]}>
+            <div class={[styles.legend, showReady && styles.ready]}>
               <img src={markerTriangle} />
               开工提速项目
-              <pre>{this.projects?.ready ?? 0}项</pre>
+              <pre onClick={this.onStateClick.bind(null, !!this.projects?.ready, 'ready')}>{this.projects?.ready ?? 0}项</pre>
             </div>
             <div class={[styles.status, showReady && styles.active]} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
-            <div class={[styles.legend, styles.working]}>
+            <div class={[styles.legend, showWorking && styles.working]}>
               <img src={markerStar} />
               在建提速项目
-              <pre>{this.projects?.working ?? 0}项</pre>
+              <pre onClick={this.onStateClick.bind(null, !!this.projects?.working, 'working')}>{this.projects?.working ?? 0}项</pre>
             </div>
             <div
               class={[
@@ -221,10 +241,10 @@ export default {
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
-            <div class={[styles.legend, styles.completed]}>
+            <div class={[styles.legend, showCompleted && styles.completed]}>
               <img src={markerDiamond} />
               竣工投产项目
-              <pre>{this.projects?.completed ?? 0}项</pre>
+              <pre onClick={this.onStateClick.bind(null, !!this.projects?.completed, 'completed')}>{this.projects?.completed ?? 0}项</pre>
             </div>
             <div
               class={[
@@ -263,7 +283,9 @@ export default {
           </InfoWindow>
           <StreetsPolygon onStreetClick={this.onMapClick} />
 
-          <Search options={this.filterProjects} onClick={this.onSearchClick} />
+          <Search ref="search" options={this.filterProjects} onClick={this.onSearchClick} />
+          <ProjectsModal ref="ProjectsModal" onClick={this.onSearchClick} />
+
           <FooterTabs>{this.renderFooter()}</FooterTabs>
         </YtMap>
 

@@ -20,7 +20,7 @@ export default {
   render() {
     return (
       <div class={styles.home}>
-        <YtMap zoom={9} showLabel={false}>
+        <YtMap zoom={9} center={[118.830089, 26.18825]} showLabel={false}>
           <SatelliteLayer visible />
 
           <Polygon

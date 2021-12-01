@@ -138,11 +138,11 @@ export default {
           />
           <TableColumn label="市外服务业">
             <TableColumn
-              prop="outFinish"
+              prop="outPlan"
               label="任务数"
             />
             <TableColumn
-              prop="outPlan"
+              prop="outFinish"
               label="完成数"
             />
           </TableColumn>

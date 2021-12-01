@@ -21,6 +21,11 @@ use([
   GridComponent
 ]);
 
+const colors = {
+  inner: ['#0FDAFF', '#70F1B6', '#FFC778'],
+  outer: ['#0078FF', '#28D2B0', '#FF7937'],
+};
+
 export default {
   name: 'Pie',
 
@@ -34,15 +39,15 @@ export default {
 
   computed: {
     legend() {
-      return _.map(this.data, ({ name, unit }) => `${name}${unit ? `：${unit}` : ''}`);
+      return _.map(this.data, ({ name, inner}) => `${name}.${inner}`);
     },
 
     innerData() {
-      return _.filter(this.data, ['inner', 1]);
+      return _.map(_.filter(this.data, ['inner', 1]), ({name, value}) => ({ value, name: `${name}.1`}));
     },
 
     outerData() {
-      return _.filter(this.data, ['inner', 0]);
+      return _.map(_.filter(this.data, ['inner', 0]), ({name, value}) => ({value, name: `${name}.0`}));
     },
 
     option() {
@@ -54,12 +59,19 @@ export default {
           bottom: 20
         },
         legend: {
-          orient: 'vertical',
-          right: '0',
+          orient: 'horizontal',
+          right: 20,
           data: this.legend,
+          icon: 'circle',
+          width: 400,
           formatter: (name) => {
-            const data = _.filter(this.data, ['name', name]);
-            return `${name}\n\n本季度投资任务：${data?.[0]?.value} 亿元\n已完成：${data?.[1]?.value} 亿元`;
+            const [originName, inner] = name.split('.');
+            const data = _.find(this.data, {name: originName, inner: +inner});
+            
+            return `${+inner ? '' : originName}\n${+inner ? '已完成' : '本季度投资任务'}：${data?.value} 亿元\n`;
+          },
+          textStyle: {
+            lineHeight: 20
           }
         },
         series: [
@@ -70,18 +82,19 @@ export default {
               position: 'center',
               formatter: `总投资额(亿元)\n{a|${this.total[0]}}\n已完成投资额(亿元)\n{a|${this.total[1]}}`,
               rich: {
-                a: { fontSize: '20px' }
+                a: { fontSize: '18px', fontWeight: 'bold', lineHeight: 28}
               }
             },
             labelLine: {
               show: false
             },
             radius: ['55%', '65%'],
-            center: ['25%', '50%'],
+            center: ['16%', '50%'],
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
-              borderWidth: 2
+              borderWidth: 2,
+              color: ({dataIndex}) => colors.inner[dataIndex]
             },
             data: this.innerData
           },
@@ -96,11 +109,12 @@ export default {
               show: false
             },
             radius: ['70%', '80%'],
-            center: ['25%', '50%'],
+            center: ['16%', '50%'],
             itemStyle: {
               borderRadius: 10,
               borderColor: '#fff',
-              borderWidth: 2
+              borderWidth: 2,
+              color: ({dataIndex}) => colors.outer[dataIndex]
             },
             data: this.outerData
           }

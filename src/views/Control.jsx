@@ -24,11 +24,15 @@ export default {
 
   computed: {
     daterange() {
-      return [moment(this.state.date[0]).format('YYYY-MM-DD'), moment(this.state.date[1]).format('YYYY-MM-DD')];
+      const { date } = this.state;
+
+      return [
+        date[0] ? moment(date[0]).format('YYYY-MM-DD') : '',
+        date[1] ? moment(date[1]).format('YYYY-MM-DD') : ''];
     },
 
     id() {
-      return this.state.id ?? this.state.ids[0]?.id;
+      return this.state.id ?? _.last(this.state.ids)?.id;
     }
   },
 
@@ -52,7 +56,8 @@ export default {
   },
 
   mounted() {
-    this.state.date = [moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
+    // this.state.date = [moment().subtract(1, 'month').format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
+    this.state.date = [undefined, undefined];
   },
 
   methods: {
@@ -120,7 +125,7 @@ export default {
               <Button size="mini" icon="el-icon-arrow-left" disabled={currentPage === 1} onClick={this.prev}/>
               <span style={{marginLeft: '4px'}}> {currentPage} / {_.size(fileList)} </span>
               <Button size="mini" icon="el-icon-arrow-right el-icon--right" disabled={currentPage === _.size(fileList)} style={{marginLeft: '4px'}} onClick={this.next}/>
-              {PDFPath && <div style={{marginLeft: '8px', color: '#0078FF'}} onClick={() => window.open(PDFPath)}>下载</div>}
+              {PDFPath && <div style={{marginLeft: '8px', color: '#0078FF'}} onClick={() => window.open(PDFPath)}>查看完整攻坚周报</div>}
             </div>
           </div>
         </div>

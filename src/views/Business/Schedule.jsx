@@ -26,8 +26,8 @@ export default {
   computed: {
     quarterData() {
       return _.map(this.state.quarterData?.groups, ({finish, groups, plan}) => ([
-        {name: groups, value: finish.replace('亿元', ''), inner: 1 },
-        {name: groups, value: plan.replace('亿元', ''), inner: 0 }
+        {name: groups, value: plan.replace('亿元', ''), inner: 0 },
+        {name: groups, value: finish.replace('亿元', ''), inner: 1 }
       ])).flat();
     }
   },
