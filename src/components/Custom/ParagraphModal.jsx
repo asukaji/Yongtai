@@ -58,6 +58,7 @@ export default {
         this.state.loading = true;
         this.state.content = { ...(await fetchDetail()), title };
         this.state.loading = false;
+        this.$emit('mounted', this.contacts);
       } else {
         this.state.content = undefined;
       }
@@ -68,7 +69,7 @@ export default {
         <div class="media">
           {this.media?.map(({ src, type }) =>
             type === 'image' ? (
-              <img src={src} vViewer/>
+              <img src={src} vViewer />
             ) : (
               <div to={src} class="video">
                 <video controls>
@@ -97,27 +98,77 @@ export default {
       >
         <Paragraph>
           {this.$slots.default ? (
-            this.$slots.default
+            _.isUndefined(this.state.content) ? (
+              this.$slots.default
+            ) : (
+              <div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <h1>{this.title}</h1>
+                  {this.$slots.title}
+                </div>
+                {this.$slots.default}
+              </div>
+            )
           ) : (
             <div>
-              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
+                }}
+              >
                 <h1>{this.title}</h1>
                 {this.$slots.title}
               </div>
-              <div style={{display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between'}}>
-                {
-                  (this.belong || this.investments) && <div class={styles.pre}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-between'
+                }}
+              >
+                {(this.belong || this.investments) && (
+                  <div class={styles.pre}>
                     <img src={iconBelong} />
                     <span>{this.belong}</span>
                     <img src={iconInvestments} />
                     <span>{this.investments}</span>
                   </div>
-                }
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                  {_.map(this.contacts, ({ username, type_dictText }) => <pre style={{display: 'flex', alignItems: 'flex-end', fontSize: '16px', color: '#333333', margin: 0, marginLeft: '8px' }}>{type_dictText}<span style={{color: '#999999', fontSize: '12px', marginLeft: '2px'}}>{username}</span></pre>)}
+                )}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {_.map(this.contacts, ({ username, type_dictText }) => (
+                    <pre
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-end',
+                        fontSize: '16px',
+                        color: '#333333',
+                        margin: 0,
+                        marginLeft: '8px'
+                      }}
+                    >
+                      {type_dictText}
+                      <span
+                        style={{
+                          color: '#999999',
+                          fontSize: '12px',
+                          marginLeft: '2px'
+                        }}
+                      >
+                        {username}
+                      </span>
+                    </pre>
+                  ))}
                 </div>
               </div>
-              
+
               {this.name && <pre>{this.name}</pre>}
               <p>{this.content}</p>
               {this.renderMedia()}
