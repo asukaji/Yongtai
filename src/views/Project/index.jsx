@@ -3,6 +3,8 @@ import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { StreetsPolygon } from '@/components/Map';
 import ProjectsModal from './ProjectsModal';
 import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
+import ProjectFilter from './ProjectFilter';
+import SignList from './SignList';
 import Header from '../Header';
 import styles from './index.module.less';
 
@@ -14,6 +16,8 @@ import markerCircle from '@/assets/MapPlugin/marker-circle.png';
 import markerDiamond from '@/assets/MapPlugin/marker-diamond.png';
 import markerStar from '@/assets/MapPlugin/marker-star.png';
 import markerTriangle from '@/assets/MapPlugin/marker-triangle.png';
+import iconCalendar from '@/assets/Icon/icon-calendar.png';
+import iconCamera from '@/assets/Icon/icon-camera.png';
 
 export default {
   name: 'Project',
@@ -27,7 +31,10 @@ export default {
         showWorking: true,
         showCompleted: true,
         infoVisible: false,
-        infoWindowContent: undefined
+        infoWindowContent: undefined,
+        filter: ['province', 'city'],
+        signId: undefined,
+        step: 0
       }
     };
   },
@@ -80,6 +87,18 @@ export default {
         ...this.workingProjects,
         ...this.completedProjects,
       ], ({ position }) => validPosition(position));
+    },
+
+    provinceProjects() {
+      return _.includes(this.state.filter, 'province') ? _.filter(this.filterProjects, ({ imp }) => imp === 1) : [];
+    },
+
+    cityProjects() {
+      return _.includes(this.state.filter, 'city') ? _.filter(this.filterProjects, ({ imp }) => imp === 2) : [];
+    },
+
+    filterTexts() {
+      return [...this.provinceProjects, ...this.cityProjects];
     }
   },
 
@@ -121,6 +140,8 @@ export default {
         this.state.infoWindowContent?.title
       );
 
+      this.state.signId = this.state.infoWindowContent?.id;
+
       this.onMapClick();
     },
 
@@ -142,6 +163,18 @@ export default {
 
       this.$refs.search.close();
       this.$refs.ProjectsModal.open(this[`${stateName}Projects`]);
+    },
+
+    onFilterChange(e) {
+      this.state.filter = e;
+    },
+
+    onModalClose() {
+      this.state.step = 0;
+    },
+
+    setStep(step) {
+      this.state.step = step;
     },
 
     iconType(type) {
@@ -183,17 +216,17 @@ export default {
     },
 
     renderText() {
-      return _.map(this.filterProjects, ({ position, title, id, type }) => (
+      return _.map(this.filterTexts, ({ position, title, id, type }) => (
         <Text
           position={position}
           text={title}
-          offset={[20, 2]}
+          offset={[20, -2]}
           domStyle={{
             color: this.colorType(type),
-            width: '60px',
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            textOverflow: 'ellipsis',
+            width: '120px',
+            // overflow: 'hidden',
+            // whiteSpace: 'nowrap',
+            // textOverflow: 'ellipsis',
             fontWeight: 'bolder',
             fontSize: '15px'
           }}
@@ -284,12 +317,21 @@ export default {
           <StreetsPolygon onStreetClick={this.onMapClick} />
 
           <Search ref="search" options={this.filterProjects} onClick={this.onSearchClick} />
+          <ProjectFilter onChange={this.onFilterChange} />
           <ProjectsModal ref="ProjectsModal" onClick={this.onSearchClick} />
 
           <FooterTabs>{this.renderFooter()}</FooterTabs>
         </YtMap>
 
-        <ParagraphModal ref="modal" />
+        <ParagraphModal ref="modal" onClose={this.onModalClose}>
+
+          <div slot="title">
+            <img src={iconCalendar} height="50" onClick={this.setStep.bind(null, 1)} />
+            <img src={iconCamera} height="50" onClick={this.setStep.bind(null, 2)} />
+          </div>
+
+          {this.state.step === 1 ? <SignList id={this.state.signId} /> : null}
+        </ParagraphModal>
       </div>
     );
   }

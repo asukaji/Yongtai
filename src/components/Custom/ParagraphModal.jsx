@@ -2,6 +2,8 @@ import { Dialog } from 'element-ui';
 import Paragraph from './Paragraph';
 import styles from './ParagraphModal.module.less';
 
+import _ from 'lodash';
+
 import iconBelong from '@/assets/Icon/icon-belong.png';
 import iconInvestments from '@/assets/Icon/icon-investments.png';
 
@@ -41,6 +43,10 @@ export default {
 
     media() {
       return this.state.content?.media;
+    },
+
+    contacts() {
+      return this.state.content?.contacts;
     }
   },
 
@@ -76,6 +82,7 @@ export default {
     },
 
     onClose() {
+      this.$emit('close');
       Object.assign(this.state, { visible: false });
     }
   },
@@ -89,19 +96,27 @@ export default {
         customClass={styles.modal}
       >
         <Paragraph>
-          {this.state.content === undefined ? (
+          {this.$slots.default ? (
             this.$slots.default
           ) : (
             <div>
-              <h1>{this.title}</h1>
-              {
-                (this.belong || this.investments) && <div class={styles.pre}>
-                  <img src={iconBelong} />
-                  <span>{this.belong}</span>
-                  <img src={iconInvestments} />
-                  <span>{this.investments}</span>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                <h1>{this.title}</h1>
+                {this.$slots.title}
+              </div>
+              <div style={{display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between'}}>
+                {
+                  (this.belong || this.investments) && <div class={styles.pre}>
+                    <img src={iconBelong} />
+                    <span>{this.belong}</span>
+                    <img src={iconInvestments} />
+                    <span>{this.investments}</span>
+                  </div>
+                }
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                  {_.map(this.contacts, ({ username, type_dictText }) => <pre style={{display: 'flex', alignItems: 'flex-end', fontSize: '16px', color: '#333333', margin: 0, marginLeft: '8px' }}>{type_dictText}<span style={{color: '#999999', fontSize: '12px', marginLeft: '2px'}}>{username}</span></pre>)}
                 </div>
-              }
+              </div>
               
               {this.name && <pre>{this.name}</pre>}
               <p>{this.content}</p>

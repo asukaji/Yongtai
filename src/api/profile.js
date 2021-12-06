@@ -15,6 +15,7 @@ export function fetchProjectDetail(projectId) {
     content: result.content,
     belong: result.belong,
     investments: `${result.investments}亿元`,
+    contacts: result.contacts,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: `${staticPath}${filePath}`,
       type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
@@ -33,15 +34,30 @@ export function fetchProjectList() {
     planing: result.zhengQian,
     list: _.map(
       _.concat(result.junGongList, result.kaiGongList, result.zaiJianList, result.zhengQianList),
-      ({ id, latitudes, longitudes, projectName, projectType, tags }) => ({
+      ({ id, latitudes, longitudes, projectName, projectType, tags, imp }) => ({
         id,
         position: [longitudes, latitudes],
         title: projectName,
         type: projectType,
-        tags
+        tags,
+        imp
       })
     )
   }));
+}
+
+/**
+ * 重点项目-二级详情页-项目签到打卡数据
+ * @param {*} projectId
+ */
+export function fetchProjectSignList(projectId, pageNo = 1, pageSize = 500) {
+  return instance.get('/project/sign/list', { 
+    params: {
+      projectId,
+      pageNo,
+      pageSize
+    }
+  }).then(({ result }) => result.records);
 }
 
 /**

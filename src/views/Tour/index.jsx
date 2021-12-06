@@ -88,6 +88,26 @@ export default {
         : [];
     },
 
+    planings() {
+      return _.size(_.filter(this.area, ['type', '1']));
+    },
+
+    readys() {
+      return _.size(_.filter(this.area, ['type', '2']));
+    },
+
+    workings() {
+      return _.size(_.filter(this.area, ['type', '3']));
+    },
+
+    completeds() {
+      return _.size(_.filter(this.area, ['type', '4']));
+    },
+
+    pendings() {
+      return _.size(_.filter(this.area, ['type', '5']));
+    },
+
     filterProjects() {
       return [
         ...this.planingProjects,
@@ -210,50 +230,50 @@ export default {
 
       return (
         <div class={styles.footer}>
-          <div onClick={this.onSwitchState.bind(null, 'showPlaning')}>
+          {this.planings ? <div onClick={this.onSwitchState.bind(null, 'showPlaning')}>
             <div class={[styles.legend, styles.planing]}>
               <img src={markerTriangleBlack} />
               传统村落
-              <pre>{_.size(_.filter(this.area, ['type', '1']))}项</pre>
+              <pre>{this.planings}项</pre>
             </div>
             <div class={[styles.status, showPlaning && styles.active]} />
-          </div>
+          </div> : null}
 
-          <div onClick={this.onSwitchState.bind(null, 'showReady')}>
+          {this.readys ? <div onClick={this.onSwitchState.bind(null, 'showReady')}>
             <div class={[styles.legend, styles.ready]}>
               <img src={markerCircleBlue} />
               重点乡镇
-              <pre>{_.size(_.filter(this.area, ['type', '2']))}项</pre>
+              <pre>{this.readys}项</pre>
             </div>
             <div class={[styles.status, showReady && styles.active]} />
-          </div>
+          </div> : null}
 
-          <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
+          {this.workings ? <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
             <div class={[styles.legend, styles.completed]}>
               <img src={markerCircleGreen} />
               风景区
-              <pre>{_.size(_.filter(this.area, ['type', '3']))}项</pre>
+              <pre>{this.workings}项</pre>
             </div>
             <div class={[styles.status, showWorking && styles.active]} />
-          </div>
+          </div> : null}
 
-          <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
+          {this.completeds ? <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
             <div class={[styles.legend, styles.planing]}>
               <img src={markerStarRed} />
               特色庄寨
-              <pre>{_.size(_.filter(this.area, ['type', '4']))}项</pre>
+              <pre>{this.completeds}项</pre>
             </div>
             <div class={[styles.status, showCompleted && styles.active]} />
-          </div>
+          </div> : null}
 
-          <div onClick={this.onSwitchState.bind(null, 'showPending')}>
+          {this.pendings ? <div onClick={this.onSwitchState.bind(null, 'showPending')}>
             <div class={[styles.legend, styles.working]}>
               <img src={markerCircleOrange} />
               重点项目
-              <pre>{_.size(_.filter(this.area, ['type', '5']))}项</pre>
+              <pre>{this.pendings}项</pre>
             </div>
             <div class={[styles.status, showPending && styles.active]} />
-          </div>
+          </div> : null}
         </div>
       );
     }
