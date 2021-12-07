@@ -34,7 +34,7 @@ export default {
 
   methods: {
     onClick(...args) {
-      console.log(args);
+      // console.log(args);
     },
 
     renderFileList() {

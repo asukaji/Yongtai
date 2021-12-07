@@ -6,6 +6,7 @@ import {
   Form,
   FormItem
 } from 'element-ui';
+import styles from './CreateMeeting.module.less';
 
 import { createMeeting } from '@/api';
 import VueTypes from 'vue-types';
@@ -84,7 +85,7 @@ export default {
 
   render() {
     return (
-      <div style={{ paddingTop: '16px', minHeight: '120px' }}>
+      <div class={styles.container}>
         {this.state.href ? (
           this.renderHref()
         ) : (
@@ -107,26 +108,9 @@ export default {
               <CheckboxGroup vModel={this.form.userIds}>
                 {_.map(this.contacts, ({ userId, username, type_dictText }) => (
                   <CheckboxButton label={userId}>
-                    <pre
-                      style={{
-                        display: 'flex',
-                        alignItems: 'flex-end',
-                        fontSize: '16px',
-                        color: '#333333',
-                        margin: 0,
-                        marginLeft: '8px'
-                      }}
-                    >
-                      {type_dictText}
-                      <span
-                        style={{
-                          color: '#999999',
-                          fontSize: '12px',
-                          marginLeft: '2px'
-                        }}
-                      >
-                        {username}
-                      </span>
+                    <pre>
+                      {username}
+                      <span>{type_dictText}</span>
                     </pre>
                   </CheckboxButton>
                 ))}
