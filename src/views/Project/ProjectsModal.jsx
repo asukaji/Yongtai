@@ -27,8 +27,8 @@ export default {
       this.state.projects = projects;
     },
 
-    onClick({ id, position, title }) {
-      this.$emit('click', [id, title, position]);
+    onClick({ id, position, title, contacts }) {
+      this.$emit('click', [id, title, position, contacts]);
     },
 
     close() {
@@ -55,7 +55,9 @@ export default {
                 onClick={this.onClick.bind(null, option)}
               >
                 <p>{option.title}</p>
-                {_.map(option.tags, tag => <Tag size="mini">{tag}</Tag>)}
+                {_.map(option.tags, (tag) => (
+                  <Tag size="mini">{tag}</Tag>
+                ))}
               </MenuItem>
             ))
           )}

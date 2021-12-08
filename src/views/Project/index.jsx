@@ -5,6 +5,7 @@ import ProjectsModal from './ProjectsModal';
 import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
 import ProjectFilter from './ProjectFilter';
 import SignList from './SignList';
+import CreateMeeting from './CreateMeeting';
 import Header from '../Header';
 import styles from './index.module.less';
 
@@ -18,6 +19,7 @@ import markerStar from '@/assets/MapPlugin/marker-star.png';
 import markerTriangle from '@/assets/MapPlugin/marker-triangle.png';
 import iconCalendar from '@/assets/Icon/icon-calendar.png';
 import iconCamera from '@/assets/Icon/icon-camera.png';
+import IconBack from '@/assets/Icon/icon-back.png';
 
 export default {
   name: 'Project',
@@ -33,7 +35,7 @@ export default {
         infoVisible: false,
         infoWindowContent: undefined,
         filter: ['province', 'city'],
-        signId: undefined,
+        activeProject: undefined,
         step: 0
       }
     };
@@ -81,20 +83,27 @@ export default {
     },
 
     filterProjects() {
-      return _.filter([
-        ...this.planingProjects,
-        ...this.readyProjects,
-        ...this.workingProjects,
-        ...this.completedProjects,
-      ], ({ position }) => validPosition(position));
+      return _.filter(
+        [
+          ...this.planingProjects,
+          ...this.readyProjects,
+          ...this.workingProjects,
+          ...this.completedProjects
+        ],
+        ({ position }) => validPosition(position)
+      );
     },
 
     provinceProjects() {
-      return _.includes(this.state.filter, 'province') ? _.filter(this.filterProjects, ({ imp }) => imp === 1) : [];
+      return _.includes(this.state.filter, 'province')
+        ? _.filter(this.filterProjects, ({ imp }) => imp === 1)
+        : [];
     },
 
     cityProjects() {
-      return _.includes(this.state.filter, 'city') ? _.filter(this.filterProjects, ({ imp }) => imp === 2) : [];
+      return _.includes(this.state.filter, 'city')
+        ? _.filter(this.filterProjects, ({ imp }) => imp === 2)
+        : [];
     },
 
     filterTexts() {
@@ -140,7 +149,7 @@ export default {
         this.state.infoWindowContent?.title
       );
 
-      this.state.signId = this.state.infoWindowContent?.id;
+      this.state.activeProject = this.state.infoWindowContent;
 
       this.onMapClick();
     },
@@ -175,6 +184,10 @@ export default {
 
     setStep(step) {
       this.state.step = step;
+    },
+
+    setContacts(contacts) {
+      _.assign(this.state.activeProject, { contacts });
     },
 
     iconType(type) {
@@ -244,7 +257,15 @@ export default {
             <div class={[styles.legend, showPlaning && styles.planing]}>
               <img src={markerCircle} />
               征迁项目
-              <pre onClick={this.onStateClick.bind(null, !!this.projects?.planing, 'planing')}>{this.projects?.planing ?? 0}项</pre>
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!this.projects?.planing,
+                  'planing'
+                )}
+              >
+                {this.projects?.planing ?? 0}项
+              </pre>
             </div>
             <div class={[styles.status, showPlaning && styles.active]} />
           </div>
@@ -253,7 +274,15 @@ export default {
             <div class={[styles.legend, showReady && styles.ready]}>
               <img src={markerTriangle} />
               开工提速项目
-              <pre onClick={this.onStateClick.bind(null, !!this.projects?.ready, 'ready')}>{this.projects?.ready ?? 0}项</pre>
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!this.projects?.ready,
+                  'ready'
+                )}
+              >
+                {this.projects?.ready ?? 0}项
+              </pre>
             </div>
             <div class={[styles.status, showReady && styles.active]} />
           </div>
@@ -262,7 +291,15 @@ export default {
             <div class={[styles.legend, showWorking && styles.working]}>
               <img src={markerStar} />
               在建提速项目
-              <pre onClick={this.onStateClick.bind(null, !!this.projects?.working, 'working')}>{this.projects?.working ?? 0}项</pre>
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!this.projects?.working,
+                  'working'
+                )}
+              >
+                {this.projects?.working ?? 0}项
+              </pre>
             </div>
             <div
               class={[
@@ -277,7 +314,15 @@ export default {
             <div class={[styles.legend, showCompleted && styles.completed]}>
               <img src={markerDiamond} />
               竣工投产项目
-              <pre onClick={this.onStateClick.bind(null, !!this.projects?.completed, 'completed')}>{this.projects?.completed ?? 0}项</pre>
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!this.projects?.completed,
+                  'completed'
+                )}
+              >
+                {this.projects?.completed ?? 0}项
+              </pre>
             </div>
             <div
               class={[
@@ -293,6 +338,8 @@ export default {
   },
 
   render() {
+    const { activeProject, step } = this.state;
+
     return (
       <div class={styles.home}>
         <Header />
@@ -316,21 +363,58 @@ export default {
           </InfoWindow>
           <StreetsPolygon onStreetClick={this.onMapClick} />
 
-          <Search ref="search" options={this.filterProjects} onClick={this.onSearchClick} />
+          <Search
+            ref="search"
+            options={this.filterProjects}
+            onClick={this.onSearchClick}
+          />
           <ProjectFilter onChange={this.onFilterChange} />
           <ProjectsModal ref="ProjectsModal" onClick={this.onSearchClick} />
 
           <FooterTabs>{this.renderFooter()}</FooterTabs>
         </YtMap>
 
-        <ParagraphModal ref="modal" onClose={this.onModalClose}>
-
+        <ParagraphModal
+          ref="modal"
+          onClose={this.onModalClose}
+          onMounted={this.setContacts}
+        >
           <div slot="title">
-            <img src={iconCalendar} height="50" onClick={this.setStep.bind(null, 1)} />
-            <img src={iconCamera} height="50" onClick={this.setStep.bind(null, 2)} />
+            {step > 0 ? (
+              <div
+                style={{
+                  height: '50px',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+                onClick={this.setStep.bind(null, Math.floor(step - 1))}
+              >
+                <img src={IconBack} height="14" />
+              </div>
+            ) : (
+              <div>
+                <img
+                  src={iconCalendar}
+                  height="50"
+                  onClick={this.setStep.bind(null, 1)}
+                />
+                <img
+                  src={iconCamera}
+                  height="50"
+                  onClick={this.setStep.bind(null, 1.1)}
+                />
+              </div>
+            )}
           </div>
 
-          {this.state.step === 1 ? <SignList id={this.state.signId} /> : null}
+          {step === 1 ? <SignList id={activeProject?.id} /> : null}
+          {step === 1.1 ? (
+            <CreateMeeting
+              id={activeProject?.id}
+              contacts={activeProject?.contacts}
+            />
+          ) : null}
+          {step === 2 ? <SignList id={activeProject?.id} /> : null}
         </ParagraphModal>
       </div>
     );

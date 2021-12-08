@@ -4,26 +4,27 @@
   margin-top: -200px !important;
   margin: 0;
 
-    :global  .el-menu {
-      min-height: 384px;
-      max-height: 512px;
-      overflow: auto;
+  :global .el-menu {
+    min-height: 384px;
+    max-height: 512px;
+    overflow: auto;
 
-      .el-menu-item, .el-submenu__title {
-        line-height: 21px;
-        text-align: left;
+    .el-menu-item,
+    .el-submenu__title {
+      line-height: 21px;
+      text-align: left;
 
-        & p {
-          margin: 4px 0 0;
-        }
-
-        & .el-tag + .el-tag {
-          margin-left: 4px;
-        }
+      & p {
+        margin: 4px 0 0;
       }
 
-      .el-menu-item + .el-menu-item {
-        border-top: 1px dashed #ccc;
+      & .el-tag + .el-tag {
+        margin-left: 4px;
       }
     }
+
+    .el-menu-item + .el-menu-item {
+      border-top: 1px dashed #ccc;
+    }
+  }
 }
