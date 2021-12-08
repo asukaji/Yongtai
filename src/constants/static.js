@@ -27,7 +27,7 @@ export const ecological = {
   charts: [
     {
       title: '空气优良占比（近五年）',
-      options: _.merge({
+      option: _.merge({
         legend: {
           show: false
         },
