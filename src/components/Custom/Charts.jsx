@@ -34,10 +34,21 @@ export default {
   render() {
     return <div class={styles.container}>
       {
-        _.map(this.values, ({title, option }) => (
+        _.map(this.values, ({title, option, type, cards }) => (
           <div class={styles.chart} key={title}>
             <h3>{title}</h3>
-            <VChart option={option}  style={{height: '100px'}} />
+            {
+              type === 'card' ? <div class={styles.cards}>
+                {_.map(cards, ({ name, value }) => (
+                  <div>
+                    <p>{name}</p>
+                    <p>{value}</p>
+                  </div>
+                ))}
+              </div>
+                :<VChart option={option}  style={{height: '120px', marginTop: '12px'}} />
+            }
+            
           </div>
         ))
       }
