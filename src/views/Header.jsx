@@ -41,6 +41,7 @@ const routeTitleMap = new Map([
   ['business.task.unit', '招商管理'],
   ['business.task.town', '招商管理'],
   ['business.task.street', '招商管理'],
+  ['Home', '永泰县攻坚作战平台'],
 ]);
 
 export default {
@@ -55,9 +56,9 @@ export default {
   render() {
     return (
       <div class={styles.header}>
-        <div class="img" onClick={() => this.$router.go(-1)}>
+        {this.$route.name === 'Home' ? null : <div class="img" onClick={() => this.$router.go(-1)}>
           <img src={IconBack} />
-        </div>
+        </div>}
         {this.title}
       </div>
     );

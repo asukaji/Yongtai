@@ -3,6 +3,11 @@ import _ from 'lodash';
 import icon1 from '@/assets/Icon/icon-static1.png';
 import icon2 from '@/assets/Icon/icon-static2.png';
 import icon3 from '@/assets/Icon/icon-static3.png';
+import icon4 from '@/assets/Icon/icon-static4.png';
+import icon5 from '@/assets/Icon/icon-static5.png';
+import icon6 from '@/assets/Icon/icon-static6.png';
+import icon7 from '@/assets/Icon/icon-static7.png';
+import icon8 from '@/assets/Icon/icon-static8.png';
 
 const basicOptions = {
   xAxis: [
@@ -120,6 +125,12 @@ export const ecological = {
             axisLabel: {
               show: false
             },
+            detail: {
+              formatter: ' '
+            },
+            title: {
+              show: false
+            },
             data: [191, 234, 290]
           }
         ],
@@ -157,8 +168,8 @@ export const industrial = {
   pre: 'Industrial Foundation',
   indicator: {
     list: [
-      { name: '“一核”', icon: icon1, text: '把中心城区打造成为\n现代化旅游城市' },
-      { name: ' “四带”', icon: icon2, text: '以葛岭为中心\n延伸至塘前、丹云' },
+      { name: '“一核”', icon: icon8, text: '把中心城区打造成为\n现代化旅游城市' },
+      { name: ' “四带”', icon: icon4, text: '以葛岭为中心\n延伸至塘前、丹云' },
       { name: '滨水田园休闲带', icon: icon3, text: '以水上运动\n产业为重点建设' },
     ],
     text: '“一核” 把中心城区打造成为基础设施完备，旅游功能齐全的现代化旅游城市。 “四带” 以葛岭为中心，延伸至塘前、丹云的“县域经济次中心带”。'
@@ -236,9 +247,9 @@ export const industrial = {
               show: false
             },
             progress: {
-              show: true,
+              show: false,
               overlap: false,
-              roundCap: true,
+              roundCap: false,
               clip: false
             },
             axisTick: {
@@ -246,6 +257,9 @@ export const industrial = {
             },
             axisLabel: {
               show: false
+            },
+            detail: {
+              formatter: ' '
             },
             data: [191, 234, 290]
           }
@@ -284,9 +298,9 @@ export const urban = {
   pre: 'Urban Construction',
   indicator: {
     list: [
-      { name: '省级文明县城', icon: icon1, text: '把中心城区打造成为\n现代化旅游城市' },
-      { name: '美丽乡村', icon: icon2, text: '以葛岭为中心\n延伸至塘前、丹云' },
-      { name: '乡村旅游示范县', icon: icon3, text: '以水上运动\n产业为重点建设' },
+      { name: '省级文明县城', icon: icon4, text: '把中心城区打造成为\n现代化旅游城市' },
+      { name: '美丽乡村', icon: icon5, text: '以葛岭为中心\n延伸至塘前、丹云' },
+      { name: '乡村旅游示范县', icon: icon6, text: '以水上运动\n产业为重点建设' },
     ],
     text: '成功创建第五届、第六届省级文明县城，入围全国文明城市提名城市具城建成区面积从7.9平方公里扩大到9.9平方公里，永阳古城完成改造，美食街开街运营，小汤山生态公园、花海公园建成开放，人均公园绿地面积位居全市第一。成立国内首家县级乡村振兴研究院、全省首家扶贫农产品统购统销运营中心、全市首家农村产权流转服务中心，美丽乡村建设成效连续三年位居全市第一，农村人居环境整治成效作为全省唯一获国务院通报嘉奖，获评国家农业绿色发展先行区、全国休闲农业和乡村旅游示范县。'
   }
@@ -297,8 +311,8 @@ export const livelihood = {
   pre: 'Livelihood Cause',
   indicator: {
     list: [
-      { name: '“三无”', icon: icon1, text: '荣获全国信访“三无”县\n全国法治县创建工作先进县' },
-      { name: '医疗建设', icon: icon2, text: '完成中医院、妇幼保健院迁建\n192个村卫生所标准化建设' },
+      { name: '“三无”', icon: icon7, text: '荣获全国信访“三无”县\n全国法治县创建工作先进县' },
+      { name: '医疗建设', icon: icon8, text: '完成中医院、妇幼保健院迁建\n192个村卫生所标准化建设' },
       { name: '零的突破', icon: icon3, text: '福州工商学院建成开学\n结束永泰没有本科高校的历史' },
     ],
     text: '城乡低保标准从每年每人3000元提高至9120元。荣获全国信访“三无”县、全国法治县创建工作先进县、省级平安县、全市扫黑除恶先'
@@ -374,6 +388,9 @@ export const livelihood = {
             },
             axisLabel: {
               show: false
+            },
+            detail: {
+              formatter: ' '
             },
             data: [191, 234, 290]
           }
