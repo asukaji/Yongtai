@@ -3,7 +3,7 @@
   height: 100%;
 
   :global .amap-icon {
-    width: 24px !important;
+    width: 20px !important;
     height: 24px !important;
     & img {
       width: 100%;
@@ -11,13 +11,20 @@
     }
   }
 
+  :global .amap-marker:first-child {
+    color: #FB3F62;
+  }
+
+  :global .amap-marker:not(:first-child) {
+    color: #0078FF;
+  }
+
   :global .amap-marker-label {
     background: transparent;
     border-width: 0;
     text-shadow: 0 1px 4px #fff;
-    font-size: 10px;
-    font-weight: bold;
-    color: #fb3f62;
+    font-size: 18px;
+    font-weight: bolder;
     -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
     -webkit-text-stroke-width: 1px;
   }
@@ -30,5 +37,35 @@
     font-weight: bolder;
     // -webkit-text-stroke-color: rgba(188, 188, 188, 0.5);
     // -webkit-text-stroke-width: 1px;
+  }
+
+  :global .el-carousel {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    width: 33vw;
+    height: 100%;
+    z-index: 4;
+
+    .el-carousel__item {
+      width: 33vw;
+
+      & > div {
+        width: 33vw;
+        height: 50vh;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  :local .title {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin-top: -255px;
+    z-index: 2;
   }
 }

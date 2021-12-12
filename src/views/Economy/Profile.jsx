@@ -18,6 +18,11 @@ import bgCard11 from '@/assets/Bg/bg-card11.png';
 
 const backgrounds = [bgCard1, bgCard2, bgCard3, bgCard4, bgCard5, bgCard6, bgCard6, bgCard7, bgCard8, bgCard9, bgCard10, bgCard11];
 
+const nameMap = new Map([
+  ['规模以上工业完成情况', '规上工业'],
+  ['全社会消费品零售总额 ', '社零'],
+]);
+
 export default {
   name: 'EconomyProfile',
 
@@ -49,7 +54,7 @@ export default {
         {this.state.cards.map(({ name, rate, cumulative, unit, id }, index) => (
           <router-link to={{ name: ECONOMY_DETAIL, params: { name, id }}}>
             <Card key={id} style={{ backgroundImage: `url(${backgrounds[index]})` }} >
-              <h3>{name}</h3>
+              <h3>{nameMap.get(name) ?? name}</h3>
               <div class={styles.data}>
                 <div>
                   <span>Growth rate</span>

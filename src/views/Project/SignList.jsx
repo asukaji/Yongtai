@@ -1,4 +1,4 @@
-import { Table, TableColumn } from 'element-ui';
+import { Table, TableColumn, Button, Empty } from 'element-ui';
 
 import { fetchProjectSignList } from '@/api';
 import VueTypes from 'vue-types';
@@ -9,11 +9,14 @@ export default {
   name: 'SignList',
 
   props: {
-    id: VueTypes.string.def()
+    id: VueTypes.string.def(),
+
+    step: VueTypes.number.def(1)
   },
 
   data() {
     return {
+      fileList: undefined,
       state: {
         list: undefined,
         showFileList: false,
@@ -29,21 +32,33 @@ export default {
         this.state.showFileList = false;
         this.state.list = await fetchProjectSignList(id);
       }
+    },
+
+    step(step) {
+      if (step === 2) {
+        return;
+      }
+      this.state.showFileList = false;
+      this.fileList = undefined;
     }
   },
 
   methods: {
-    onClick(...args) {
-      // console.log(args);
+    onClick({ row: {fileList} }) {
+      this.state.showFileList = true;
+      this.fileList = fileList;
+      this.$emit('changeStep');
     },
 
     renderFileList() {
       return (
-        <div>
-          {_.map(this.fileList, (src) => (
-            <img src={src} />
-          ))}
-        </div>
+        _.size(this.fileList) ?
+          <div style={{ display: 'grid', gridTemplateColumns: '25% 25% 25% 25%', marginTop: '20px', height: '192px', maxHeight: '392px', overflow: 'auto'}}>
+            {_.map(this.fileList, (src) => (
+              <img key={src} src={src} style={{ width: '192px', minWidth: '192px', marginRight: '8px', marginBottom: '8px' }} />
+            ))}
+          </div>
+          : <Empty />
       );
     }
   },
@@ -57,7 +72,6 @@ export default {
       <Table
         data={list}
         border
-        show-summary
         height={512}
         style={{ marginTop: '20px' }}
       >
@@ -65,7 +79,7 @@ export default {
         <TableColumn prop="createTime" label="打卡日期" />
         <TableColumn prop="userId_dictText" label="打卡人" />
         <TableColumn prop="area" label="打卡位置" />
-        {/* <TableColumn
+        <TableColumn
           label="操作"
           {...{
             scopedSlots: {
@@ -83,7 +97,7 @@ export default {
               }
             }
           }}
-        ></TableColumn> */}
+        ></TableColumn>
       </Table>
     );
   }

@@ -137,6 +137,14 @@ export default {
       });
     },
 
+    onMarkerNextClick(id, title, position) {
+      _.assign(this.state, {
+        infoWindowContent: { id, title, position }
+      });
+
+      this.onInfoWindowClick();
+    },
+
     onMapClick() {
       _.assign(this.state, {
         infoWindowContent: undefined,
@@ -183,7 +191,7 @@ export default {
         <Marker
           position={position}
           icon={this.iconType(type)}
-          onClick={this.onMarkerClick.bind(null, id, title, position)}
+          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
         />
       ));
     },
@@ -214,7 +222,7 @@ export default {
             fontWeight: 'bolder',
             fontSize: '15px'
           }}
-          onClick={this.onMarkerClick.bind(null, id, title, position)}
+          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
         />
       ));
     },

@@ -35,6 +35,14 @@ export default {
       });
     },
 
+    onMarkerNextClick(id, title, position, area, description) {
+      _.assign(this.state, {
+        infoWindowContent: { id, title, position, area, description }
+      });
+
+      this.onInfoWindowClick();
+    },
+
     onMapClick() {
       _.assign(this.state, {
         infoWindowContent: undefined,
@@ -56,7 +64,7 @@ export default {
         <Marker
           position={position}
           icon={markerRace}
-          onClick={this.onMarkerClick.bind(
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,
@@ -73,13 +81,13 @@ export default {
         <Text
           position={position}
           text={title}
-          offset={[-18, -3]}
+          offset={[-14, 16]}
           domStyle={{
             color: '#FB3F62',
             fontWeight: 'bolder',
-            fontSize: '18px'
+            fontSize: '14px'
           }}
-          onClick={this.onMarkerClick.bind(
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,

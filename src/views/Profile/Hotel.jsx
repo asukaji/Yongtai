@@ -34,6 +34,14 @@ export default {
       });
     },
 
+    onMarkerNextClick(id, title, position, area, description) {
+      _.assign(this.state, {
+        infoWindowContent: { id, title, position, area, description }
+      });
+
+      this.onInfoWindowClick();
+    },
+
     onMapClick() {
       _.assign(this.state, {
         infoWindowContent: undefined,
@@ -55,7 +63,7 @@ export default {
         <Marker
           position={position}
           icon={markerHotel}
-          onClick={this.onMarkerClick.bind(
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,
@@ -78,7 +86,7 @@ export default {
             fontWeight: 'bolder',
             fontSize: '15px'
           }}
-          onClick={this.onMarkerClick.bind(
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,

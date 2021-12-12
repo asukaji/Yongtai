@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import { store } from './store';
+import store from './store';
 import ElementUI from 'element-ui';
 // import VueLazyload from 'vue-lazyload';
 import Viewer from 'v-viewer';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'viewerjs/dist/viewer.css';
+import Vuex from 'vuex';
 
 import AmapVue from '@amap/amap-vue';
 
@@ -23,6 +24,7 @@ AmapVue.config.plugins = [
 Vue.use(ElementUI);
 // Vue.use(VueLazyload);
 Vue.use(Viewer);
+Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 

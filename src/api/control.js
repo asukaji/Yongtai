@@ -24,6 +24,7 @@ export function fetchRanges(startDate, endDate) {
  */
 export function fetchControlContentById(id) {
   return instance.get(`/weeklyDetail/${id}`).then(({ result }) => ({
+    ...result,
     PDFPath: `${staticPath}${result.PDFPath}`,
     fileList: result.fileList.map(({ path }) => `${staticPath}${path}`)
   }));

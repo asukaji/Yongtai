@@ -96,13 +96,13 @@ export default {
 
     provinceProjects() {
       return _.includes(this.state.filter, 'province')
-        ? _.filter(this.filterProjects, ({ imp }) => imp === 1)
+        ? _.filter(this.filterProjects, ({ imp }) => imp === 2)
         : [];
     },
 
     cityProjects() {
       return _.includes(this.state.filter, 'city')
-        ? _.filter(this.filterProjects, ({ imp }) => imp === 2)
+        ? _.filter(this.filterProjects, ({ imp }) => imp === 1)
         : [];
     },
 
@@ -128,6 +128,14 @@ export default {
         infoWindowContent: { id, title, position },
         infoVisible: true
       });
+    },
+
+    onMarkerNextClick(id, title, position) {
+      _.assign(this.state, {
+        infoWindowContent: { id, title, position }
+      });
+
+      this.onInfoWindowClick();
     },
 
     onMapClick(e) {
@@ -210,7 +218,7 @@ export default {
         <Marker
           position={position}
           icon={this.iconType(type)}
-          onClick={this.onMarkerClick.bind(null, id, title, position)}
+          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
         />
       ));
     },
@@ -243,7 +251,7 @@ export default {
             fontWeight: 'bolder',
             fontSize: '15px'
           }}
-          onClick={this.onMarkerClick.bind(null, id, title, position)}
+          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
         />
       ));
     },
@@ -407,14 +415,13 @@ export default {
             )}
           </div>
 
-          {step === 1 ? <SignList id={activeProject?.id} /> : null}
+          {step === 1 || step === 2 ? <SignList id={activeProject?.id} step={step} onChangeStep={this.setStep.bind(null, step + 1)} /> : null}
           {step === 1.1 ? (
             <CreateMeeting
               id={activeProject?.id}
               contacts={activeProject?.contacts}
             />
           ) : null}
-          {step === 2 ? <SignList id={activeProject?.id} /> : null}
         </ParagraphModal>
       </div>
     );

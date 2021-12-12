@@ -72,7 +72,7 @@ export default {
               <img src={src} vViewer />
             ) : (
               <div to={src} class="video">
-                <video controls>
+                <video controls="controls">
                   <source src={src} />
                 </video>
               </div>

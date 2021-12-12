@@ -57,7 +57,10 @@ export function fetchProjectSignList(projectId, pageNo = 1, pageSize = 500) {
       pageNo,
       pageSize
     }
-  }).then(({ result }) => result.records);
+  }).then(({ result }) => _.map(result.records, ({ fileList, ...record }) => ({
+    ...record,
+    fileList: _.map(fileList, ({ filePath }) => `${staticPath}${filePath}`)
+  })));
 }
 
 /**
