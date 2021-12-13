@@ -41,7 +41,7 @@ const routeTitleMap = new Map([
   ['business.task.unit', '招商管理'],
   ['business.task.town', '招商管理'],
   ['business.task.street', '招商管理'],
-  ['Home', '永泰县乡村发展监测平台'],
+  ['Home', process.env.VUE_APP_TITLE],
 ]);
 
 export default {

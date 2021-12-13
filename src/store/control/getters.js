@@ -45,12 +45,17 @@ export function projectOptions({ projectList }) {
       position: 'top'
     },
     xAxis: {
-      data: _.fill(Array.from({ length: _.size(projectList) }), `农村生活\n污水处理`),
+      data: _.map(projectList, 'name'),
       axisLabel: {
-        interval: 0
-      },
-      nameTextStyle: {
-        fontSize: 6
+        interval: 0,
+        formatter: (name) => `{name|${name}}`,
+        overflow: 'break',
+        width: 58,
+        rich: {
+          name: {
+            fontSize: 10
+          }
+        }
       }
     },
     series: [
@@ -98,7 +103,7 @@ export function landOptions({ landList }) {
       position: 'top'
     },
     xAxis: {
-      data: _.fill(Array.from({ length: _.size(landList) }), `农村生活\n污水处理`),
+      data: _.map(landList, 'name'),
       axisLabel: {
         interval: 0
       },
