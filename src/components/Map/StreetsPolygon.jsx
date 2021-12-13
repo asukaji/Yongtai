@@ -63,7 +63,7 @@ export default {
             strokeColor="#0078FF"
             strokeWeight={1}
             fillColor={color[index % 4]}
-            fillOpacity={0.25}
+            fillOpacity={0.15}
             onClick={this.$emit.bind(this, 'streetClick')}
           />
         ))}
