@@ -1,0 +1,38 @@
+.home {
+  width: 100%;
+  height: 100%;
+
+  :local .back {
+    position: absolute;
+    left: 20px;
+    top: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+
+    img {
+      width: 16px;
+    }
+  }
+
+  :local .title {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin-top: -255px;
+    z-index: 2;
+  }
+
+  :local .record {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    color: #333333;
+    font-size: 16px;
+    text-decoration: none;
+  }
+}

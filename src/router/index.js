@@ -29,7 +29,12 @@ const routes = [
   ...project,
   ...promote,
   ...business,
-  ...economy
+  ...economy,
+
+  {
+    path: '*',
+    redirect: { name: 'Home' },
+  }
 ];
 
 const router = new VueRouter({

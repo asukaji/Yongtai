@@ -17,7 +17,7 @@ export function fetchProjectDetail(projectId) {
     investments: `${result.investments}亿元`,
     contacts: result.contacts,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
-      src: `${staticPath}${filePath}`,
+      src: filePath,
       type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
     }))
   }));
@@ -59,7 +59,7 @@ export function fetchProjectSignList(projectId, pageNo = 1, pageSize = 500) {
     }
   }).then(({ result }) => _.map(result.records, ({ fileList, ...record }) => ({
     ...record,
-    fileList: _.map(fileList, ({ filePath }) => `${staticPath}${filePath}`)
+    fileList: _.map(fileList, ({ filePath }) => filePath)
   })));
 }
 
@@ -71,7 +71,7 @@ export function fetchTourDetail(areaId) {
   return instance.get(`/quanyu/detail/${areaId}`).then(({ result }) => ({
     content: result.content,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
-      src: `${staticPath}${filePath}`,
+      src: filePath,
       type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
     }))
   }));
@@ -103,7 +103,7 @@ export function fetchTownDetail(areaId) {
     content: result.content,
     name: 'Village Profile',
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
-      src: `${staticPath}${filePath}`,
+      src: filePath,
       type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
     }))
   }));
@@ -136,7 +136,7 @@ export function fetchGeothermalDetail(areaId) {
       content: result.content,
       name: 'Geothermal Conditions',
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
-        src: `${staticPath}${filePath}`,
+        src: filePath,
         type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
       }))
     }));
@@ -169,7 +169,7 @@ export function fetchElectricDetail(areaId) {
       content: result.content,
       name: 'Electric Conditions',
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
-        src: `${staticPath}${filePath}`,
+        src: filePath,
         type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
       }))
     }));
@@ -201,7 +201,7 @@ export function fetchWaterDetail(areaId) {
     .then(({ result }) => ({
       content: result.content,
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
-        src: `${staticPath}${filePath}`,
+        src: filePath,
         type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
       }))
     }));
@@ -232,7 +232,7 @@ export function fetchPromoteDetail(areaId) {
   return instance.get(`/zhengxing/detail/${areaId}`).then(({ result }) => ({
     content: result.content,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
-      src: `${staticPath}${filePath}`,
+      src: filePath,
       type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
     }))
   }));
@@ -276,7 +276,7 @@ export function fetchHotelDetail(areaId) {
     .then(({ result }) => ({
       content: result.content,
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
-        src: `${staticPath}${filePath}`,
+        src: filePath,
         type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
       }))
     }));

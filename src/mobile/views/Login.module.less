@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding: 0 40px;
+  background-image: url('~@/assets/mobile/login-bg.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  h1, h2 {
+    margin: 9px 0;
+    color: #2143AF;
+  }
+
+  :global .el-form {
+    width: 100%;
+    padding-bottom: 80px;
+
+    .el-input__inner {
+      border-width: 0 0 1px;
+      border-radius: 0;
+      padding-left: 0;
+    }
+
+    .el-button {
+      width: 100%;
+      background: linear-gradient(0deg, #566CD3 0%, #2143AF 100%);
+      border-radius: 22px;
+      font-size: 19px;
+      margin-top: 12px;
+    }
+  }
+}

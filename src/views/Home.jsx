@@ -58,30 +58,33 @@ export default {
         </YtMap>
 
         <Carousel type="card" direction="vertical">
-          <CarouselItem
-            key="bg0"
-            
-            
-          >
-            <div class={styles.carouselItem} style={{ backgroundImage: `url(${bg0})` }} onClick={this.open.bind(this, '/profile/ecological')}></div>
+          <CarouselItem key="bg0">
+            <div
+              class={styles.carouselItem}
+              style={{ backgroundImage: `url(${bg0})` }}
+              onClick={this.open.bind(this, '/profile/ecological')}
+            ></div>
           </CarouselItem>
-          <CarouselItem
-            key="bg1"
-            
-          >
-            <div class={styles.carouselItem} style={{ backgroundImage: `url(${bg1})` }} onClick={this.open.bind(this, '/profile/industrial')}></div>
+          <CarouselItem key="bg1">
+            <div
+              class={styles.carouselItem}
+              style={{ backgroundImage: `url(${bg1})` }}
+              onClick={this.open.bind(this, '/profile/industrial')}
+            ></div>
           </CarouselItem>
-          <CarouselItem
-            key="bg2"
-            
-          >
-            <div class={styles.carouselItem} style={{ backgroundImage: `url(${bg2})` }} onClick={this.open.bind(this, '/profile/urban')}></div>
+          <CarouselItem key="bg2">
+            <div
+              class={styles.carouselItem}
+              style={{ backgroundImage: `url(${bg2})` }}
+              onClick={this.open.bind(this, '/profile/urban')}
+            ></div>
           </CarouselItem>
-          <CarouselItem
-            key="bg3"
-            
-          >
-            <div class={styles.carouselItem} style={{ backgroundImage: `url(${bg3})` }} onClick={this.open.bind(this, '/profile/livelihood')}></div>
+          <CarouselItem key="bg3">
+            <div
+              class={styles.carouselItem}
+              style={{ backgroundImage: `url(${bg3})` }}
+              onClick={this.open.bind(this, '/profile/livelihood')}
+            ></div>
           </CarouselItem>
           {/* <CarouselItem
             key="bg4"
