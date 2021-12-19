@@ -76,7 +76,7 @@ export default {
             this.state.loading = true;
 
             await check({
-              area: this.position.join(','),
+              area: this.location,
               fileList: this.fileList,
               projectId: this.$route.params.id,
               remark: this.form.remark
