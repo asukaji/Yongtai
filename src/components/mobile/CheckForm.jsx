@@ -1,11 +1,13 @@
 import { Form, FormItem, Input, Button } from 'element-ui';
+import { withAmap } from '@amap/amap-vue';
 import styles from './CheckForm.module.less';
 
 import moment from 'moment';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 import { check } from '@/api';
 import _ from 'lodash';
 
+import { POSITION } from '@/constants';
 import upload from '@/assets/Icon/icon-upload.png';
 
 const rules = {
@@ -14,6 +16,8 @@ const rules = {
 
 export default {
   name: 'CheckForm',
+
+  mixins: [withAmap],
 
   data() {
     return {
@@ -29,7 +33,14 @@ export default {
   },
 
   computed: {
-    ...mapState('mobile', ['location', 'position', 'imgList', 'videoList']),
+    ...mapState('mobile', [
+      'location',
+      'position',
+      'imgList',
+      'videoList',
+      'projectPosition',
+      'remark'
+    ]),
 
     currentTime() {
       return this.state.time.format('HH:mm:ss');
@@ -42,8 +53,17 @@ export default {
     }
   },
 
+  watch: {
+    'form.remark': {
+      handler(value) {
+        this.setRemark(value);
+      }
+    }
+  },
+
   mounted() {
     this.counter = this.setTime();
+    this.form.remark = this.remark;
   },
 
   beforeDestroy() {
@@ -51,10 +71,26 @@ export default {
   },
 
   methods: {
+    ...mapMutations('mobile', ['setRemark']),
+
     onSubmit() {
       if (!this.location) {
         this.$message({
           message: '定位失败',
+          type: 'error'
+        });
+
+        return;
+      }
+
+      const distance = AMap.GeometryUtil.distance(
+        this.position,
+        this.projectPosition ?? localStorage.getItem(POSITION).split(',')
+      );
+
+      if (distance > 50) {
+        this.$message({
+          message: `不在打卡范围内，距离打卡点${distance}m`,
           type: 'error'
         });
 
@@ -144,6 +180,7 @@ export default {
             <Button
               type="primary"
               disabled={this.state.loading}
+              loading={this.state.loading}
               onClick={this.onSubmit}
             >
               {this.currentTime} 打卡

@@ -61,7 +61,7 @@ export default {
           }}
           fileList={this.videoList}
           limit={3}
-          accept="audio/*"
+          accept="video/*"
           class={styles.upload}
           {...{
             props: {

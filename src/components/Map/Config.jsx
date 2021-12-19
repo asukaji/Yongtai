@@ -25,7 +25,17 @@ export default {
         enableHighAccuracy: true, //是否使用高精度定位，默认:true
         timeout: 102400, //超过10秒后停止定位，默认：5s
         showButton: false, //显示定位按钮，默认：true
-        zoomToAccuracy: true //定位成功后是否自动调整地图视野到定位点
+        zoomToAccuracy: true, //定位成功后是否自动调整地图视野到定位点
+        showCircle: true,
+        circleOptions: {
+          strokeColor: '#0093FF',
+          noSelect: true,
+          strokeOpacity: 0.5,
+          strokeWeight: 1,
+          fillColor: '#02B0FF',
+          fillOpacity: 0.25,
+          radius: 500
+        }
       });
 
       this.geocoder = new AMap.Geocoder({

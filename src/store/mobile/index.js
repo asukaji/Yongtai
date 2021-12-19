@@ -11,8 +11,10 @@ export default {
     location: undefined,
     projects: undefined,
     projectId: undefined,
+    projectPosition: undefined,
     imgList: [],
     videoList: [],
     records: undefined,
+    remark: ''
   }
 };

@@ -28,7 +28,7 @@ export default {
     videoList() {
       return _.filter(
         this.fileList,
-        ({ fileType }) => fileType !== '.png' || fileType !== '.jpg'
+        ({ fileType }) => fileType !== '.png' && fileType !== '.jpg'
       );
     }
   },
@@ -45,7 +45,7 @@ export default {
         </div>
         <h4>视频</h4>
         <div class={styles.container}>
-          {_.map(this.imgList, ({ filePath }) => (
+          {_.map(this.videoList, ({ filePath }) => (
             <video src={filePath} controls />
           ))}
         </div>

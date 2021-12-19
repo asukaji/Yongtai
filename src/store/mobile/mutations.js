@@ -12,6 +12,11 @@ export function setProjectId(state, id) {
   state.projectId = id;
 }
 
+export function setProjectPosition(state, position) {
+  state.projectPosition = position;
+}
+
+
 export function setFileList(state, [filePath, type]) {
   if (type === 'img') {
     state.imgList = _.concat([], state.imgList, {
@@ -32,5 +37,9 @@ export function clearFileList(state) {
 }
 
 export function setRecords(state, [records, id]) {
-  _.assign(state.records, { [id]: records });
+  state.records = _.assign(state.records, { [id]: records });
+}
+
+export function setRemark(state, remark) {
+  state.remark = remark;
 }

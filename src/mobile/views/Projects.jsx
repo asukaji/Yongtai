@@ -6,6 +6,8 @@ import { fetchUserProjects } from '@/api';
 import { mapState, mapMutations } from 'vuex';
 import _ from 'lodash';
 
+import { POSITION } from '@/constants';
+
 export default {
   name: 'Projects',
 
@@ -18,12 +20,19 @@ export default {
   },
 
   methods: {
-    ...mapMutations('mobile', ['setProjects', 'setProjectId', 'clearFileList']),
+    ...mapMutations('mobile', [
+      'setProjects',
+      'setProjectId',
+      'clearFileList',
+      'setProjectPosition'
+    ]),
 
-    onClick(id) {
+    onClick(id, position) {
       this.setProjectId(id);
+      this.setProjectPosition(position);
       this.clearFileList();
 
+      localStorage.setItem(POSITION, position);
       this.$router.push(`/home/${id}`);
     }
   },
@@ -34,16 +43,21 @@ export default {
         <Header />
         <h2>选择项目</h2>
         <div class={styles.list}>
-          {_.map(this.projects, ({ projectName, tags, id }) => (
-            <div onClick={this.onClick.bind(null, id)}>
-              <h3>{projectName}</h3>
-              {_.map(tags, (tag) => (
-                <Tag type="primary" key={tag} size="mini">
-                  {tag}
-                </Tag>
-              ))}
-            </div>
-          ))}
+          {_.map(
+            this.projects,
+            ({ projectName, tags, id, longitudes, latitudes }) => (
+              <div
+                onClick={this.onClick.bind(null, id, [longitudes, latitudes])}
+              >
+                <h3>{projectName}</h3>
+                {_.map(tags, (tag) => (
+                  <Tag type="primary" key={tag} size="mini">
+                    {tag}
+                  </Tag>
+                ))}
+              </div>
+            )
+          )}
         </div>
       </div>
     );

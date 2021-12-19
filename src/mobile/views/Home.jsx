@@ -11,17 +11,18 @@ export default {
     return (
       <keep-alive>
         <div class={styles.home}>
-          <YtMap ref="Map"></YtMap>
-          <div class={styles.back} onClick={() => this.$router.go(-1)}>
-            <img src={IconBack} />
-          </div>
-          <router-link
-            to={`/record/${this.$route.params.id}`}
-            class={styles.record}
-          >
-            打卡记录
-          </router-link>
-          <CheckForm />
+          <YtMap ref="Map">
+            <div class={styles.back} onClick={() => this.$router.go(-1)}>
+              <img src={IconBack} />
+            </div>
+            <router-link
+              to={`/record/${this.$route.params.id}`}
+              class={styles.record}
+            >
+              打卡记录
+            </router-link>
+            <CheckForm />
+          </YtMap>
         </div>
       </keep-alive>
     );
