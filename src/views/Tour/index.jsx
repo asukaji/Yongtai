@@ -3,6 +3,7 @@ import { TourLayer } from '@/components/Map';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
 import Header from '../Header';
+import ChartsDrawer from './ChartsDrawer';
 import styles from './index.module.less';
 
 import { fetchTourList, fetchTourDetail } from '@/api';
@@ -238,50 +239,60 @@ export default {
 
       return (
         <div class={styles.footer}>
-          {this.planings ? <div onClick={this.onSwitchState.bind(null, 'showPlaning')}>
-            <div class={[styles.legend, styles.planing]}>
-              <img src={markerTriangleBlack} />
-              传统村落
-              <pre>{this.planings}项</pre>
+          {this.planings ? (
+            <div onClick={this.onSwitchState.bind(null, 'showPlaning')}>
+              <div class={[styles.legend, styles.planing]}>
+                <img src={markerTriangleBlack} />
+                传统村落
+                <pre>{this.planings}项</pre>
+              </div>
+              <div class={[styles.status, showPlaning && styles.active]} />
             </div>
-            <div class={[styles.status, showPlaning && styles.active]} />
-          </div> : null}
+          ) : null}
 
-          {this.readys ? <div onClick={this.onSwitchState.bind(null, 'showReady')}>
-            <div class={[styles.legend, styles.ready]}>
-              <img src={markerCircleBlue} />
-              重点乡镇
-              <pre>{this.readys}项</pre>
+          {this.readys ? (
+            <div onClick={this.onSwitchState.bind(null, 'showReady')}>
+              <div class={[styles.legend, styles.ready]}>
+                <img src={markerCircleBlue} />
+                重点乡镇
+                <pre>{this.readys}项</pre>
+              </div>
+              <div class={[styles.status, showReady && styles.active]} />
             </div>
-            <div class={[styles.status, showReady && styles.active]} />
-          </div> : null}
+          ) : null}
 
-          {this.workings ? <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
-            <div class={[styles.legend, styles.completed]}>
-              <img src={markerCircleGreen} />
-              风景区
-              <pre>{this.workings}项</pre>
+          {this.workings ? (
+            <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
+              <div class={[styles.legend, styles.completed]}>
+                <img src={markerCircleGreen} />
+                风景区
+                <pre>{this.workings}项</pre>
+              </div>
+              <div class={[styles.status, showWorking && styles.active]} />
             </div>
-            <div class={[styles.status, showWorking && styles.active]} />
-          </div> : null}
+          ) : null}
 
-          {this.completeds ? <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
-            <div class={[styles.legend, styles.planing]}>
-              <img src={markerStarRed} />
-              特色庄寨
-              <pre>{this.completeds}项</pre>
+          {this.completeds ? (
+            <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
+              <div class={[styles.legend, styles.planing]}>
+                <img src={markerStarRed} />
+                特色庄寨
+                <pre>{this.completeds}项</pre>
+              </div>
+              <div class={[styles.status, showCompleted && styles.active]} />
             </div>
-            <div class={[styles.status, showCompleted && styles.active]} />
-          </div> : null}
+          ) : null}
 
-          {this.pendings ? <div onClick={this.onSwitchState.bind(null, 'showPending')}>
-            <div class={[styles.legend, styles.working]}>
-              <img src={markerCircleOrange} />
-              重点项目
-              <pre>{this.pendings}项</pre>
+          {this.pendings ? (
+            <div onClick={this.onSwitchState.bind(null, 'showPending')}>
+              <div class={[styles.legend, styles.working]}>
+                <img src={markerCircleOrange} />
+                重点项目
+                <pre>{this.pendings}项</pre>
+              </div>
+              <div class={[styles.status, showPending && styles.active]} />
             </div>
-            <div class={[styles.status, showPending && styles.active]} />
-          </div> : null}
+          ) : null}
         </div>
       );
     }
@@ -290,7 +301,9 @@ export default {
   render() {
     return (
       <div class={styles.home}>
-        <Header />
+        <Header>
+          <ChartsDrawer />
+        </Header>
         <YtMap onMapClick={this.onMapClick}>
           {this.renderProjects()}
           {this.renderText()}

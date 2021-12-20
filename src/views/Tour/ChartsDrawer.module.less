@@ -1,0 +1,55 @@
+.drawer {
+  :global .el-drawer {
+    width: 480px !important;
+    height: 78%;
+    margin: auto 0;
+    padding: 8px 20px;
+
+    h4 {
+      position: relative;
+      margin: 0 0 10px 10px;
+      font-weight: normal;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: -10px;
+        top: 0;
+        height: 100%;
+        border-left: 2px solid #0078ff;
+      }
+    }
+
+    .el-drawer__body {
+      & > div {
+        padding: 10px 0;
+      }
+      & > div + div {
+        border-top: 1px solid #ddd;
+      }
+    }
+
+    :local .panel {
+      display: flex;
+      padding: 0 8px;
+    }
+
+    :local .panelItem {
+      flex: 1;
+
+      :global pre {
+        font-size: 18px;
+        font-weight: 800;
+        color: #0078ff;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -20px;
+}

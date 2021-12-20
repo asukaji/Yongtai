@@ -41,7 +41,7 @@ const routeTitleMap = new Map([
   ['business.task.unit', '招商管理'],
   ['business.task.town', '招商管理'],
   ['business.task.street', '招商管理'],
-  ['Home', process.env.VUE_APP_TITLE],
+  ['Home', process.env.VUE_APP_TITLE]
 ]);
 
 export default {
@@ -49,17 +49,24 @@ export default {
 
   computed: {
     title() {
-      return routeTitleMap.get(this.$route.name) ?? this.$route.params?.name ?? this.$route.name;
+      return (
+        routeTitleMap.get(this.$route.name) ??
+        this.$route.params?.name ??
+        this.$route.name
+      );
     }
   },
 
   render() {
     return (
       <div class={styles.header}>
-        {this.$route.name === 'Home' ? null : <div class="img" onClick={() => this.$router.go(-1)}>
-          <img src={IconBack} />
-        </div>}
+        {this.$route.name === 'Home' ? null : (
+          <div class="img" onClick={() => this.$router.go(-1)}>
+            <img src={IconBack} />
+          </div>
+        )}
         {this.title}
+        {this.$slots.default}
       </div>
     );
   }
