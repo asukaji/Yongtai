@@ -35,8 +35,7 @@ export default {
           // onBeforeClose={console.log}
           {...{
             props: {
-              'visible.sync': this.state.visible,
-              onClose: () => console.log(2)
+              'visible.sync': this.state.visible
             }
           }}
         >

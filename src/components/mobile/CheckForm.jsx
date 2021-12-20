@@ -7,7 +7,7 @@ import { mapState, mapMutations } from 'vuex';
 import { check } from '@/api';
 import _ from 'lodash';
 
-import { POSITION } from '@/constants';
+// import { POSITION } from '@/constants';
 import upload from '@/assets/Icon/icon-upload.png';
 
 const rules = {
@@ -83,19 +83,20 @@ export default {
         return;
       }
 
-      const distance = AMap.GeometryUtil.distance(
-        this.position,
-        this.projectPosition ?? localStorage.getItem(POSITION).split(',')
-      );
+      // HACK 取消打卡范围判定
+      // const distance = AMap.GeometryUtil.distance(
+      //   this.position,
+      //   this.projectPosition ?? localStorage.getItem(POSITION).split(',')
+      // );
 
-      if (distance > 50) {
-        this.$message({
-          message: `不在打卡范围内，距离打卡点${distance}m`,
-          type: 'error'
-        });
+      // if (distance > 50) {
+      //   this.$message({
+      //     message: `不在打卡范围内，距离打卡点${distance}m`,
+      //     type: 'error'
+      //   });
 
-        return;
-      }
+      //   return;
+      // }
 
       if (_.size(this.fileList) === 0) {
         this.$message({
@@ -115,7 +116,9 @@ export default {
               area: this.location,
               fileList: this.fileList,
               projectId: this.$route.params.id,
-              remark: this.form.remark
+              remark: this.form.remark,
+              longitudes: this.position[0],
+              latitudes: this.position[1]
             });
 
             this.$message({
