@@ -64,17 +64,30 @@ export default {
             </div>
           </div>
           <div>
-            <h4>本月人流趋势</h4>
-            <VChart option={tourLineOptions} style={{ height: '150px' }} />
+            <h4>
+              本月人流趋势
+              <pre
+                style={{
+                  float: 'right',
+                  margin: '0 540px 0 0',
+                  color: '#aaa',
+                  lineHeight: 2
+                }}
+              >
+                单位：人次
+              </pre>
+            </h4>
+
+            <VChart option={tourLineOptions} style={{ height: '200px' }} />
           </div>
           <div class={styles.panel}>
             <div class={styles.panelItem}>
               <h4>性别占比</h4>
-              <VChart option={tourSexPieOptions} style={{ height: '120px' }} />
+              <VChart option={tourSexPieOptions} style={{ height: '110px' }} />
             </div>
             <div class={styles.panelItem}>
               <h4>年龄占比</h4>
-              <VChart option={tourAgePieOptions} style={{ height: '120px' }} />
+              <VChart option={tourAgePieOptions} style={{ height: '110px' }} />
             </div>
           </div>
           <div>

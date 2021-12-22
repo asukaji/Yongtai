@@ -583,8 +583,8 @@ export const tourLineOptions = _.defaults({
     data: ['去年月份同比', '当前月份情况']
   },
   grid: {
-    top: 20,
-    bottom: 20,
+    top: 32,
+    bottom: 18,
     left: 0,
     right: 0,
   },
