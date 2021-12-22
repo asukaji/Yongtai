@@ -415,10 +415,17 @@ export default {
             )}
           </div>
 
-          {step === 1 || step === 2 ? <SignList id={activeProject?.id} step={step} onChangeStep={this.setStep.bind(null, step + 1)} /> : null}
+          {step === 1 || step === 2 ? (
+            <SignList
+              id={activeProject?.id}
+              step={step}
+              onChangeStep={this.setStep.bind(null, step + 1)}
+            />
+          ) : null}
           {step === 1.1 ? (
             <CreateMeeting
               id={activeProject?.id}
+              name={activeProject?.title}
               contacts={activeProject?.contacts}
             />
           ) : null}

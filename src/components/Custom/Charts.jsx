@@ -32,13 +32,18 @@ export default {
   },
 
   render() {
-    return <div class={styles.container}>
-      {
-        _.map(this.values, ({title, option, type, cards }) => (
+    return (
+      <div class={styles.container}>
+        {_.map(this.values, ({ title, option, type, cards, pre }) => (
           <div class={styles.chart} key={title}>
-            <h3>{title}</h3>
-            {
-              type === 'card' ? <div class={styles.cards}>
+            {title && (
+              <h3>
+                {title}
+                {pre && <pre>{pre}</pre>}
+              </h3>
+            )}
+            {type === 'card' ? (
+              <div class={styles.cards}>
                 {_.map(cards, ({ name, value }) => (
                   <div>
                     <p>{name}</p>
@@ -46,13 +51,15 @@ export default {
                   </div>
                 ))}
               </div>
-                :<VChart option={option}  style={{height: '120px', marginTop: '12px'}} />
-            }
-            
+            ) : (
+              <VChart
+                option={option}
+                style={{ height: '120px', marginTop: '12px' }}
+              />
+            )}
           </div>
-        ))
-      }
-      
-    </div>;
+        ))}
+      </div>
+    );
   }
 };

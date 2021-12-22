@@ -13,8 +13,8 @@ import VueTypes from 'vue-types';
 import _ from 'lodash';
 
 const rules = {
-  meeting: [{ required: true, message: '请输入会议主题' }],
-  initiator: [{ required: true, message: '请输入会议发起人' }],
+  // meeting: [{ required: true, message: '请输入会议主题' }],
+  // initiator: [{ required: true, message: '请输入会议发起人' }],
   userIds: [{ required: true, message: '请选择参会人员' }]
 };
 
@@ -24,7 +24,9 @@ export default {
   props: {
     id: VueTypes.string.def(),
 
-    contacts: VueTypes.array.def([])
+    contacts: VueTypes.array.def([]),
+
+    name: VueTypes.string.def()
   },
 
   data() {
@@ -48,6 +50,15 @@ export default {
       handler() {
         this.form.userIds = _.map(this.contacts, 'userId');
       }
+    },
+
+    name: {
+      immediate: true,
+
+      handler(name) {
+        this.form.meeting = name;
+        this.form.initiator = name;
+      }
     }
   },
 
@@ -66,7 +77,11 @@ export default {
     async onJoin() {
       this.state.loading = true;
       try {
-        this.state.href = await createMeeting(this.form);
+        this.state.href = await createMeeting({
+          meeting: this.form.meeting || this.name,
+          initiator: this.form.initiator || this.name,
+          userIds: this.form.userIds
+        });
       } catch (err) {
         this.state.href = undefined;
       } finally {
@@ -99,10 +114,13 @@ export default {
             }}
           >
             <FormItem label="会议主题" prop="meeting">
-              <Input vModel={this.form.meeting} />
+              <Input vModel={this.form.meeting} placeholder="请输入会议主题" />
             </FormItem>
             <FormItem label="会议发起人" prop="initiator">
-              <Input vModel={this.form.initiator} />
+              <Input
+                vModel={this.form.initiator}
+                placeholder="请输入会议发起人"
+              />
             </FormItem>
             <FormItem label="参会人员" prop="userIds">
               <CheckboxGroup vModel={this.form.userIds}>

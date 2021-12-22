@@ -1,9 +1,16 @@
 import { Drawer, Button } from 'element-ui';
 import { Fragment } from 'vue-fragment';
+import VChart from 'vue-echarts';
 import styles from './ChartsDrawer.module.less';
 
 import iconMoney from '@/assets/Icon/icon-money.png';
 import iconTicket from '@/assets/Icon/icon-ticket.png';
+
+import {
+  tourLineOptions,
+  tourSexPieOptions,
+  tourAgePieOptions
+} from '@/constants';
 
 export default {
   name: 'ChartsDrawer',
@@ -14,6 +21,12 @@ export default {
         visible: false
       }
     };
+  },
+
+  methods: {
+    close() {
+      this.state.visible = false;
+    }
   },
 
   render() {
@@ -30,14 +43,11 @@ export default {
         <Drawer
           title="charts"
           appendToBody
+          visible={this.state.visible}
           withHeader={false}
           class={styles.drawer}
-          // onBeforeClose={console.log}
-          {...{
-            props: {
-              'visible.sync': this.state.visible
-            }
-          }}
+          // modal={false}
+          beforeClose={this.close}
         >
           <div class={styles.panel}>
             <div class={styles.panelItem}>
@@ -55,45 +65,48 @@ export default {
           </div>
           <div>
             <h4>本月人流趋势</h4>
+            <VChart option={tourLineOptions} style={{ height: '150px' }} />
           </div>
           <div class={styles.panel}>
             <div class={styles.panelItem}>
               <h4>性别占比</h4>
+              <VChart option={tourSexPieOptions} style={{ height: '120px' }} />
             </div>
             <div class={styles.panelItem}>
               <h4>年龄占比</h4>
+              <VChart option={tourAgePieOptions} style={{ height: '120px' }} />
             </div>
           </div>
           <div>
             <h4>经济数据统计</h4>
             <div class={styles.panel}>
-              <div class={styles.panelItem}>
+              <div class={styles.panelItems}>
                 <div>
                   <img src={iconMoney} />
                   <pre>{'年度票\n务总收入'}</pre>
                 </div>
                 <div class={styles.statistic}>
-                  <p>56.6463</p>
-                  <p>万元</p>
+                  <p>30.29</p>
+                  <p>亿元</p>
                 </div>
               </div>
-              <div class={styles.panelItem}>
+              <div class={styles.panelItems}>
                 <div>
                   <img src={iconTicket} />
                   <pre>{'人均消\n费'}</pre>
                 </div>
                 <div class={styles.statistic}>
-                  <p>56.6463</p>
-                  <p>万元</p>
+                  <p>450</p>
+                  <p>元</p>
                 </div>
               </div>
-              <div class={styles.panelItem}>
+              <div class={styles.panelItems}>
                 <div>
                   <img src={iconTicket} />
                   <pre>{'年度票\n务'}</pre>
                 </div>
                 <div class={styles.statistic}>
-                  <p>56.6463</p>
+                  <p>373907</p>
                   <p>万元</p>
                 </div>
               </div>
