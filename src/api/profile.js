@@ -34,13 +34,14 @@ export function fetchProjectList() {
     planing: result.zhengQian,
     list: _.map(
       _.concat(result.junGongList, result.kaiGongList, result.zaiJianList, result.zhengQianList),
-      ({ id, latitudes, longitudes, projectName, projectType, tags, imp }) => ({
+      ({ id, latitudes, longitudes, projectName, projectType, tags, imp, model }) => ({
         id,
         position: [longitudes, latitudes],
         title: projectName,
         type: projectType,
         tags,
-        imp
+        imp: imp.split(','),
+        model
       })
     )
   }));
@@ -51,7 +52,7 @@ export function fetchProjectList() {
  * @param {*} projectId
  */
 export function fetchProjectSignList(projectId, pageNo = 1, pageSize = 500) {
-  return instance.get('/project/sign/list', { 
+  return instance.get('/project/sign/list', {
     params: {
       projectId,
       pageNo,

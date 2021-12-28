@@ -18,16 +18,18 @@ export default {
       <div class={styles.paragraph}>
         <h2>{value.title}</h2>
         <pre>{value.pre}</pre>
-        <div class={styles.indicator}>
-          {_.map(value.indicator.list, ({ name, icon, text }) => (
-            <div>
-              <img src={icon} />
-              <h3>{name}</h3>
-              <pre>{text}</pre>
-            </div>
-          ))}
-        </div>
-        <p>{value.indicator.text}</p>
+        {value.indicator ? (
+          <div class={styles.indicator}>
+            {_.map(value.indicator?.list, ({ name, icon, text }) => (
+              <div>
+                <img src={icon} />
+                <h3>{name}</h3>
+                <pre>{text}</pre>
+              </div>
+            ))}
+          </div>
+        ) : null}
+        {value.indicator ? <p>{value.indicator.text}</p> : null}
         <Charts values={value.charts} />
       </div>
     );

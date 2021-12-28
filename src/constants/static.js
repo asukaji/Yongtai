@@ -739,3 +739,155 @@ export const tourAgePieOptions = _.defaults({
   ],
   color: ['#00AFFF', '#00FFED', '#7200FF']
 }, basicOptions, {});
+
+export const geothermal = {
+  title: '地热情况',
+  pre: 'Geothermal Conditions',
+  charts: [
+    {
+      title: '电站总装机容量TOP3',
+      option: _.defaults({
+        legend: {
+          show: false
+        },
+        xAxis: {
+          type: 'category',
+          axisTick: { show: false },
+          axisLine: { show: false },
+          splitLine: { show: false },
+          data: ['丹云大\n湖电站', '马头台\n电站', '富泉溪三级\n水电站']
+        },
+        grid: {
+          top: 20,
+          bottom: 20,
+          left: 30
+        },
+        series: [
+          {
+            type: 'bar',
+            data: [18, 22, 29]
+          }
+        ],
+        color: ['#FF5816']
+      }, basicOptions, {})
+    },
+    {
+      title: '年发电量（千瓦时）TOP3',
+      // pre: '单位：%',
+      option: _.defaults({
+        legend: {
+          show: true
+        },
+        xAxis: {
+          show: false
+        },
+        yAxis: {
+          show: false
+        },
+        series: [
+          {
+            type: 'pie',
+            label: {
+              show: true,
+              position: 'inside',
+            },
+            data: [57.1, 18.9, 15.3, 8.7],
+            radius: ['70%', '80%'],
+            labelLine: {
+              show: false
+            },
+          }
+        ],
+        color: ['#FF6C60', '#FFCB3F', '#1AE1D9', '#EAEAEA']
+      }, basicOptions, {})
+    },
+    {
+      title: '流域面积 TOP10',
+      pre: '单位：平方',
+      option: _.defaults({
+        legend: {
+          show: false
+        },
+        yAxis: {
+          show: false
+        },
+        xAxis: {
+          type: 'category',
+          axisTick: { show: false },
+          axisLine: { show: false },
+          splitLine: { show: false },
+          data: ['丹云大\n湖电站', '马头台\n电站', '富泉溪三级\n水电站']
+        },
+        grid: {
+          top: 20,
+          bottom: 20,
+          left: 30
+        },
+        series: [
+          {
+            type: 'bar',
+            data: [18, 22, 29]
+          }
+        ],
+        color: ['#FF5816']
+      }, basicOptions, {})
+    },
+    {
+      title: '河道长度TOP3',
+      option: _.defaults({
+        legend: {
+          show: false
+        },
+        xAxis: {
+          type: 'category',
+          axisTick: { show: false },
+          axisLine: { show: false },
+          splitLine: { show: false },
+          data: ['丹云大\n湖电站', '马头台\n电站', '富泉溪三级\n水电站']
+        },
+        grid: {
+          top: 20,
+          bottom: 20,
+          left: 30
+        },
+        series: [
+          {
+            type: 'bar',
+            data: [18, 22, 29]
+          }
+        ],
+        color: ['#FF5816']
+      }, basicOptions, {})
+    },
+    {
+      title: '电站总装机容量TOP4',
+      // pre: '单位：%',
+      option: _.defaults({
+        legend: {
+          show: true
+        },
+        xAxis: {
+          show: false
+        },
+        yAxis: {
+          show: false
+        },
+        series: [
+          {
+            type: 'pie',
+            label: {
+              show: true,
+              position: 'inside',
+            },
+            data: [57.1, 18.9, 15.3, 8.7],
+            radius: ['70%', '80%'],
+            labelLine: {
+              show: false
+            },
+          }
+        ],
+        color: ['#FF6C60', '#FFCB3F', '#1AE1D9', '#EAEAEA']
+      }, basicOptions, {})
+    },
+  ]
+};

@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import Viewer from 'v-viewer';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'viewerjs/dist/viewer.css';
+import 'csshake/dist/csshake.css';
 import Vuex from 'vuex';
 
 import AmapVue from '@amap/amap-vue';

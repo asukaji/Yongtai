@@ -1,7 +1,7 @@
 import { Card } from 'element-ui';
 import styles from './Profile.module.less';
 
-import { fetchIndustry } from '@/api';
+import { fetchIndustry, fetchLatestDate } from '@/api';
 
 import { ECONOMY_DETAIL } from '@/constants';
 import bgCard1 from '@/assets/Bg/bg-card1.png';
@@ -16,11 +16,24 @@ import bgCard9 from '@/assets/Bg/bg-card9.png';
 import bgCard10 from '@/assets/Bg/bg-card10.png';
 import bgCard11 from '@/assets/Bg/bg-card11.png';
 
-const backgrounds = [bgCard1, bgCard2, bgCard3, bgCard4, bgCard5, bgCard6, bgCard6, bgCard7, bgCard8, bgCard9, bgCard10, bgCard11];
+const backgrounds = [
+  bgCard1,
+  bgCard2,
+  bgCard3,
+  bgCard4,
+  bgCard5,
+  bgCard6,
+  bgCard6,
+  bgCard7,
+  bgCard8,
+  bgCard9,
+  bgCard10,
+  bgCard11
+];
 
 const nameMap = new Map([
   ['规模以上工业完成情况', '规上工业'],
-  ['全社会消费品零售总额 ', '社零'],
+  ['全社会消费品零售总额 ', '社零']
 ]);
 
 export default {
@@ -29,31 +42,26 @@ export default {
   data() {
     return {
       state: {
+        date: undefined,
         cards: []
       }
     };
   },
 
-  mounted() {
-    this.fetchData(2);
-  },
-
-  methods: {
-    async fetchData(month = 2) {
-      try {
-        this.state.cards = await fetchIndustry(month);
-      } catch(err) {
-        this.fetchData(month + 1);
-      }
-    }
+  async mounted() {
+    this.state.date = await fetchLatestDate();
+    this.state.cards = await fetchIndustry(2, this.state.date);
   },
 
   render() {
     return (
       <div class={styles.cards}>
         {this.state.cards.map(({ name, rate, cumulative, unit, id }, index) => (
-          <router-link to={{ name: ECONOMY_DETAIL, params: { name, id }}}>
-            <Card key={id} style={{ backgroundImage: `url(${backgrounds[index]})` }} >
+          <router-link to={{ name: ECONOMY_DETAIL, params: { name, id } }}>
+            <Card
+              key={id}
+              style={{ backgroundImage: `url(${backgrounds[index]})` }}
+            >
               <h3>{nameMap.get(name) ?? name}</h3>
               <div class={styles.data}>
                 <div>

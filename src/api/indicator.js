@@ -13,10 +13,10 @@ function formatDate(month) {
 /**
  * 经济指标一级页面（指标总览页）
  */
-export function fetchIndustry(month = 2) {
+export function fetchIndustry(month = 2, date) {
   return instance
     .post('/indicatorBreakdown/queryIndustryNameList', {
-      date: formatDate(month),
+      date: date ?? formatDate(month),
       area: '永泰县',
       state: '1'
     })
@@ -63,6 +63,17 @@ export function fetchIndustryInstrumentById(industryId) {
   return instance
     .post('/indicators/queryInstrumentPanel', {
       industryId,
+      area: '永泰县'
+    })
+    .then(({ data }) => data);
+}
+
+/**
+ * 获取最新的月份
+ */
+export function fetchLatestDate() {
+  return instance
+    .post('/indicatorBreakdown/queryHaveValue', {
       area: '永泰县'
     })
     .then(({ data }) => data);

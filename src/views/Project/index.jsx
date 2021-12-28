@@ -2,17 +2,24 @@ import YtMap from '@/components/YtMap';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { StreetsPolygon } from '@/components/Map';
 import ProjectsModal from './ProjectsModal';
-import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
-import ProjectFilter from './ProjectFilter';
+import {
+  ParagraphModal,
+  FooterTabs,
+  Search,
+  Switcher
+} from '@/components/Custom';
+// import ProjectFilter from './ProjectFilter';
 import SignList from './SignList';
 import CreateMeeting from './CreateMeeting';
 import Header from '../Header';
+import { Tabs, TabPane } from 'element-ui';
 import styles from './index.module.less';
 
 import { fetchProjectList, fetchProjectDetail } from '@/api';
 import { validPosition } from '@/utils';
 import _ from 'lodash';
 
+import markerModel from '@/assets/MapPlugin/marker-model.png';
 import markerCircle from '@/assets/MapPlugin/marker-circle.png';
 import markerDiamond from '@/assets/MapPlugin/marker-diamond.png';
 import markerStar from '@/assets/MapPlugin/marker-star.png';
@@ -34,8 +41,9 @@ export default {
         showCompleted: true,
         infoVisible: false,
         infoWindowContent: undefined,
-        filter: ['province', 'city'],
+        filter: ['province', 'city', 'other'],
         activeProject: undefined,
+        tab: 'default',
         step: 0
       }
     };
@@ -82,7 +90,22 @@ export default {
         : [];
     },
 
+    filterDefaultProjects() {
+      return _.filter(
+        _.concat(
+          [],
+          this.showProvince ? this.provinceProjects : [],
+          this.showCity ? this.cityProjects : [],
+          this.showOther ? this.otherProjects : []
+        ),
+        ({ position }) => validPosition(position)
+      );
+    },
+
     filterProjects() {
+      if (this.isDefault) {
+        return this.filterDefaultProjects;
+      }
       return _.filter(
         [
           ...this.planingProjects,
@@ -94,20 +117,38 @@ export default {
       );
     },
 
+    showProvince() {
+      return _.includes(this.state.filter, 'province');
+    },
+
+    showCity() {
+      return _.includes(this.state.filter, 'city');
+    },
+
+    showOther() {
+      return _.includes(this.state.filter, 'other');
+    },
+
     provinceProjects() {
-      return _.includes(this.state.filter, 'province')
-        ? _.filter(this.filterProjects, ({ imp }) => imp === 2)
-        : [];
+      return _.filter(this.projects?.list, ({ imp }) => _.includes(imp, '2'));
     },
 
     cityProjects() {
-      return _.includes(this.state.filter, 'city')
-        ? _.filter(this.filterProjects, ({ imp }) => imp === 1)
-        : [];
+      return _.filter(this.projects?.list, ({ imp }) => _.includes(imp, '1'));
+    },
+
+    otherProjects() {
+      return _.filter(this.projects?.list, ({ imp }) => _.includes(imp, '3'));
     },
 
     filterTexts() {
-      return [...this.provinceProjects, ...this.cityProjects];
+      return this.isDefault
+        ? this.filterDefaultProjects
+        : [...this.provinceProjects, ...this.cityProjects];
+    },
+
+    isDefault() {
+      return this.state.tab === 'default';
     }
   },
 
@@ -116,11 +157,21 @@ export default {
   },
 
   methods: {
-    onSwitchState(stateName) {
+    onSwitchState(stateName, value) {
       this.onMapClick();
       this.$refs.ProjectsModal.close();
 
-      _.assign(this.state, { [stateName]: !this.state[stateName] });
+      const originValue = this.state[stateName];
+
+      if (_.isString(value)) {
+        _.assign(this.state, {
+          [stateName]: _.includes(originValue, value)
+            ? _.filter(originValue, (v) => v !== value)
+            : _.concat(originValue, value)
+        });
+      } else {
+        _.assign(this.state, { [stateName]: !originValue });
+      }
     },
 
     onMarkerClick(id, title, position) {
@@ -174,7 +225,11 @@ export default {
       event?.preventDefault();
       event?.stopPropagation();
 
-      if (!this.state[_.camelCase(`show_${stateName}`)] || !hasProjects) {
+      if (
+        (!this.state[_.camelCase(`show_${stateName}`)] &&
+          !this[_.camelCase(`show_${stateName}`)]) ||
+        !hasProjects
+      ) {
         return;
       }
 
@@ -214,13 +269,37 @@ export default {
     },
 
     renderProjects() {
-      return _.map(this.filterProjects, ({ position, title, id, type }) => (
-        <Marker
-          position={position}
-          icon={this.iconType(type)}
-          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
-        />
-      ));
+      const projects = new Set();
+
+      return _.map(
+        this.filterProjects,
+        ({ position, title, id, type, model }) => {
+          if (projects.has(id)) {
+            return null;
+          } else {
+            projects.add(id);
+
+            return (this.isDefault && model) === '1' ? (
+              <Marker
+                key={`${id}.${this.isDefault}.${model}`}
+                position={position}
+                onClick={this.onMarkerNextClick.bind(null, id, title, position)}
+              >
+                <div class={[styles.markerModel, 'shake', 'shake-constant']}>
+                  <img src={markerModel} />
+                </div>
+              </Marker>
+            ) : (
+              <Marker
+                key={`${id}.${this.isDefault}.${model}`}
+                position={position}
+                icon={this.iconType(type)}
+                onClick={this.onMarkerNextClick.bind(null, id, title, position)}
+              />
+            );
+          }
+        }
+      );
     },
 
     colorType(type) {
@@ -237,23 +316,95 @@ export default {
     },
 
     renderText() {
-      return _.map(this.filterTexts, ({ position, title, id, type }) => (
-        <Text
-          position={position}
-          text={title}
-          offset={[20, -2]}
-          domStyle={{
-            color: this.colorType(type),
-            width: '120px',
-            // overflow: 'hidden',
-            // whiteSpace: 'nowrap',
-            // textOverflow: 'ellipsis',
-            fontWeight: 'bolder',
-            fontSize: '15px'
-          }}
-          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
-        />
-      ));
+      const projects = new Set();
+
+      return _.map(this.filterTexts, ({ position, title, id, type, model }) => {
+        if (projects.has(id)) {
+          return null;
+        } else {
+          projects.add(id);
+
+          return (
+            <Text
+              position={position}
+              text={title}
+              offset={model && this.isDefault ? [-45, 20] : [20, -2]}
+              domStyle={{
+                color:
+                  model && this.isDefault ? '#FB3F62' : this.colorType(type),
+                width: '120px',
+                // overflow: 'hidden',
+                // whiteSpace: 'nowrap',
+                // textOverflow: 'ellipsis',
+                fontWeight: 'bolder',
+                fontSize: '15px'
+              }}
+              onClick={this.onMarkerNextClick.bind(null, id, title, position)}
+            />
+          );
+        }
+      });
+    },
+
+    renderDefaultFooter() {
+      const {
+        showProvince,
+        showCity,
+        showOther,
+        provinceProjects,
+        cityProjects,
+        otherProjects
+      } = this;
+
+      return (
+        <div class={styles.footer}>
+          <div onClick={this.onSwitchState.bind(null, 'filter', 'province')}>
+            <div class={[styles.legend, showProvince && styles.planing]}>
+              省重点项目
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!_.size(provinceProjects),
+                  'province'
+                )}
+              >
+                {_.size(provinceProjects)}项
+              </pre>
+            </div>
+            <Switcher value={showProvince} />
+          </div>
+          <div onClick={this.onSwitchState.bind(null, 'filter', 'city')}>
+            <div class={[styles.legend, showCity && styles.ready]}>
+              市重点项目
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!_.size(cityProjects),
+                  'city'
+                )}
+              >
+                {_.size(cityProjects)}项
+              </pre>
+            </div>
+            <Switcher value={showCity} />
+          </div>
+          <div onClick={this.onSwitchState.bind(null, 'filter', 'other')}>
+            <div class={[styles.legend, showOther && styles.working]}>
+              倍增计划项目
+              <pre
+                onClick={this.onStateClick.bind(
+                  null,
+                  !!_.size(otherProjects),
+                  'other'
+                )}
+              >
+                {_.size(otherProjects)}项
+              </pre>
+            </div>
+            <Switcher value={showOther} />
+          </div>
+        </div>
+      );
     },
 
     renderFooter() {
@@ -275,7 +426,7 @@ export default {
                 {this.projects?.planing ?? 0}项
               </pre>
             </div>
-            <div class={[styles.status, showPlaning && styles.active]} />
+            <Switcher value={showPlaning} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showReady')}>
@@ -292,7 +443,7 @@ export default {
                 {this.projects?.ready ?? 0}项
               </pre>
             </div>
-            <div class={[styles.status, showReady && styles.active]} />
+            <Switcher value={showReady} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
@@ -309,13 +460,7 @@ export default {
                 {this.projects?.working ?? 0}项
               </pre>
             </div>
-            <div
-              class={[
-                styles.status,
-                showWorking && styles.active,
-                styles.inverse
-              ]}
-            />
+            <Switcher value={showWorking} />
           </div>
 
           <div onClick={this.onSwitchState.bind(null, 'showCompleted')}>
@@ -332,13 +477,7 @@ export default {
                 {this.projects?.completed ?? 0}项
               </pre>
             </div>
-            <div
-              class={[
-                styles.status,
-                showCompleted && styles.active,
-                styles.inverse
-              ]}
-            />
+            <Switcher value={showCompleted} />
           </div>
         </div>
       );
@@ -376,10 +515,19 @@ export default {
             options={this.filterProjects}
             onClick={this.onSearchClick}
           />
-          <ProjectFilter onChange={this.onFilterChange} />
+          {/* <ProjectFilter onChange={this.onFilterChange} /> */}
           <ProjectsModal ref="ProjectsModal" onClick={this.onSearchClick} />
 
-          <FooterTabs>{this.renderFooter()}</FooterTabs>
+          <FooterTabs>
+            <Tabs vModel={this.state.tab} type="card" class={styles.tabs}>
+              <TabPane label="默认" name="default">
+                {this.renderDefaultFooter()}
+              </TabPane>
+              <TabPane label="按项目阶段" name="timeline">
+                {this.renderFooter()}
+              </TabPane>
+            </Tabs>
+          </FooterTabs>
         </YtMap>
 
         <ParagraphModal
