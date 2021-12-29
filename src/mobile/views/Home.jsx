@@ -15,7 +15,8 @@ export default {
     ...mapState('mobile', ['projects', 'projectId', 'projectPosition']),
 
     projectName() {
-      return this.projects.find(({ id }) => id === this.projectId)?.projectName;
+      return this.projects?.find(({ id }) => id === this.projectId)
+        ?.projectName;
     }
   },
 

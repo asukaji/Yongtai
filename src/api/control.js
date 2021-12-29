@@ -1,5 +1,5 @@
 import { createInstance } from './utils';
-import { staticPath } from '.';
+// import { staticPath } from '.';
 
 const instance = createInstance({
   baseURL: `${process.env.VUE_APP_BASE_URL}/xiangcun/ducha`
@@ -25,7 +25,7 @@ export function fetchRanges(startDate, endDate) {
 export function fetchControlContentById(id) {
   return instance.get(`/weeklyDetail/${id}`).then(({ result }) => ({
     ...result,
-    PDFPath: `${staticPath}${result.PDFPath}`,
-    fileList: result.fileList.map(({ path }) => `${staticPath}${path}`)
+    PDFPath: result.PDFPath,
+    fileList: result.fileList.map(({ path }) => path)
   }));
 }

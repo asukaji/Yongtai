@@ -26,7 +26,9 @@ export default {
         loading: false
       },
       form: {
-        remark: ''
+        remark: '',
+        nextPlan: '',
+        troubles: ''
       },
       counter: undefined
     };
@@ -172,11 +174,28 @@ export default {
         >
           <FormItem label="我的位置">{this.location ?? '--'}</FormItem>
           <FormItem label="拍照/小视频">{this.renderCamera()}</FormItem>
-          <FormItem label="备注（必填）" prop="remark">
+          <FormItem label="项目进展情况" prop="remark">
             <Input
               vModel={this.form.remark}
               placeholder="请输入内容"
               type="textarea"
+              rows={1}
+            />
+          </FormItem>
+          <FormItem label="存在问题" prop="troubles">
+            <Input
+              vModel={this.form.troubles}
+              placeholder="请输入内容"
+              type="textarea"
+              rows={1}
+            />
+          </FormItem>
+          <FormItem label="下一步计划" prop="nextPlan">
+            <Input
+              vModel={this.form.nextPlan}
+              placeholder="请输入内容"
+              type="textarea"
+              rows={1}
             />
           </FormItem>
           <FormItem>

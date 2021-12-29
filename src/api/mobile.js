@@ -58,3 +58,15 @@ export function fetchUserCheckedRecord(projectId) {
     }
   }).then(({ result: { records } }) => records);
 }
+
+/**
+ * 获取乡村振兴的项目列表
+ */
+export function fetchProjects() {
+  return instance.get('/profession/xiangcun/zxArea/list', {
+    params: {
+      pageNo: 1,
+      pageSize: 500
+    }
+  }).then(({ result }) => result);
+}

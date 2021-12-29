@@ -44,21 +44,40 @@ export default {
   },
 
   methods: {
-    onClick({ row: {fileList} }) {
+    onClick({ row: { fileList } }) {
       this.state.showFileList = true;
       this.fileList = fileList;
       this.$emit('changeStep');
     },
 
     renderFileList() {
-      return (
-        _.size(this.fileList) ?
-          <div style={{ display: 'grid', gridTemplateColumns: '25% 25% 25% 25%', marginTop: '20px', height: '192px', maxHeight: '392px', overflow: 'auto'}}>
-            {_.map(this.fileList, (src) => (
-              <img key={src} src={src} style={{ width: '192px', minWidth: '192px', marginRight: '8px', marginBottom: '8px' }} />
-            ))}
-          </div>
-          : <Empty />
+      return _.size(this.fileList) ? (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '25% 25% 25% 25%',
+            marginTop: '20px',
+            height: '192px',
+            maxHeight: '392px',
+            overflow: 'auto'
+          }}
+        >
+          {_.map(this.fileList, (src) => (
+            <img
+              key={src}
+              src={src}
+              vViewer
+              style={{
+                width: '192px',
+                minWidth: '192px',
+                marginRight: '8px',
+                marginBottom: '8px'
+              }}
+            />
+          ))}
+        </div>
+      ) : (
+        <Empty />
       );
     }
   },
@@ -69,12 +88,7 @@ export default {
     return showFileList ? (
       this.renderFileList()
     ) : (
-      <Table
-        data={list}
-        border
-        height={512}
-        style={{ marginTop: '20px' }}
-      >
+      <Table data={list} border height={512} style={{ marginTop: '20px' }}>
         <TableColumn type="index" label="序号" width="56" />
         <TableColumn prop="createTime" label="打卡日期" />
         <TableColumn prop="userId_dictText" label="打卡人" />

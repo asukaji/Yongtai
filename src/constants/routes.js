@@ -15,7 +15,7 @@ export const homeRoutes = [
   [TOUR, '全域旅游'],
   [PROMOTE, '乡村振兴'],
   [CONTROL, '重点督查'],
-  [VIDEO, '视频连线']
+  // [VIDEO, '视频连线']
 ];
 
 export const PROFILE_TRAFFIC = 'profile.traffic';

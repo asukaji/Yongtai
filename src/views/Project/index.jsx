@@ -285,7 +285,16 @@ export default {
                 position={position}
                 onClick={this.onMarkerNextClick.bind(null, id, title, position)}
               >
-                <div class={[styles.markerModel, 'shake', 'shake-constant']}>
+                <div
+                  class={[
+                    styles.markerModel,
+                    'shake',
+                    'shake-constant',
+                    'shake-little',
+                    'shake-opacity',
+                    'shake-rotate'
+                  ]}
+                >
                   <img src={markerModel} />
                 </div>
               </Marker>

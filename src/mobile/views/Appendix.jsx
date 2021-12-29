@@ -40,7 +40,7 @@ export default {
         <h4>图片</h4>
         <div class={styles.container}>
           {_.map(this.imgList, ({ filePath }) => (
-            <img src={filePath} />
+            <img src={filePath} vViewer />
           ))}
         </div>
         <h4>视频</h4>
