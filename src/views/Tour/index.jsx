@@ -1,9 +1,15 @@
 import YtMap from '@/components/YtMap';
 import { TourLayer } from '@/components/Map';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
-import { ParagraphModal, FooterTabs, Search } from '@/components/Custom';
+import {
+  ParagraphModal,
+  FooterTabs,
+  Search,
+  Switcher
+} from '@/components/Custom';
 import Header from '../Header';
 import ChartsDrawer from './ChartsDrawer';
+import ArticlePoper from './ArticlePoper';
 import styles from './index.module.less';
 
 import { fetchTourList, fetchTourDetail } from '@/api';
@@ -131,16 +137,16 @@ export default {
       _.assign(this.state, { [stateName]: !this.state[stateName] });
     },
 
-    onMarkerClick(id, title, position) {
+    onMarkerClick(id, title, position, filePath) {
       _.assign(this.state, {
-        infoWindowContent: { id, title, position },
+        infoWindowContent: { id, title, position, filePath },
         infoVisible: true
       });
     },
 
-    onMarkerNextClick(id, title, position) {
+    onMarkerNextClick(id, title, position, filePath) {
       _.assign(this.state, {
-        infoWindowContent: { id, title, position }
+        infoWindowContent: { id, title, position, filePath }
       });
 
       this.onInfoWindowClick();
@@ -156,18 +162,19 @@ export default {
     onInfoWindowClick() {
       this.$refs.modal?.open(
         fetchTourDetail.bind(null, this.state.infoWindowContent?.id),
-        this.state.infoWindowContent?.title
+        this.state.infoWindowContent?.title,
+        this.state.infoWindowContent?.filePath
       );
 
       this.onMapClick();
     },
 
-    onSearchClick([id, title, position]) {
+    onSearchClick([id, title, position, , filePath]) {
       if (_.some(position, _.isNil) || !title) {
         this.onMapClick();
         return;
       }
-      this.onMarkerClick(id, title, position);
+      this.onMarkerClick(id, title, position, filePath);
     },
 
     iconType(type) {
@@ -188,13 +195,22 @@ export default {
     },
 
     renderProjects() {
-      return _.map(this.filterProjects, ({ position, title, id, type }) => (
-        <Marker
-          position={position}
-          icon={this.iconType(type)}
-          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
-        />
-      ));
+      return _.map(
+        this.filterProjects,
+        ({ position, title, id, type, filePath }) => (
+          <Marker
+            position={position}
+            icon={this.iconType(type)}
+            onClick={this.onMarkerNextClick.bind(
+              null,
+              id,
+              title,
+              position,
+              filePath
+            )}
+          />
+        )
+      );
     },
 
     colorType(type) {
@@ -213,19 +229,28 @@ export default {
     },
 
     renderText() {
-      return _.map(this.filterProjects, ({ position, title, id, type }) => (
-        <Text
-          position={position}
-          text={title}
-          offset={[20, 2]}
-          domStyle={{
-            color: this.colorType(type),
-            fontWeight: 'bolder',
-            fontSize: '15px'
-          }}
-          onClick={this.onMarkerNextClick.bind(null, id, title, position)}
-        />
-      ));
+      return _.map(
+        this.filterProjects,
+        ({ position, title, id, type, filePath }) => (
+          <Text
+            position={position}
+            text={title}
+            offset={[20, 2]}
+            domStyle={{
+              color: this.colorType(type),
+              fontWeight: 'bolder',
+              fontSize: '15px'
+            }}
+            onClick={this.onMarkerNextClick.bind(
+              null,
+              id,
+              title,
+              position,
+              filePath
+            )}
+          />
+        )
+      );
     },
 
     renderFooter() {
@@ -246,7 +271,7 @@ export default {
                 传统村落
                 <pre>{this.planings}项</pre>
               </div>
-              <div class={[styles.status, showPlaning && styles.active]} />
+              <Switcher value={showPlaning} />
             </div>
           ) : null}
 
@@ -257,7 +282,7 @@ export default {
                 重点乡镇
                 <pre>{this.readys}项</pre>
               </div>
-              <div class={[styles.status, showReady && styles.active]} />
+              <Switcher value={showReady} />
             </div>
           ) : null}
 
@@ -265,10 +290,10 @@ export default {
             <div onClick={this.onSwitchState.bind(null, 'showWorking')}>
               <div class={[styles.legend, styles.completed]}>
                 <img src={markerCircleGreen} />
-                风景区
+                4A景区
                 <pre>{this.workings}项</pre>
               </div>
-              <div class={[styles.status, showWorking && styles.active]} />
+              <Switcher value={showWorking} />
             </div>
           ) : null}
 
@@ -279,7 +304,7 @@ export default {
                 特色庄寨
                 <pre>{this.completeds}项</pre>
               </div>
-              <div class={[styles.status, showCompleted && styles.active]} />
+              <Switcher value={showCompleted} />
             </div>
           ) : null}
 
@@ -290,9 +315,23 @@ export default {
                 重点项目
                 <pre>{this.pendings}项</pre>
               </div>
-              <div class={[styles.status, showPending && styles.active]} />
+              <Switcher value={showPending} />
             </div>
           ) : null}
+
+          {this.renderRoutes()}
+        </div>
+      );
+    },
+
+    renderRoutes() {
+      return (
+        <div style={{ flex: 1.6 }}>
+          <div class={styles.legend} style={{ height: '100%' }}>
+            <ArticlePoper />
+            <router-link to="/profile/hotel">酒店</router-link>
+            <router-link to="/profile/traffic">交通</router-link>
+          </div>
         </div>
       );
     }

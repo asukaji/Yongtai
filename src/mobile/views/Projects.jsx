@@ -23,7 +23,6 @@ export default {
     ...mapState('mobile', ['projects']),
 
     userProjects() {
-      console.log(_.filter(this.projects, ['isUser', true]));
       return _.filter(this.projects, ['isUser', true]);
     },
 

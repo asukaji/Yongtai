@@ -85,11 +85,12 @@ export function fetchTourList() {
   return instance.get('/quanyu/list').then(({ result }) =>
     _.map(
       _.filter(result, ({ id }) => !!id),
-      ({ id, latitudes, longitudes, area, areaType }) => ({
+      ({ id, latitudes, longitudes, area, areaType, filePath }) => ({
         id,
         position: [longitudes, latitudes],
         title: area,
-        type: areaType
+        type: areaType,
+        filePath
       })
     )
   );

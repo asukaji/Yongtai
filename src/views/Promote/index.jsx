@@ -3,6 +3,8 @@ import { StreetsPolygon } from '@/components/Map';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { ParagraphModal, Float } from '@/components/Custom';
 import Header from '../Header';
+import ChartsDrawer from '../Tour/ChartsDrawer';
+import DrawerContainer from './DrawerContainer';
 import styles from './index.module.less';
 
 import { fetchPromoteList, fetchPromoteDetail } from '@/api';
@@ -107,7 +109,11 @@ export default {
   render() {
     return (
       <div class={styles.home}>
-        <Header />
+        <Header>
+          <ChartsDrawer>
+            <DrawerContainer styles={{ width: '30%' }} />
+          </ChartsDrawer>
+        </Header>
         <YtMap onMapClick={this.onMapClick}>
           <StreetsPolygon onStreetClick={this.onMapClick} />
           {/* <PromoteLayer /> */}

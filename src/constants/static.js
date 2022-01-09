@@ -73,72 +73,30 @@ export const ecological = {
         legend: {
           show: true
         },
-        xAxis: {
-          show: false
+        grid: {
+          top: 20,
+          bottom: 20,
+          left: 30
         },
-        yAxis: {
-          show: false
-        },
+        yAxis: [
+          {
+            type: 'value',
+            splitLine: { show: false },
+          },
+          {
+            type: 'value',
+            splitLine: { show: false },
+          }
+        ],
         series: [
           {
-            type: 'pie',
-            label: {
-              show: true,
-              position: 'inside',
-            },
-            data: [71.4, 28.6],
-            radius: '20%',
-            labelLine: {
-              show: false
-            },
+            type: 'line',
+            data: [71.4, 71.4, 85.7, 71.4, 57.1]
           },
           {
-            type: 'pie',
-            label: {
-              show: true,
-              position: 'inside',
-            },
-            data: [71.4, 28.6],
-            radius: ['25%', '35%'],
-            labelLine: {
-              show: false
-            },
-          },
-          {
-            type: 'pie',
-            label: {
-              show: true,
-              position: 'inside',
-            },
-            data: [85.7, 14.3],
-            radius: ['40%', '50%'],
-            labelLine: {
-              show: false
-            },
-          },
-          {
-            type: 'pie',
-            label: {
-              show: true,
-              position: 'inside',
-            },
-            data: [71.4, 28.6],
-            radius: ['55%', '65%'],
-            labelLine: {
-              show: false
-            },
-          },
-          {
-            type: 'pie',
-            label: {
-              show: true,
-              position: 'inside',
-            },
-            data: [57.1, 42.9],
-            radius: ['70%', '80%'],
-            labelLine: {
-              show: false
-            },
+            type: 'bar',
+            data: [28.6, 28.6, 14.3, 28.6, 42.9],
+            yAxisIndex: 1,
           }
         ],
         color: ['#FF6C60', '#FFCB3F', '#1AE1D9']
@@ -151,39 +109,14 @@ export const ecological = {
         legend: {
           show: true
         },
-        xAxis: {
-          show: false
-        },
-        yAxis: {
-          show: false
+        grid: {
+          top: 20,
+          bottom: 20,
+          left: 30
         },
         series: [
           {
-            type: 'gauge',
-            startAngle: 90,
-            endAngle: -270,
-            max: 100,
-            pointer: {
-              show: false
-            },
-            progress: {
-              show: true,
-              overlap: false,
-              roundCap: true,
-              clip: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              show: false
-            },
-            detail: {
-              formatter: ' '
-            },
-            title: {
-              show: false
-            },
+            type: 'line',
             data: [74.66, 75.48, 75.98, 76.96, 76.96]
           }
         ],
@@ -249,7 +182,7 @@ export const industrial = {
   charts: [
     {
       title: '景区接待人数',
-      pre: '单位：万人次',
+      pre: '单位：万人次\n单位：万人次\n单位：亿元',
       option: _.defaults({
         legend: {
           show: false
@@ -302,51 +235,51 @@ export const industrial = {
     //     color: ['#FF6C60', '#FFCB3F', '#1AE1D9']
     //   }, basicOptions, {})
     // },
-    {
-      title: '近三年游客',
-      option: _.defaults({
-        legend: {
-          show: true
-        },
-        xAxis: {
-          show: false
-        },
-        yAxis: {
-          show: false
-        },
-        series: [
-          {
-            type: 'gauge',
-            startAngle: 90,
-            endAngle: -270,
-            max: 2000,
-            pointer: {
-              show: false
-            },
-            progress: {
-              show: true,
-              overlap: false,
-              roundCap: true,
-              clip: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              show: false
-            },
-            detail: {
-              formatter: ' '
-            },
-            title: {
-              show: false
-            },
-            data: [1047.3, 1275.2, 1030.3]
-          }
-        ],
-        color: ['#FF425B', '#8AC43F', '#2BC2D1']
-      }, basicOptions, {})
-    },
+    // {
+    //   title: '近三年游客',
+    //   option: _.defaults({
+    //     legend: {
+    //       show: true
+    //     },
+    //     xAxis: {
+    //       show: false
+    //     },
+    //     yAxis: {
+    //       show: false
+    //     },
+    //     series: [
+    //       {
+    //         type: 'gauge',
+    //         startAngle: 90,
+    //         endAngle: -270,
+    //         max: 2000,
+    //         pointer: {
+    //           show: false
+    //         },
+    //         progress: {
+    //           show: true,
+    //           overlap: false,
+    //           roundCap: true,
+    //           clip: false
+    //         },
+    //         axisTick: {
+    //           show: false
+    //         },
+    //         axisLabel: {
+    //           show: false
+    //         },
+    //         detail: {
+    //           formatter: ' '
+    //         },
+    //         title: {
+    //           show: false
+    //         },
+    //         data: [1047.3, 1275.2, 1030.3]
+    //       }
+    //     ],
+    //     color: ['#FF425B', '#8AC43F', '#2BC2D1']
+    //   }, basicOptions, {})
+    // },
     // {
     //   title: '空气质量情况',
     //   option: _.defaults({

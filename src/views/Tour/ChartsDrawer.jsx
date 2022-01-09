@@ -2,9 +2,10 @@ import { Drawer, Button } from 'element-ui';
 import VChart from 'vue-echarts';
 import styles from './ChartsDrawer.module.less';
 
+import VueTypes from 'vue-types';
+
 import iconMoney from '@/assets/Icon/icon-money.png';
 import iconTicket from '@/assets/Icon/icon-ticket.png';
-
 import {
   tourLineOptions,
   tourSexPieOptions,
@@ -13,6 +14,10 @@ import {
 
 export default {
   name: 'ChartsDrawer',
+
+  props: {
+    styles: VueTypes.object.def()
+  },
 
   data() {
     return {
@@ -44,7 +49,7 @@ export default {
           appendToBody
           visible={this.state.visible}
           withHeader={false}
-          class={styles.drawer}
+          class={[styles.drawer, this.styles ?? styles.small]}
           // modal={false}
           beforeClose={this.close}
         >

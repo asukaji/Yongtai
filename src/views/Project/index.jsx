@@ -287,12 +287,12 @@ export default {
               >
                 <div
                   class={[
-                    styles.markerModel,
-                    'shake',
-                    'shake-constant',
-                    'shake-little',
-                    'shake-opacity',
-                    'shake-rotate'
+                    styles.markerModel
+                    // 'shake',
+                    // 'shake-constant',
+                    // 'shake-little',
+                    // 'shake-opacity',
+                    // 'shake-rotate'
                   ]}
                 >
                   <img src={markerModel} />
