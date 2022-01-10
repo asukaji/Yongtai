@@ -1,6 +1,6 @@
 .home {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px);
 
   :global .amap-icon {
     width: 24px !important;
@@ -38,7 +38,7 @@
     font-size: 13px;
     text-align: left;
     border-radius: 4px;
-    color: #A1A8AF;
+    color: #a1a8af;
     background-color: #fff;
     box-shadow: 0px 0px 40px 0px rgba(161, 168, 175, 0.3);
 
@@ -50,13 +50,13 @@
 
     p {
       text-align: center;
-      color: #4F5256;
+      color: #4f5256;
     }
 
     &::after {
       content: '详情➔';
       position: absolute;
-      color: #0078FF;
+      color: #0078ff;
       right: 12px;
       height: 50%;
     }
@@ -160,5 +160,31 @@
     max-height: 280px;
     width: 320px;
     overflow-y: auto;
+  }
+}
+
+.tabs {
+  width: 100%;
+
+  :global .el-tabs {
+    width: 100%;
+
+    .el-tabs__header {
+      margin-bottom: 0;
+    }
+
+    .el-tabs__active-bar {
+      height: 0;
+    }
+
+    .el-tabs__item {
+      width: 50vw;
+      font-size: 18px;
+      line-height: 80px;
+    }
+
+    .el-tabs__nav-wrap::after {
+      content: none;
+    }
   }
 }

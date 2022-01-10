@@ -93,8 +93,11 @@ export default {
         <TableColumn prop="createTime" label="打卡日期" />
         <TableColumn prop="userId_dictText" label="打卡人" />
         <TableColumn prop="area" label="打卡位置" />
+        <TableColumn prop="remark" label="进展情况" />
+        <TableColumn prop="troubles" label="存在问题" />
+        <TableColumn prop="nextPlan" label="下一步计划" />
         <TableColumn
-          label="操作"
+          label="附件"
           {...{
             scopedSlots: {
               //defaul 默认具名插槽

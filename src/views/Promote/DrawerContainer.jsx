@@ -28,7 +28,9 @@ export default {
   },
 
   methods: {
-    async onClick(code, type, bottom) {
+    async onClick(code, type, bottom, area) {
+      this.$emit('click', type === 'area' ? area : undefined);
+
       this.state.projects = _.map(
         await fetchPromoteProjectList(code, type),
         (project) => ({
@@ -57,6 +59,10 @@ export default {
       }`;
     },
 
+    projectData(projectNum, vallageNum) {
+      return `${vallageNum}个村，${projectNum}个项目`;
+    },
+
     renderItems(items, type) {
       return _.map(items, ({ name, projectNum, vallageNum, nameCode }) => (
         <div
@@ -64,11 +70,12 @@ export default {
             null,
             nameCode,
             type,
-            this.projectBottom(type, name)
+            this.projectBottom(type, name),
+            [name, this.projectData(projectNum, vallageNum)]
           )}
         >
           <div>{name}</div>
-          <div>{`${vallageNum}个村，${projectNum}个项目`}</div>
+          <div>{this.projectData(projectNum, vallageNum)}</div>
         </div>
       ));
     },

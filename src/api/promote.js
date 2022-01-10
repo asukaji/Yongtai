@@ -40,3 +40,15 @@ export function fetchPromoteSchedule(projectId) {
 export function fetchTourArticle() {
   return instance.get('/quanyu/article').then(({ result }) => result);
 }
+
+/**
+ * 吃住行游购物
+ * @param {string} type
+ */
+export function fetchTourArticleByType(type) {
+  return instance.post('/quanyu/travels', {
+    pageNo: 1,
+    pageSize: 500,
+    itemType: type
+  }).then(({ records }) => records);
+}

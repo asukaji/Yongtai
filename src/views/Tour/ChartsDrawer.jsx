@@ -16,13 +16,14 @@ export default {
   name: 'ChartsDrawer',
 
   props: {
-    styles: VueTypes.object.def()
+    styles: VueTypes.object.def(),
+    visible: VueTypes.bool.def(false)
   },
 
   data() {
     return {
       state: {
-        visible: false
+        visible: this.$props.visible
       }
     };
   },
@@ -49,7 +50,7 @@ export default {
           appendToBody
           visible={this.state.visible}
           withHeader={false}
-          class={[styles.drawer, this.styles ?? styles.small]}
+          class={[styles.drawer, this.$props.styles ? styles.small : undefined]}
           // modal={false}
           beforeClose={this.close}
         >

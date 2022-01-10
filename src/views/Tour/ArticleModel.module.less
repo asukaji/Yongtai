@@ -1,0 +1,29 @@
+.modal {
+  top: 20px;
+  right: 100px;
+  margin: 0;
+
+  :global .el-menu {
+    min-height: 384px;
+    max-height: 512px;
+    overflow: auto;
+
+    .el-menu-item,
+    .el-submenu__title {
+      line-height: 21px;
+      text-align: left;
+
+      & p {
+        margin: 4px 0 0;
+      }
+
+      & .el-tag + .el-tag {
+        margin-left: 4px;
+      }
+    }
+
+    .el-menu-item + .el-menu-item {
+      border-top: 1px dashed #ccc;
+    }
+  }
+}

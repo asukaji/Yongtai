@@ -8,6 +8,7 @@ import {
   Switcher
 } from '@/components/Custom';
 import Header from '../Header';
+import SideBar from './SideBar';
 import ChartsDrawer from './ChartsDrawer';
 import ArticlePoper from './ArticlePoper';
 import styles from './index.module.less';
@@ -157,6 +158,8 @@ export default {
         infoWindowContent: undefined,
         infoVisible: false
       });
+
+      this.$refs.sidebar.clear();
     },
 
     onInfoWindowClick() {
@@ -329,8 +332,8 @@ export default {
         <div style={{ flex: 1.6 }}>
           <div class={styles.legend} style={{ height: '100%' }}>
             <ArticlePoper />
-            <router-link to="/profile/hotel">酒店</router-link>
-            <router-link to="/profile/traffic">交通</router-link>
+            {/* <router-link to="/profile/hotel">酒店</router-link>
+            <router-link to="/profile/traffic">交通</router-link> */}
           </div>
         </div>
       );
@@ -364,6 +367,7 @@ export default {
           <TourLayer />
 
           <Search options={this.filterProjects} onClick={this.onSearchClick} />
+          <SideBar ref="sidebar" />
           <FooterTabs>{this.renderFooter()}</FooterTabs>
         </YtMap>
 

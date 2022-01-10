@@ -23,6 +23,8 @@ const routeTitleMap = new Map([
   ['project', '重点项目'],
   ['tour', '全域旅游'],
   ['promote', '乡村振兴'],
+  ['promote.index', '乡村振兴'],
+  ['promote.village', '美丽乡村建设'],
   ['video', '视频连线'],
   ['control', '重点督查'],
   ['economy', '经济运行'],

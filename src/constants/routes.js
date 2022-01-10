@@ -57,6 +57,9 @@ export const BUSINESS_TASK_STREET = 'business.task.street';
 export const ECONOMY_PROFILE = 'economy.profile';
 export const ECONOMY_DETAIL = 'economy.detail';
 
+export const PROMOTE_INDEX = 'promote.index';
+export const PROMOTE_VILLAGE = 'promote.village';
+
 export const businessRoutes = [
   [BUSINESS_EVALUATION, '“招商效率和招商质量提升工程”\n考评情况'],
   [BUSINESS_SCHEDULE, '“招商效率和招商质量提升工程”\n任务序时进度'],
