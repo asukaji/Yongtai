@@ -65,7 +65,7 @@ export default {
       <div class={styles.home}>
         <Header>
           {this.activeKey === PROMOTE_VILLAGE ? (
-            <ChartsDrawer styles={{ width: '30%' }} visible={true}>
+            <ChartsDrawer ref="drawer" styles={{ width: '30%' }} visible={true}>
               <DrawerContainer onClick={this.onClick} />
             </ChartsDrawer>
           ) : null}

@@ -1,7 +1,11 @@
-import { Text } from '@amap/amap-vue';
+import { Marker } from '@amap/amap-vue';
+import styles from './village.module.less';
 
-import { fetchTownList } from '@/api';
+import { fetchTownList, fetchVillages, fetchProjectsByVillages } from '@/api';
 import _ from 'lodash';
+
+import position from '@/assets/Icon/icon-village-position.png';
+import text from '@/assets/Icon/icon-village-text.png';
 
 export default {
   name: 'Village',
@@ -10,7 +14,8 @@ export default {
 
   data() {
     return {
-      areas: undefined
+      areas: undefined,
+      villages: undefined
     };
   },
 
@@ -23,10 +28,19 @@ export default {
         return undefined;
       }
 
-      const [name, value] = activeArea;
+      const [name, value, nameCode] = activeArea;
       const nextArea = _.find(areas, ({ title }) => title === name);
 
-      return nextArea ? _.assign({}, nextArea, { value }) : undefined;
+      return nextArea ? _.assign({}, nextArea, { value, nameCode }) : undefined;
+    }
+  },
+
+  watch: {
+    async area(value) {
+      if (value) {
+        this.map.$refs.drawer?.close();
+        this.villages = await fetchVillages(value.nameCode);
+      }
     }
   },
 
@@ -35,15 +49,28 @@ export default {
   },
 
   methods: {
+    async onClick(vallage) {
+      const projects = _.map(
+        await fetchProjectsByVillages(vallage),
+        (project) => ({ ...project, bottom: `地区：永泰县/${vallage}` })
+      );
+
+      this.map.$refs.drawer?.open(projects);
+    },
+
     renderText() {
-      return this.area ? (
-        <Text
-          position={this.area.position}
-          text={this.area.value}
-          offset={[-20, 0]}
-          domStyle={{ color: '#333', backgroundColor: '#fff' }}
-        />
-      ) : null;
+      return _.map(this.villages, ({ vallage, latitude, longitude }) => (
+        <Marker
+          position={[longitude, latitude]}
+          onClick={this.onClick.bind(null, vallage)}
+        >
+          <div class={styles.marker}>
+            <img src={text} />
+            <p>{vallage}</p>
+            <img src={position} />
+          </div>
+        </Marker>
+      ));
     }
   },
 

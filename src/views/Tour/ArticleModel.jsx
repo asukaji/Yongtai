@@ -50,7 +50,7 @@ export default {
                 onClick={this.onClick.bind(null, option)}
               >
                 <p>{option.itemName}</p>
-                <Tag size="mini">{option.createTime}</Tag>
+                {/* <Tag size="mini">{option.createTime}</Tag> */}
               </MenuItem>
             ))
           )}

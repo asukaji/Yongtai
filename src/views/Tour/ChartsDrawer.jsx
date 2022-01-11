@@ -20,6 +20,12 @@ export default {
     visible: VueTypes.bool.def(false)
   },
 
+  provide() {
+    return {
+      drawer: this
+    };
+  },
+
   data() {
     return {
       state: {
@@ -31,6 +37,12 @@ export default {
   methods: {
     close() {
       this.state.visible = false;
+    },
+
+    open(projects) {
+      // console.log(this.$slots.default?.[0]);
+      this.$slots.default?.[0]?.componentInstance.open(projects);
+      this.state.visible = true;
     }
   },
 

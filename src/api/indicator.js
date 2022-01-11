@@ -76,5 +76,5 @@ export function fetchLatestDate() {
     .post('/indicatorBreakdown/queryHaveValue', {
       area: '永泰县'
     })
-    .then(({ data }) => data);
+    .then(({ data }) => data.date);
 }

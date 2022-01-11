@@ -108,7 +108,7 @@ export default {
                     type="primary"
                     onClick={this.onClick.bind(null, props)}
                   >
-                    打卡图片
+                    进展附件
                   </Button>
                 );
               }

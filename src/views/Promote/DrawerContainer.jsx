@@ -28,6 +28,11 @@ export default {
   },
 
   methods: {
+    open(projects) {
+      this.state.step = 1;
+      this.state.projects = projects;
+    },
+
     async onClick(code, type, bottom, area) {
       this.$emit('click', type === 'area' ? area : undefined);
 
@@ -71,7 +76,7 @@ export default {
             nameCode,
             type,
             this.projectBottom(type, name),
-            [name, this.projectData(projectNum, vallageNum)]
+            [name, this.projectData(projectNum, vallageNum), nameCode]
           )}
         >
           <div>{name}</div>

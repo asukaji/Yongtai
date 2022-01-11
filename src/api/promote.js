@@ -52,3 +52,24 @@ export function fetchTourArticleByType(type) {
     itemType: type
   }).then(({ records }) => records);
 }
+
+/**
+ * 根据分类获取相应的村落坐标位置和村落名字
+ * @param {string} code
+ */
+export function fetchVillages(code) {
+  return instance.post('/beautyVallage/coordinates', {
+    code,
+    type: 'area'
+  }).then(({ result }) => result);
+}
+
+/**
+ * 根据村名称获取项目列表
+ * @param {string} vallage
+ */
+export function fetchProjectsByVillages(vallage) {
+  return instance.post('/beautyVallage/projectByVallage', {
+    vallage
+  }).then(({ result }) => result);
+}
