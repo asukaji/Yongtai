@@ -22,8 +22,8 @@ export default {
       this.state.projects = projects;
     },
 
-    onClick({ content, itemName, createTime }) {
-      this.$emit('click', { content, itemName, createTime });
+    onClick({ content, itemName, createTime, fileList }) {
+      this.$emit('click', { content, itemName, createTime, fileList });
     },
 
     close() {

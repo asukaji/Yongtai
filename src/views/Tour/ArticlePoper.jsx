@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Popover, Empty, Tag, Button } from 'element-ui';
+import { Menu, MenuItem, Popover, Empty, Button } from 'element-ui';
 import styles from './ProjectModal.module.less';
 
 import { fetchTourArticle } from '@/api';

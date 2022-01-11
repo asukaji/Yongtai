@@ -51,6 +51,24 @@ export default {
       this.state.article = article;
 
       this.$refs.modal?.open();
+    },
+
+    renderMedia() {
+      return (
+        <div class="media">
+          {this.state.article?.fileList?.map(({ filePath, fileType }) =>
+            fileType === '.jpg' || fileType === '.png' ? (
+              <img src={filePath} vViewer />
+            ) : (
+              <div to={filePath} class="video">
+                <video controls="controls">
+                  <source src={filePath} />
+                </video>
+              </div>
+            )
+          )}
+        </div>
+      );
     }
   },
 
@@ -79,6 +97,7 @@ export default {
           <h2>{article?.itemName}</h2>
           <pre>{article?.createTime}</pre>
           <p>{article?.content}</p>
+          {this.renderMedia()}
         </ParagraphModal>
       </div>
     );

@@ -31,9 +31,7 @@ export function createInstance(config) {
 
       throw Object.assign(
         new Error(
-          response.data?.message ??
-          response.data?.error ??
-          response.statusText
+          response.data?.message ?? response.data?.error ?? response.statusText
         ),
         {
           status: response.status,
