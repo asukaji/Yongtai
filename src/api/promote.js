@@ -18,20 +18,24 @@ export function fetchPromoteProfile() {
  * @param {string} type
  */
 export function fetchPromoteProjectList(code, type) {
-  return instance.post('/beautyVallage/projectList', {
-    code,
-    type
-  }).then(({ result }) => result);
+  return instance
+    .post('/beautyVallage/projectList', {
+      code,
+      type
+    })
+    .then(({ result }) => result);
 }
 
 /**
- * 美丽乡村-项目详情、形象进度 
+ * 美丽乡村-项目详情、形象进度
  * @param {string} projectId
  */
 export function fetchPromoteSchedule(projectId) {
-  return instance.post('/beautyVallage/schedule', {
-    projectId
-  }).then(({ result }) => result);
+  return instance
+    .post('/beautyVallage/schedule', {
+      projectId
+    })
+    .then(({ result }) => result);
 }
 
 /**
@@ -46,22 +50,26 @@ export function fetchTourArticle() {
  * @param {string} type
  */
 export function fetchTourArticleByType(type) {
-  return instance.post('/quanyu/travels', {
-    pageNo: 1,
-    pageSize: 500,
-    itemType: type
-  }).then(({ records }) => records);
+  return instance
+    .post('/quanyu/travels', {
+      pageNo: 1,
+      pageSize: 500,
+      itemType: type
+    })
+    .then(({ records }) => records);
 }
 
 /**
  * 根据分类获取相应的村落坐标位置和村落名字
  * @param {string} code
  */
-export function fetchVillages(code) {
-  return instance.post('/beautyVallage/coordinates', {
-    code,
-    type: 'area'
-  }).then(({ result }) => result);
+export function fetchVillages(code, type = 'area') {
+  return instance
+    .post('/beautyVallage/coordinates', {
+      code,
+      type
+    })
+    .then(({ result }) => result);
 }
 
 /**
@@ -69,7 +77,9 @@ export function fetchVillages(code) {
  * @param {string} vallage
  */
 export function fetchProjectsByVillages(vallage) {
-  return instance.post('/beautyVallage/projectByVallage', {
-    vallage
-  }).then(({ result }) => result);
+  return instance
+    .post('/beautyVallage/projectByVallage', {
+      vallage
+    })
+    .then(({ result }) => result);
 }

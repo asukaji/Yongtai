@@ -34,7 +34,7 @@ export default {
     },
 
     async onClick(code, type, bottom, area) {
-      this.$emit('click', type === 'area' ? area : undefined);
+      this.$emit('click', area, type);
 
       this.state.projects = _.map(
         await fetchPromoteProjectList(code, type),

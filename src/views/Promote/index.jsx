@@ -14,7 +14,8 @@ export default {
 
   data() {
     return {
-      activeArea: undefined
+      activeArea: undefined,
+      type: undefined
     };
   },
 
@@ -32,8 +33,9 @@ export default {
   },
 
   methods: {
-    onClick(area) {
+    onClick(area, type) {
       this.activeArea = area;
+      this.type = type;
     },
 
     beforeLeave(name) {

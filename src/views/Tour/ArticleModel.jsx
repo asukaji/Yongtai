@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Popover, Empty, Tag } from 'element-ui';
+import { Menu, MenuItem, Popover, Empty } from 'element-ui';
 import styles from './ArticleModel.module.less';
 
 import _ from 'lodash';

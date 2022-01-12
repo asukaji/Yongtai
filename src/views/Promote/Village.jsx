@@ -31,7 +31,7 @@ export default {
       const [name, value, nameCode] = activeArea;
       const nextArea = _.find(areas, ({ title }) => title === name);
 
-      return nextArea ? _.assign({}, nextArea, { value, nameCode }) : undefined;
+      return _.assign({ value, nameCode }, nextArea);
     }
   },
 
@@ -39,7 +39,7 @@ export default {
     async area(value) {
       if (value) {
         this.map.$refs.drawer?.close();
-        this.villages = await fetchVillages(value.nameCode);
+        this.villages = await fetchVillages(value.nameCode, this.map.type);
       }
     }
   },
