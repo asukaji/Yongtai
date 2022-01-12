@@ -8,6 +8,9 @@ import {
 } from '@/api';
 import _ from 'lodash';
 
+import red from '@/assets/Icon/icon-village-red.png';
+import green from '@/assets/Icon/icon-village-green.png';
+
 export default {
   name: 'DrawerContainer',
 
@@ -68,18 +71,32 @@ export default {
       return `${vallageNum}个村，${projectNum}个项目`;
     },
 
+    renderTag(tag) {
+      switch (tag) {
+        case 'red':
+          return <img src={red} class={styles.tag} />;
+        case 'green':
+          return <img src={green} class={styles.tag} />;
+        default:
+          return null;
+      }
+    },
+
     renderItems(items, type) {
-      return _.map(items, ({ name, projectNum, vallageNum, nameCode }) => (
+      return _.map(items, ({ name, projectNum, vallageNum, nameCode, tag }) => (
         <div
           onClick={this.onClick.bind(
             null,
             nameCode,
             type,
             this.projectBottom(type, name),
-            [name, this.projectData(projectNum, vallageNum), nameCode]
+            [name, this.projectData(projectNum, vallageNum), nameCode, tag]
           )}
         >
           <div>{name}</div>
+
+          {this.renderTag(tag)}
+
           <div>{this.projectData(projectNum, vallageNum)}</div>
         </div>
       ));
