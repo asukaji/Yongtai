@@ -77,6 +77,7 @@ export default {
       return _.map(this.villages, ({ vallage, latitude, longitude }) => (
         <Marker
           position={[longitude, latitude]}
+          offset={[-160, -45]}
           onClick={this.onClick.bind(null, vallage)}
         >
           <div class={styles.marker}>

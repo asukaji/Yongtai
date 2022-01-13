@@ -119,6 +119,8 @@ export default {
               fileList: this.fileList,
               projectId: this.$route.params.id,
               remark: this.form.remark,
+              nextPlan: this.form.nextPlan,
+              troubles: this.form.troubles,
               longitudes: this.position[0],
               latitudes: this.position[1]
             });
