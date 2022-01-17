@@ -1,12 +1,12 @@
 import { Header } from '@/components/mobile';
-import { Tag, Tabs, TabPane, Empty } from 'element-ui';
+import { Tag, Tabs, TabPane, Empty, Button } from 'element-ui';
 import styles from './Projects.module.less';
 
 import { fetchUserProjects, fetchProjects } from '@/api';
 import { mapState, mapMutations } from 'vuex';
 import _ from 'lodash';
 
-import { POSITION } from '@/constants';
+import { POSITION, TOKEN } from '@/constants';
 
 export default {
   name: 'Projects',
@@ -58,13 +58,25 @@ export default {
 
       localStorage.setItem(POSITION, position);
       this.$router.push(`/home/${id}`);
+    },
+
+    logout() {
+      localStorage.removeItem(TOKEN);
+      this.$router.replace('/login');
     }
   },
 
   render() {
     return (
       <div>
-        <Header />
+        <Header>
+          <Button
+            onClick={this.logout}
+            size="small"
+            circle
+            icon="el-icon-s-unfold"
+          />
+        </Header>
         <Tabs vModel={this.state.tab} class={styles.tabs}>
           <TabPane key="user" name="user" label="重点项目">
             {_.size(this.userProjects) ? (

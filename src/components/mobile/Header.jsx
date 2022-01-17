@@ -11,6 +11,7 @@ export default {
         <div class="img" onClick={() => this.$router.go(-1)}>
           <img src={IconBack} />
         </div>
+        {this.$slots.default}
       </div>
     );
   }
