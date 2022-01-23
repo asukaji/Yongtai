@@ -46,7 +46,7 @@ export default {
             _.map(
               _.get(this.records, this.projectId),
               ({ createTime, area, remark, nextPlan, troubles }, index) => (
-                <Form labelWidth="80px" labelPosition="left" size="mini">
+                <Form labelWidth="120px" labelPosition="left" size="mini">
                   <FormItem label="打卡时间">{createTime}</FormItem>
                   <FormItem label="打卡地点">{area}</FormItem>
                   <FormItem label="下一步计划">{nextPlan}</FormItem>

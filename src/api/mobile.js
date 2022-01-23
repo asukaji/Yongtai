@@ -1,5 +1,5 @@
 import { createInstance } from './utils';
-import { TOKEN } from '@/constants';
+import { TOKEN, USER_INFO } from '@/constants';
 
 const instance = createInstance({
   baseURL: `${process.env.VUE_APP_BASE_NEXT_URL}`
@@ -16,6 +16,7 @@ export function login(username, password) {
     password
   }).then(({ result }) => {
     localStorage.setItem(TOKEN, result.token);
+    localStorage.setItem(USER_INFO, JSON.stringify(result.userInfo));
   });
 }
 
@@ -69,4 +70,21 @@ export function fetchProjects() {
       pageSize: 500
     }
   }).then(({ result }) => result);
+}
+
+/**
+ * 获取乡村振兴的项目列表
+ */
+export function updatePassword(username, oldpassword, password, confirmpassword) {
+  return instance.put('/sys/user/updatePassword', {
+    username,
+    password,
+    oldpassword,
+    confirmpassword
+  }).then(({ code, message }) => {
+    if (code === 200) {
+      return message;
+    }
+    throw new Error(message);
+  });
 }

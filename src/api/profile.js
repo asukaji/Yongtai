@@ -291,10 +291,11 @@ export function fetchHotelList() {
   return instance.get('/xiankuang/hotel/list').then(({ result }) =>
     _.map(
       _.filter(result, ({ id }) => !!id),
-      ({ id, latitudes, longitudes, area }) => ({
+      ({ id, latitudes, longitudes, area, star }) => ({
         id,
         position: [longitudes, latitudes],
-        title: area
+        title: area,
+        star
       })
     )
   );

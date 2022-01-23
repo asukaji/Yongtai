@@ -6,6 +6,8 @@ import Record from '@/mobile/views/Record';
 import Upload from '@/mobile/views/Upload';
 import Projects from '@/mobile/views/Projects';
 import Appendix from '@/mobile/views/Appendix';
+import Individual from '@/mobile/views/Individual';
+import Passwords from '@/mobile/views/Passwords';
 
 Vue.use(VueRouter);
 
@@ -39,6 +41,16 @@ const routes = [
     path: '/appendix/:id/:index',
     name: 'appendix',
     component: Appendix
+  },
+  {
+    path: '/individual',
+    name: 'individual',
+    component: Individual
+  },
+  {
+    path: '/passwords',
+    name: 'passwords',
+    component: Passwords
   },
   {
     path: '*',

@@ -2,6 +2,7 @@ import YtMap from '@/components/YtMap';
 import { StreetsPolygon } from '@/components/Map';
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { ParagraphModal, Float } from '@/components/Custom';
+import HotelFilter from './HotelFilter';
 import styles from './index.module.less';
 
 import { fetchHotelList, fetchHotelDetail } from '@/api';
@@ -17,9 +18,16 @@ export default {
       area: undefined,
       state: {
         infoVisible: false,
-        infoWindowContent: undefined
+        infoWindowContent: undefined,
+        isAll: false
       }
     };
+  },
+
+  computed: {
+    starHotels() {
+      return _.filter(this.area, ({ star }) => star === '1');
+    }
   },
 
   async mounted() {
@@ -58,44 +66,54 @@ export default {
       this.onMapClick();
     },
 
+    onChange(value) {
+      this.state.isAll = value === 'all';
+    },
+
     renderProjects() {
-      return _.map(this.area, ({ position, title, id, area, description }) => (
-        <Marker
-          position={position}
-          icon={markerHotel}
-          onClick={this.onMarkerNextClick.bind(
-            null,
-            id,
-            title,
-            position,
-            area,
-            description
-          )}
-        />
-      ));
+      return _.map(
+        this.state.isAll ? this.area : this.starHotels,
+        ({ position, title, id, area, description }) => (
+          <Marker
+            position={position}
+            icon={markerHotel}
+            onClick={this.onMarkerNextClick.bind(
+              null,
+              id,
+              title,
+              position,
+              area,
+              description
+            )}
+          />
+        )
+      );
     },
 
     renderText() {
-      return _.map(this.area, ({ position, title, id, area, description }) => (
-        <Text
-          position={position}
-          text={title}
-          offset={[-3, 20]}
-          domStyle={{
-            color: '#0078FF',
-            fontWeight: 'bolder',
-            fontSize: '15px'
-          }}
-          onClick={this.onMarkerNextClick.bind(
-            null,
-            id,
-            title,
-            position,
-            area,
-            description
-          )}
-        />
-      ));
+      return _.map(
+        this.state.isAll ? this.area : this.starHotels,
+        ({ position, title, id, area, description }) => (
+          <Text
+            position={position}
+            text={title}
+            offset={[-3, 20]}
+            domStyle={{
+              color: '#0078FF',
+              fontWeight: 'bolder',
+              fontSize: '15px'
+            }}
+            onClick={this.onMarkerNextClick.bind(
+              null,
+              id,
+              title,
+              position,
+              area,
+              description
+            )}
+          />
+        )
+      );
     }
   },
 
@@ -107,6 +125,8 @@ export default {
 
           {this.renderProjects()}
           {this.renderText()}
+
+          <HotelFilter onChange={this.onChange} />
 
           <InfoWindow
             visible={this.state.visible}

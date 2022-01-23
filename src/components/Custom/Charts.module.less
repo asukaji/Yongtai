@@ -43,13 +43,15 @@
   }
 
   :local .cards {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
     & > div {
-      flex: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       text-align: center;
+
+      p {
+        flex: 1;
+      }
 
       pre {
         text-align: center;

@@ -1,8 +1,8 @@
-function isMobile() {
+export function isMobile() {
   return /android/gi.test(navigator.userAgent) || /iphone|ipod|itouch/gi.test(navigator.userAgent);
 }
 
-function shouldRenderMobileView(href = window.location.href) {
+export function shouldRenderMobileView(href = window.location.href) {
   if (isMobile()) return true;
   const [, , platform] = href.split(/\/+/);
   return platform === 'm';

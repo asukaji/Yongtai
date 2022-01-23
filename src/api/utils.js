@@ -1,19 +1,23 @@
 import axios from 'axios';
 import _ from 'lodash';
+import { isMobile } from '../main';
 
 import { TOKEN } from '@/constants';
 
 export function createInstance(config) {
   const instance = axios.create(config);
-  instance.interceptors.request.use((config) => {
-    const token = localStorage.getItem(TOKEN);
 
-    if (token) {
-      _.set(config, 'headers.X-Access-Token', token);
-    }
+  if (isMobile()) {
+    instance.interceptors.request.use((config) => {
+      const token = localStorage.getItem(TOKEN);
 
-    return config;
-  });
+      if (token) {
+        _.set(config, 'headers.X-Access-Token', token);
+      }
+
+      return config;
+    });
+  }
 
   instance.interceptors.response.use(
     (response) => {

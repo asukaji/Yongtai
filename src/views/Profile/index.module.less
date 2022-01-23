@@ -6,28 +6,28 @@
     font-size: 30px;
 
     &::after {
-      content: " ";
+      content: ' ';
       position: absolute;
       left: 50%;
       bottom: -12px;
       width: 40px;
       margin-left: -20px;
-      border-top: 2px solid #0078FF;
+      border-top: 2px solid #0078ff;
     }
   }
 
   & > pre {
-    color: #A1A8AF;
+    color: #a1a8af;
     font-size: 13px;
     letter-spacing: 4px;
   }
 
-  &> div {
+  & > div {
     display: flex;
     flex-wrap: wrap;
     margin-top: 40px;
 
-    &> a {
+    & > a {
       flex: 24%;
       text-decoration: none;
       color: #fff;
@@ -40,8 +40,8 @@
         border-radius: 4px;
         background-size: 100% 100%;
         overflow: hidden;
-        
-        &> div {
+
+        & > div {
           position: absolute;
           display: flex;
           align-items: flex-start;
@@ -52,14 +52,14 @@
           padding: 12px;
           background: rgba(0, 0, 0, 0.6);
 
-          &> h3 {
+          & > h3 {
             position: relative;
             flex: 2;
             text-align: left;
             margin: 0;
 
             &::after {
-              content: " ";
+              content: ' ';
               position: absolute;
               left: 0%;
               bottom: -4px;
@@ -68,12 +68,12 @@
             }
           }
 
-          &> div {
+          & > div {
             flex: 1;
             white-space: normal;
             text-align: right;
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.3)
+            color: rgba(255, 255, 255, 0.3);
           }
         }
       }
@@ -82,7 +82,7 @@
 }
 .home {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 54px);
 
   :global .amap-icon {
     width: 24px !important;
@@ -121,14 +121,14 @@
     font-size: 13px;
     text-align: left;
     border-radius: 4px;
-    color: #4F5256;
+    color: #4f5256;
     background-color: #fff;
     box-shadow: 0px 0px 40px 0px rgba(161, 168, 175, 0.3);
 
     &::after {
       content: '详情➔';
       position: absolute;
-      color: #0078FF;
+      color: #0078ff;
       right: 12px;
       height: 50%;
     }
@@ -232,5 +232,24 @@
     max-height: 280px;
     width: 320px;
     overflow-y: auto;
+  }
+}
+
+.tabItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 16px;
+
+  & > img {
+    width: 24px;
+    margin-bottom: 8px;
+  }
+
+  &.active {
+    color: #0078ff;
   }
 }

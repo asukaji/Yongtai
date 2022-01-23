@@ -5,6 +5,8 @@ import store from './store';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import Vuex from 'vuex';
+import Viewer from 'v-viewer';
+import 'viewerjs/dist/viewer.css';
 
 import AmapVue from '@amap/amap-vue';
 
@@ -19,6 +21,7 @@ AmapVue.config.plugins = [
 ];
 
 Vue.use(ElementUI);
+Vue.use(Viewer);
 Vue.use(Vuex);
 
 Vue.config.productionTip = false;

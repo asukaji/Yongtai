@@ -86,10 +86,6 @@ export default {
               onClick={this.open.bind(this, '/profile/livelihood')}
             ></div>
           </CarouselItem>
-          {/* <CarouselItem
-            key="bg4"
-            style={{ backgroundImage: `url(${bg4})` }}
-          ></CarouselItem> */}
         </Carousel>
 
         <img src={title} class={styles.title} />

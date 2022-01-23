@@ -63,6 +63,10 @@ export default {
     logout() {
       localStorage.removeItem(TOKEN);
       this.$router.replace('/login');
+    },
+
+    toIndividual() {
+      this.$router.push('/Individual');
     }
   },
 
@@ -71,10 +75,10 @@ export default {
       <div>
         <Header>
           <Button
-            onClick={this.logout}
+            onClick={this.toIndividual}
             size="small"
             circle
-            icon="el-icon-s-unfold"
+            icon="el-icon-user"
           />
         </Header>
         <Tabs vModel={this.state.tab} class={styles.tabs}>

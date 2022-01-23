@@ -1,7 +1,14 @@
 import YtMap from '@/components/YtMap';
 import { StreetsPolygon } from '@/components/Map';
 import { FooterTabs, ParagraphModal, Float } from '@/components/Custom';
+import Service from './TrafficService';
+import Railway from './TrafficRailway';
+import Highway from './TrafficHighway';
+import National from './TrafficNational';
+import Provincial from './TrafficProvincial';
 import styles from './index.module.less';
+
+import _ from 'lodash';
 
 import iconService from '@/assets/Icon/icon-service.png';
 import iconServiceActive from '@/assets/Icon/icon-service-active.png';
@@ -56,14 +63,72 @@ export default {
     };
   },
 
+  data() {
+    return {
+      activeName: ['service']
+    };
+  },
+
+  computed: {
+    showService() {
+      return _.includes(this.activeName, 'service');
+    },
+    showRailway() {
+      return _.includes(this.activeName, 'railway');
+    },
+    showHighway() {
+      return _.includes(this.activeName, 'highway');
+    },
+    showNational() {
+      return _.includes(this.activeName, 'national');
+    },
+    showProvincial() {
+      return _.includes(this.activeName, 'provincial');
+    }
+  },
+
+  methods: {
+    onClick(name) {
+      const activeName = new Set(this.activeName);
+
+      if (activeName.has(name)) {
+        activeName.delete(name);
+        this.activeName = [...activeName];
+      } else {
+        activeName.add(name);
+        this.activeName = [...activeName];
+      }
+    },
+
+    renderFooterTabs() {
+      return _.map(TABS, ({ name, activeIcon, icon, title }) => (
+        <div
+          key={name}
+          class={[styles.tabItem, this.activeName === name && styles.active]}
+          onClick={this.onClick.bind(null, name)}
+        >
+          <img src={_.includes(this.activeName, name) ? activeIcon : icon} />
+          {title}
+        </div>
+      ));
+    }
+  },
+
   render() {
     return (
       <div class={styles.home}>
         <YtMap ref="Map">
           <StreetsPolygon />
-          <router-view></router-view>
+          {/* <router-view></router-view> */}
+
+          {this.showService ? <Service /> : null}
+          {this.showRailway ? <Railway /> : null}
+          {this.showHighway ? <Highway /> : null}
+          {this.showNational ? <National /> : null}
+          {this.showProvincial ? <Provincial /> : null}
+
           <Float bottom="100px" onClick={() => this.$refs.modal?.open()} />
-          <FooterTabs tabs={TABS} />
+          <FooterTabs>{this.renderFooterTabs()}</FooterTabs>
         </YtMap>
         <ParagraphModal ref="modal">
           <h2>交通情况</h2>
