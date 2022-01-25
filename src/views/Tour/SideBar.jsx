@@ -21,6 +21,10 @@ const tabs = [
   { name: 'shopping', label: '购', icon: iconPack }
 ];
 
+const isImage = (fileType) => {
+  return fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg';
+};
+
 export default {
   name: 'TourSideBar',
 
@@ -57,7 +61,7 @@ export default {
       return (
         <div class="media">
           {this.state.article?.fileList?.map(({ filePath, fileType }) =>
-            fileType === '.jpg' || fileType === '.png' ? (
+            isImage(fileType) ? (
               <img src={filePath} vViewer />
             ) : (
               <div to={filePath} class="video">

@@ -24,9 +24,16 @@ export default {
     onSubmit() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
-          await login(this.form.username, this.form.password);
+          try {
+            await login(this.form.username, this.form.password);
 
-          this.$router.push('/');
+            this.$router.push('/');
+          } catch (err) {
+            this.$message({
+              message: err.message,
+              type: 'error'
+            });
+          }
         }
       });
     }

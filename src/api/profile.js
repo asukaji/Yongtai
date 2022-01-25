@@ -18,7 +18,10 @@ export function fetchProjectDetail(projectId) {
     contacts: result.contacts,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
-      type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+      type:
+        fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+          ? 'image'
+          : 'video'
     }))
   }));
 }
@@ -33,8 +36,22 @@ export function fetchProjectList() {
     working: result.zaiJian,
     planing: result.zhengQian,
     list: _.map(
-      _.concat(result.junGongList, result.kaiGongList, result.zaiJianList, result.zhengQianList),
-      ({ id, latitudes, longitudes, projectName, projectType, tags, imp, model }) => ({
+      _.concat(
+        result.junGongList,
+        result.kaiGongList,
+        result.zaiJianList,
+        result.zhengQianList
+      ),
+      ({
+        id,
+        latitudes,
+        longitudes,
+        projectName,
+        projectType,
+        tags,
+        imp,
+        model
+      }) => ({
         id,
         position: [longitudes, latitudes],
         title: projectName,
@@ -52,16 +69,20 @@ export function fetchProjectList() {
  * @param {*} projectId
  */
 export function fetchProjectSignList(projectId, pageNo = 1, pageSize = 500) {
-  return instance.get('/project/sign/list', {
-    params: {
-      projectId,
-      pageNo,
-      pageSize
-    }
-  }).then(({ result }) => _.map(result.records, ({ fileList, ...record }) => ({
-    ...record,
-    fileList: _.map(fileList, ({ filePath }) => filePath)
-  })));
+  return instance
+    .get('/project/sign/list', {
+      params: {
+        projectId,
+        pageNo,
+        pageSize
+      }
+    })
+    .then(({ result }) =>
+      _.map(result.records, ({ fileList, ...record }) => ({
+        ...record,
+        fileList: _.map(fileList, ({ filePath }) => filePath)
+      }))
+    );
 }
 
 /**
@@ -73,7 +94,10 @@ export function fetchTourDetail(areaId) {
     content: result.content,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
-      type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+      type:
+        fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+          ? 'image'
+          : 'video'
     }))
   }));
 }
@@ -106,7 +130,10 @@ export function fetchTownDetail(areaId) {
     name: 'Village Profile',
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
-      type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+      type:
+        fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+          ? 'image'
+          : 'video'
     }))
   }));
 }
@@ -139,7 +166,10 @@ export function fetchGeothermalDetail(areaId) {
       name: 'Geothermal Conditions',
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
         src: filePath,
-        type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+        type:
+          fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+            ? 'image'
+            : 'video'
       }))
     }));
 }
@@ -172,7 +202,10 @@ export function fetchElectricDetail(areaId) {
       name: 'Electric Conditions',
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
         src: filePath,
-        type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+        type:
+          fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+            ? 'image'
+            : 'video'
       }))
     }));
 }
@@ -204,7 +237,10 @@ export function fetchWaterDetail(areaId) {
       content: result.content,
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
         src: filePath,
-        type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+        type:
+          fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+            ? 'image'
+            : 'video'
       }))
     }));
 }
@@ -235,7 +271,10 @@ export function fetchPromoteDetail(areaId) {
     content: result.content,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
-      type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+      type:
+        fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+          ? 'image'
+          : 'video'
     }))
   }));
 }
@@ -279,7 +318,10 @@ export function fetchHotelDetail(areaId) {
       content: result.content,
       media: _.map(result.fileList, ({ filePath, fileType }) => ({
         src: filePath,
-        type: fileType === '.jpg' || fileType === '.png' ? 'image' : 'video'
+        type:
+          fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
+            ? 'image'
+            : 'video'
       }))
     }));
 }

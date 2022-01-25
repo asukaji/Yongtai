@@ -21,14 +21,16 @@ export default {
     imgList() {
       return _.filter(
         this.fileList,
-        ({ fileType }) => fileType === '.png' || fileType === '.jpg'
+        ({ fileType }) =>
+          fileType === '.png' || fileType === '.jpg' || fileType === '.jpeg'
       );
     },
 
     videoList() {
       return _.filter(
         this.fileList,
-        ({ fileType }) => fileType !== '.png' && fileType !== '.jpg'
+        ({ fileType }) =>
+          fileType !== '.png' && fileType !== '.jpg' && fileType !== '.jpeg'
       );
     }
   },
