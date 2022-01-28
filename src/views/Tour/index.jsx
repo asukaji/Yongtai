@@ -221,7 +221,7 @@ export default {
         case '2':
           return '#0078ff';
         case '3':
-          return '#28D2B0';
+          return '#333';
         case '4':
           return '#fb3f62';
         case '5':
