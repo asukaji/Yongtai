@@ -41,7 +41,9 @@ export default {
       'imgList',
       'videoList',
       'projectPosition',
-      'remark'
+      'remark',
+      'nextPlan',
+      'troubles'
     ]),
 
     currentTime() {
@@ -60,12 +62,24 @@ export default {
       handler(value) {
         this.setRemark(value);
       }
+    },
+    'form.nextPlan': {
+      handler(value) {
+        this.setNextPlan(value);
+      }
+    },
+    'form.troubles': {
+      handler(value) {
+        this.setTroubles(value);
+      }
     }
   },
 
   mounted() {
     this.counter = this.setTime();
     this.form.remark = this.remark;
+    this.form.nextPlan = this.nextPlan;
+    this.form.troubles = this.troubles;
   },
 
   beforeDestroy() {
@@ -73,7 +87,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('mobile', ['setRemark']),
+    ...mapMutations('mobile', ['setRemark', 'setNextPlan', 'setTroubles']),
 
     onSubmit() {
       if (!this.location) {

@@ -15,6 +15,8 @@ export default {
     imgList: [],
     videoList: [],
     records: undefined,
-    remark: ''
+    remark: '',
+    nextPlan: '',
+    troubles: ''
   }
 };

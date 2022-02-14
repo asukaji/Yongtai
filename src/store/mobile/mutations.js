@@ -43,3 +43,11 @@ export function setRecords(state, [records, id]) {
 export function setRemark(state, remark) {
   state.remark = remark;
 }
+
+export function setNextPlan(state, nextPlan) {
+  state.nextPlan = nextPlan;
+}
+
+export function setTroubles(state, troubles) {
+  state.troubles = troubles;
+}
