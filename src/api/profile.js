@@ -66,13 +66,15 @@ export function fetchProjectList() {
 
 /**
  * 重点项目-二级详情页-项目签到打卡数据
- * @param {*} projectId
+ * @param {number} projectId
+ * @param {string} signType
  */
-export function fetchProjectSignList(projectId, pageNo = 1, pageSize = 500) {
+export function fetchProjectSignList(projectId, signType = '', pageNo = 1, pageSize = 500) {
   return instance
     .get('/project/sign/list', {
       params: {
         projectId,
+        signType,
         pageNo,
         pageSize
       }
@@ -269,6 +271,7 @@ export function fetchWaterList() {
 export function fetchPromoteDetail(areaId) {
   return instance.get(`/zhengxing/detail/${areaId}`).then(({ result }) => ({
     content: result.content,
+    contacts: 'contacts',
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
       type:

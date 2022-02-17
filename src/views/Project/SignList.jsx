@@ -11,7 +11,9 @@ export default {
   props: {
     id: VueTypes.string.def(),
 
-    step: VueTypes.number.def(1)
+    step: VueTypes.number.def(1),
+
+    signType: VueTypes.string.def()
   },
 
   data() {
@@ -30,7 +32,7 @@ export default {
       immediate: true,
       async handler(id) {
         this.state.showFileList = false;
-        this.state.list = await fetchProjectSignList(id);
+        this.state.list = await fetchProjectSignList(id, this.signType);
       }
     },
 
@@ -92,7 +94,11 @@ export default {
         <TableColumn type="index" label="序号" width="56" />
         <TableColumn prop="createTime" label="打卡日期" />
         <TableColumn prop="userId_dictText" label="打卡人" />
-        <TableColumn prop="area" label="打卡位置" />
+        {this.signType ? (
+          <TableColumn prop="itemId_dictText" label="类型" />
+        ) : (
+          <TableColumn prop="area" label="打卡位置" />
+        )}
         <TableColumn prop="remark" label="进展情况" />
         <TableColumn prop="troubles" label="存在问题" />
         <TableColumn prop="nextPlan" label="下一步计划" />

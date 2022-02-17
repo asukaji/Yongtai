@@ -6,7 +6,7 @@ import { fetchUserProjects, fetchProjects } from '@/api';
 import { mapState, mapMutations } from 'vuex';
 import _ from 'lodash';
 
-import { POSITION, TOKEN } from '@/constants';
+import { POSITION, TOKEN, SIGN_TYPE } from '@/constants';
 
 export default {
   name: 'Projects',
@@ -51,12 +51,13 @@ export default {
       'setProjectPosition'
     ]),
 
-    onClick(id, position) {
+    onClick(id, position, signType = '') {
       this.setProjectId(id);
       this.setProjectPosition(position);
       this.clearFileList();
 
       localStorage.setItem(POSITION, position);
+      localStorage.setItem(SIGN_TYPE, signType);
       this.$router.push(`/home/${id}`);
     },
 
@@ -89,10 +90,12 @@ export default {
                   this.userProjects,
                   ({ projectName, tags, id, longitudes, latitudes }) => (
                     <div
-                      onClick={this.onClick.bind(null, id, [
-                        longitudes,
-                        latitudes
-                      ])}
+                      onClick={this.onClick.bind(
+                        null,
+                        id,
+                        [longitudes, latitudes],
+                        undefined
+                      )}
                     >
                       <h3>{projectName}</h3>
                       {_.map(tags, (tag) => (
@@ -115,10 +118,12 @@ export default {
                   this.otherProjects,
                   ({ title, id, longitudes, latitudes }) => (
                     <div
-                      onClick={this.onClick.bind(null, id, [
-                        longitudes,
-                        latitudes
-                      ])}
+                      onClick={this.onClick.bind(
+                        null,
+                        id,
+                        [longitudes, latitudes],
+                        'village'
+                      )}
                     >
                       <h3>{title}</h3>
                     </div>

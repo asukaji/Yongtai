@@ -1,5 +1,5 @@
 import { createInstance } from './utils';
-import { TOKEN, USER_INFO } from '@/constants';
+import { TOKEN, USER_INFO, SIGN_TYPE } from '@/constants';
 
 const instance = createInstance({
   baseURL: `${process.env.VUE_APP_BASE_NEXT_URL}`
@@ -47,7 +47,7 @@ export function fetchUserProjects() {
  */
 export function check(params) {
   return instance
-    .post('/profession/xiangcun/sign/add', params)
+    .post('/profession/xiangcun/sign/add', { ...params, signType: localStorage.getItem(SIGN_TYPE) || undefined })
     .then(({ code }) => {
       if (code !== 200) {
         throw new Error('操作失败');
@@ -69,7 +69,8 @@ export function fetchUserCheckedRecord(projectId) {
         params: {
           pageNo: 1,
           pageSize: 500,
-          projectId
+          projectId,
+          signType: localStorage.getItem(SIGN_TYPE) || undefined
         }
       }
     )
