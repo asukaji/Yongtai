@@ -103,7 +103,7 @@ export default {
     },
 
     filterProjects() {
-      if (this.isDefault) {
+      if (this.isProperty) {
         return this.filterDefaultProjects;
       }
       return _.filter(
@@ -142,9 +142,23 @@ export default {
     },
 
     filterTexts() {
-      return this.isDefault
-        ? this.filterDefaultProjects
-        : [...this.provinceProjects, ...this.cityProjects];
+      if (this.isProperty) {
+        return this.filterDefaultProjects;
+      }
+
+      if (this.isDefault) {
+        return this.modelProjects;
+      }
+
+      return [...this.provinceProjects, ...this.cityProjects];
+    },
+
+    modelProjects() {
+      return _.filter(this.filterDefaultProjects, ({ model }) => model === '1');
+    },
+
+    isProperty() {
+      return this.state.tab === 'property';
     },
 
     isDefault() {
@@ -272,16 +286,16 @@ export default {
       const projects = new Set();
 
       return _.map(
-        this.filterProjects,
+        this.isDefault ? this.modelProjects : this.filterProjects,
         ({ position, title, id, type, model }) => {
           if (projects.has(id)) {
             return null;
           } else {
             projects.add(id);
 
-            return (this.isDefault && model) === '1' ? (
+            return ((this.isProperty || this.isDefault) && model) === '1' ? (
               <Marker
-                key={`${id}.${this.isDefault}.${model}`}
+                key={`${id}.${this.isProperty}.${model}`}
                 position={position}
                 onClick={this.onMarkerNextClick.bind(null, id, title, position)}
               >
@@ -300,7 +314,7 @@ export default {
               </Marker>
             ) : (
               <Marker
-                key={`${id}.${this.isDefault}.${model}`}
+                key={`${id}.${this.isProperty}.${model}`}
                 position={position}
                 icon={this.iconType(type)}
                 onClick={this.onMarkerNextClick.bind(null, id, title, position)}
@@ -337,10 +351,16 @@ export default {
             <Text
               position={position}
               text={title}
-              offset={model && this.isDefault ? [-45, 20] : [20, -2]}
+              offset={
+                model && (this.isProperty || this.isDefault)
+                  ? [-45, 20]
+                  : [20, -2]
+              }
               domStyle={{
                 color:
-                  model && this.isDefault ? '#FB3F62' : this.colorType(type),
+                  model && (this.isProperty || this.isDefault)
+                    ? '#FB3F62'
+                    : this.colorType(type),
                 width: '120px',
                 // overflow: 'hidden',
                 // whiteSpace: 'nowrap',
@@ -362,7 +382,8 @@ export default {
         showOther,
         provinceProjects,
         cityProjects,
-        otherProjects
+        otherProjects,
+        isDefault
       } = this;
 
       return (
@@ -377,7 +398,10 @@ export default {
                   'province'
                 )}
               >
-                {_.size(provinceProjects)}项
+                {isDefault
+                  ? _.size(_.filter(provinceProjects, ['model', '1']))
+                  : _.size(provinceProjects)}
+                项
               </pre>
             </div>
             <Switcher value={showProvince} />
@@ -392,7 +416,10 @@ export default {
                   'city'
                 )}
               >
-                {_.size(cityProjects)}项
+                {isDefault
+                  ? _.size(_.filter(cityProjects, ['model', '1']))
+                  : _.size(cityProjects)}
+                项
               </pre>
             </div>
             <Switcher value={showCity} />
@@ -407,7 +434,10 @@ export default {
                   'other'
                 )}
               >
-                {_.size(otherProjects)}项
+                {isDefault
+                  ? _.size(_.filter(otherProjects, ['model', '1']))
+                  : _.size(otherProjects)}
+                项
               </pre>
             </div>
             <Switcher value={showOther} />
@@ -521,7 +551,7 @@ export default {
 
           <Search
             ref="search"
-            options={this.filterProjects}
+            options={this.isDefault ? this.modelProjects : this.filterProjects}
             onClick={this.onSearchClick}
           />
           {/* <ProjectFilter onChange={this.onFilterChange} /> */}
@@ -530,6 +560,9 @@ export default {
           <FooterTabs>
             <Tabs vModel={this.state.tab} type="card" class={styles.tabs}>
               <TabPane label="默认" name="default">
+                {this.renderDefaultFooter()}
+              </TabPane>
+              <TabPane label="按项目属性" name="property">
                 {this.renderDefaultFooter()}
               </TabPane>
               <TabPane label="按项目阶段" name="timeline">

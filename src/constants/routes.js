@@ -6,6 +6,7 @@ export const TOUR = 'tour';
 export const PROMOTE = 'promote';
 export const CONTROL = 'control';
 export const VIDEO = 'video';
+export const PROPERTY = 'property';
 
 export const homeRoutes = [
   [PROFILE, '县情县况'],
@@ -14,6 +15,7 @@ export const homeRoutes = [
   [PROJECT, '重点项目'],
   [TOUR, '全域旅游'],
   [PROMOTE, '乡村振兴'],
+  [PROPERTY, '农村产权交易'],
   [CONTROL, '重点督查'],
   // [VIDEO, '视频连线']
 ];

@@ -33,11 +33,12 @@ export default {
         }}
         onClick={this.$emit.bind(this, 'click')}
       >
-        {this.type === 'file' ? (
-          <img src={iconFile} />
-        ) : (
-          <img src={iconCamera} style={{ width: '80px' }} />
-        )}
+        {this.$slots.default ??
+          (this.type === 'file' ? (
+            <img src={iconFile} />
+          ) : (
+            <img src={iconCamera} style={{ width: '80px' }} />
+          ))}
 
         {this.type === 'file' && '概况'}
       </div>

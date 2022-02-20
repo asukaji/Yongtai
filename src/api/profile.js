@@ -271,7 +271,7 @@ export function fetchWaterList() {
 export function fetchPromoteDetail(areaId) {
   return instance.get(`/zhengxing/detail/${areaId}`).then(({ result }) => ({
     content: result.content,
-    contacts: 'contacts',
+    contacts: result.contacts,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
       type:

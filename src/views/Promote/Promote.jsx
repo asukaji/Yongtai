@@ -1,6 +1,7 @@
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { ParagraphModal, Float } from '@/components/Custom';
 import SignList from '../Project/SignList';
+import CreateMeeting from '../Project/CreateMeeting';
 
 import { fetchPromoteList, fetchPromoteDetail } from '@/api';
 import _ from 'lodash';
@@ -11,7 +12,11 @@ import bg2 from '@/assets/Bg/promote-2.png';
 import bg3 from '@/assets/Bg/promote-3.png';
 import bg4 from '@/assets/Bg/promote-4.png';
 import iconCalendar from '@/assets/Icon/icon-calendar.png';
+import iconCamera from '@/assets/Icon/icon-camera.png';
 import IconBack from '@/assets/Icon/icon-back.png';
+
+const VIDEO_URL =
+  'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/other/xuanchuanpian.mp4';
 
 export default {
   name: 'Promote',
@@ -70,6 +75,10 @@ export default {
 
     setStep(step) {
       this.state.step = step;
+    },
+
+    setContacts(contacts) {
+      _.assign(this.state.activeProject, { contacts });
     },
 
     renderProjects() {
@@ -137,9 +146,20 @@ export default {
             {this.state.infoWindowContent?.area}
           </div>
         </InfoWindow>
+        <Float
+          bottom="200px"
+          type="media"
+          onClick={() => window.open(VIDEO_URL)}
+        >
+          <i class="el-icon-video-play" style={{ fontSize: '32px' }}></i>
+        </Float>
         <Float bottom="100px" onClick={() => this.$refs.modal?.open()} />
 
-        <ParagraphModal ref="modal" onClose={this.setStep.bind(null, 0)}>
+        <ParagraphModal
+          ref="modal"
+          onClose={this.setStep.bind(null, 0)}
+          onMounted={this.setContacts}
+        >
           {step === 0 && (
             <div style={{ height: '540px', overflow: 'auto' }}>
               <h2>乡村振兴</h2>
@@ -192,7 +212,7 @@ export default {
                   display: 'flex',
                   alignItems: 'center'
                 }}
-                onClick={this.setStep.bind(null, step - 1)}
+                onClick={this.setStep.bind(null, Math.floor(step - 1))}
               >
                 <img src={IconBack} height="14" />
               </div>
@@ -202,6 +222,11 @@ export default {
                   src={iconCalendar}
                   height="50"
                   onClick={this.setStep.bind(null, 2)}
+                />
+                <img
+                  src={iconCamera}
+                  height="50"
+                  onClick={this.setStep.bind(null, 2.1)}
                 />
               </div>
             )}
@@ -213,6 +238,13 @@ export default {
               step={step - 1}
               signType="village"
               onChangeStep={this.setStep.bind(null, step + 1)}
+            />
+          ) : null}
+          {step === 2.1 ? (
+            <CreateMeeting
+              id={activeProject?.id}
+              name={activeProject?.title}
+              contacts={activeProject?.contacts}
             />
           ) : null}
         </ParagraphModal>

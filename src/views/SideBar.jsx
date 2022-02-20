@@ -11,6 +11,7 @@ import Tour from '@/assets/Icon/tour.png';
 import Promote from '@/assets/Icon/promote.png';
 import Control from '@/assets/Icon/control.png';
 import Video from '@/assets/Icon/video.png';
+import Dashboard from '@/assets/Icon/dashboard.png';
 
 const ICONS = [
   Profile,
@@ -19,6 +20,7 @@ const ICONS = [
   Project,
   Tour,
   Promote,
+  Dashboard,
   Control,
   Video
 ];
@@ -29,12 +31,14 @@ export default {
   render() {
     return (
       <div class={styles.sidebar}>
-        {_.map(homeRoutes, ([route, title], index) => <router-link to={route}>
-          <div>
-            <img src={ICONS[index]} />
-            {title}
-          </div>
-        </router-link>)}
+        {_.map(homeRoutes, ([route, title], index) => (
+          <router-link to={route}>
+            <div>
+              <img src={ICONS[index]} />
+              {title}
+            </div>
+          </router-link>
+        ))}
       </div>
     );
   }

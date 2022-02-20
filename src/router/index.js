@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home';
 import Control from '@/views/Control';
+import Property from '@/views/Property';
+
 import tour from './routes/tour';
 import video from './routes/video';
 import profile from './routes/profile';
@@ -30,6 +32,12 @@ const routes = [
   ...promote,
   ...business,
   ...economy,
+
+  {
+    path: '/property',
+    name: 'property',
+    component: Property
+  },
 
   {
     path: '*',
