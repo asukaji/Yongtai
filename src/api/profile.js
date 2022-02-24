@@ -69,7 +69,12 @@ export function fetchProjectList() {
  * @param {number} projectId
  * @param {string} signType
  */
-export function fetchProjectSignList(projectId, signType = '', pageNo = 1, pageSize = 500) {
+export function fetchProjectSignList(
+  projectId,
+  signType = '',
+  pageNo = 1,
+  pageSize = 500
+) {
   return instance
     .get('/project/sign/list', {
       params: {
@@ -360,4 +365,14 @@ export function fetchHighwayList() {
       })
     )
   );
+}
+
+/**
+ * 产权
+ * @param {string} type
+ */
+export function fetchProperty(type) {
+  return instance
+    .get(`/chanquan/list/${type}`)
+    .then(({ result }) => result[type]);
 }

@@ -1,22 +1,29 @@
-import Header from '../Header';
-
-const BG =
-  'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/other/chanquanjioayi.png';
+import Card from './Card';
+import styles from './index.module.less';
 
 export default {
   name: 'Property',
 
   render() {
     return (
-      <div
-        style={{
-          height: '100%',
-          textAlign: 'center',
-          backgroundColor: '#F6F7F9'
-        }}
-      >
-        <Header />
-        <img src={BG} style={{ width: '100%', height: 'calc(100% - 54px)' }} />
+      <div class={styles.container}>
+        <div class={styles.header}></div>
+        <div class={styles.content}>
+          <div>
+            <Card />
+            <Card />
+            <Card />
+          </div>
+          <div>
+            <Card />
+            <Card />
+          </div>
+          <div>
+            <Card />
+            <Card />
+            <Card />
+          </div>
+        </div>
       </div>
     );
   }
