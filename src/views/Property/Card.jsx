@@ -1,4 +1,4 @@
-import styles from './DrawerContainer.module.less';
+import styles from './Card.module.less';
 
 import VueTypes from 'vue-types';
 
@@ -6,9 +6,15 @@ export default {
   name: 'PropertyCard',
 
   props: {
-    fetchData: VueTypes.func(),
+    fetchData: VueTypes.func.def(),
 
-    link: VueTypes.string()
+    link: VueTypes.string.def()
+  },
+
+  data() {
+    return {
+      data: null
+    };
   },
 
   computed: {
@@ -22,10 +28,16 @@ export default {
     }
   },
 
+  async mounted() {
+    this.data = await this.fetchData?.();
+  },
+
   render() {
+    const showHeader = !!this.$slots.header;
+
     return (
       <div class={styles.card}>
-        {this.$slots.header ? (
+        {showHeader ? (
           <div class={styles.header}>
             {this.$slots.header}
             <router-link to={this.routerLink}>查看更多</router-link>

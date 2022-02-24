@@ -374,5 +374,11 @@ export function fetchHighwayList() {
 export function fetchProperty(type) {
   return instance
     .get(`/chanquan/list/${type}`)
-    .then(({ result }) => result[type]);
+    .then(({ result }) => result[type] ?? result);
+}
+
+export function fetchPropertyList() {
+  return instance
+    .get('/chanquan/liuzhuan')
+    .then(({ result }) => result);
 }

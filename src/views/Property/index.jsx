@@ -1,6 +1,8 @@
 import Card from './Card';
 import styles from './index.module.less';
 
+import { fetchProperty, fetchPropertyList } from '@/api';
+
 export default {
   name: 'Property',
 
@@ -10,18 +12,18 @@ export default {
         <div class={styles.header}></div>
         <div class={styles.content}>
           <div>
-            <Card />
-            <Card />
-            <Card />
+            <Card fetchData={fetchProperty.bind(null, 'nongdi')} />
+            <Card fetchData={fetchProperty.bind(null, 'lvyou')} />
+            <Card fetchData={fetchProperty.bind(null, 'guoyouTudi')} />
           </div>
           <div>
             <Card />
-            <Card />
+            <Card fetchData={fetchPropertyList} />
           </div>
           <div>
-            <Card />
-            <Card />
-            <Card />
+            <Card fetchData={fetchProperty.bind(null, 'guozi')} />
+            <Card fetchData={fetchProperty.bind(null, 'linquan')} />
+            <Card fetchData={fetchProperty.bind(null, 'jitiZichan')} />
           </div>
         </div>
       </div>

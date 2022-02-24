@@ -1,22 +1,20 @@
 .container {
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   .content {
     display: flex;
+    flex: 1;
 
     & > div {
       display: flex;
       flex-direction: column;
+      flex: 33%;
     }
 
     & > div + div {
-      margin-left: 12px;
-    }
-
-    & > div:first-child,
-    & > div:first-child {
-      flex: 30%;
+      margin-left: 4px;
     }
   }
 }
