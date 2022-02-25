@@ -33,17 +33,21 @@ export default {
   },
 
   render() {
-    const showHeader = !!this.$slots.header;
+    const sideTitle = !!this.link;
 
     return (
       <div class={styles.card}>
-        {showHeader ? (
+        {sideTitle && <div class={styles.title}>{this.$slots.header}</div>}
+        <div>
           <div class={styles.header}>
-            {this.$slots.header}
-            <router-link to={this.routerLink}>查看更多</router-link>
+            {sideTitle ? (
+              <router-link to={this.routerLink}>查看更多</router-link>
+            ) : (
+              this.$slots.header
+            )}
           </div>
-        ) : null}
-        <div class={styles.content}>{this.$slots.default}</div>
+          <div class={styles.content}>{this.$scopedSlots.default}</div>
+        </div>
       </div>
     );
   }
