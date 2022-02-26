@@ -382,3 +382,32 @@ export function fetchPropertyList() {
     .get('/chanquan/liuzhuan')
     .then(({ result }) => result);
 }
+
+export function fetchPropertyState() {
+  return instance
+    .get('/chanquan/exp')
+    .then(({ result }) => result);
+}
+
+export function fetchPropertyDetailsYears(type) {
+  return instance
+    .get(`/chanquan/year/${type}`)
+    .then(({ result }) => result);
+}
+
+export function fetchPropertyDetailsListByYear(equityType, year) {
+  return instance
+    .post('/chanquan/tablelist', {
+      equityType,
+      year
+    })
+    .then(({ result }) => result);
+}
+
+export function fetchPropertyDetailsList(townName) {
+  return instance
+    .post('/chanquan/sec', {
+      townName
+    })
+    .then(({ result }) => result);
+}

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '@/views/Home';
 import Control from '@/views/Control';
 import Property from '@/views/Property';
+import PropertyDetails from '@/views/Property/Details';
 
 import tour from './routes/tour';
 import video from './routes/video';
@@ -36,7 +37,13 @@ const routes = [
   {
     path: '/property',
     name: 'property',
-    component: Property
+    component: Property,
+  },
+
+  {
+    name: 'PropertyDetails',
+    path: '/property/details/:name/:type',
+    component: PropertyDetails,
   },
 
   {

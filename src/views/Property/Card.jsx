@@ -13,23 +13,18 @@ export default {
 
   data() {
     return {
-      data: null
+      value: null
     };
   },
 
   computed: {
     routerLink() {
-      return {
-        name: 'PropertyDetails',
-        params: {
-          name: this.$props.link
-        }
-      };
+      return `/property/details/${this.$props.link}/1`;
     }
   },
 
   async mounted() {
-    this.data = await this.fetchData?.();
+    this.value = await this.fetchData?.();
   },
 
   render() {
@@ -41,12 +36,16 @@ export default {
         <div>
           <div class={styles.header}>
             {sideTitle ? (
-              <router-link to={this.routerLink}>查看更多</router-link>
+              <router-link to={this.routerLink}>
+                查看明细&nbsp;&gt;&gt;&gt;
+              </router-link>
             ) : (
               this.$slots.header
             )}
           </div>
-          <div class={styles.content}>{this.$scopedSlots.default}</div>
+          <div class={styles.content}>
+            {this.$scopedSlots.default && this.$scopedSlots.default(this.value)}
+          </div>
         </div>
       </div>
     );
