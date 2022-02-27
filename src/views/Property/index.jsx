@@ -196,7 +196,6 @@ export default {
       <div class={styles.container}>
         <div class={styles.header}>
           <h1>农村产权交易</h1>
-          <p>Rural property right transaction</p>
           <Button
             icon="el-icon-arrow-left"
             style={{
@@ -207,7 +206,7 @@ export default {
               backgroundColor: 'transparent',
               borderWidth: '0 !important'
             }}
-            onClick={() => this.$router.go(-1)}
+            onClick={() => this.$router.replace('/')}
           >
             返回
           </Button>

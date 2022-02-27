@@ -7,6 +7,7 @@
   background-color: rgba(0, 0, 0, 0.1);
   color: white;
   padding: 4px 12px;
+  max-height: calc(33% - 17px);
 
   & + .card {
     margin-top: 8px;
@@ -97,6 +98,10 @@
         border-width: 0;
         font-size: 10px;
       }
+    }
+
+    .el-table__body tr:hover > td.el-table__cell {
+      background-color: transparent !important;
     }
   }
 }

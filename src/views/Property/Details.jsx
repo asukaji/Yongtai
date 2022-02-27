@@ -255,7 +255,6 @@ export default {
             返回
           </Button>
           <h1>{title[this.name] ?? `${this.name}镇村`}</h1>
-          <p>Rural property right transaction</p>
         </div>
         <div class={styles.table}>
           {this.type === '1' && this.renderYears()}

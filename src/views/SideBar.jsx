@@ -2,7 +2,7 @@ import styles from './SideBar.module.less';
 
 import _ from 'lodash';
 
-import { homeRoutes } from '@/constants';
+import { homeRoutes, PROPERTY } from '@/constants';
 import Profile from '@/assets/Icon/profile.png';
 import Economy from '@/assets/Icon/economy.png';
 import Business from '@/assets/Icon/business.png';
@@ -32,7 +32,7 @@ export default {
     return (
       <div class={styles.sidebar}>
         {_.map(homeRoutes, ([route, title], index) => (
-          <router-link to={route}>
+          <router-link to={route} replace={route === PROPERTY}>
             <div>
               <img src={ICONS[index]} />
               {title}
