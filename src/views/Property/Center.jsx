@@ -38,24 +38,24 @@ export default {
           <h2>集体和国有资产资源摸统计</h2>
           <div>
             <div>
-              <div>
+              <router-link to="/property/details/梧桐/2">
                 <p>{this.wT}</p>
                 <p>梧桐镇村资源</p>
-              </div>
-              <div>
+              </router-link>
+              <router-link to="/property/details/嵩口/2">
                 <p>{this.sK}</p>
                 <p>嵩口镇村资源</p>
-              </div>
+              </router-link>
             </div>
             <div>
-              <div>
+              <router-link to="/property/details/葛岭/2">
                 <p>{this.gL}</p>
                 <p>葛岭镇村资源</p>
-              </div>
-              <div>
+              </router-link>
+              <router-link to="/property/details/大洋/2">
                 <p>{this.dY}</p>
                 <p>大洋镇村资源</p>
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
