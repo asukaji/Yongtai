@@ -195,7 +195,7 @@ export default {
     return (
       <div class={styles.container}>
         <div class={styles.header}>
-          <h1>农村产权交易</h1>
+          <h1>永泰县农村产权交易中心</h1>
           <Button
             icon="el-icon-arrow-left"
             style={{

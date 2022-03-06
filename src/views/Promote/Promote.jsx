@@ -81,6 +81,12 @@ export default {
       _.assign(this.state.activeProject, { contacts });
     },
 
+    onClose() {
+      setTimeout(() => {
+        this.setStep(0);
+      }, 500);
+    },
+
     renderProjects() {
       return _.map(this.area, ({ position, title, id, area, description }) => (
         <Marker
@@ -157,7 +163,7 @@ export default {
 
         <ParagraphModal
           ref="modal"
-          onClose={this.setStep.bind(null, 0)}
+          onClose={this.onClose}
           onMounted={this.setContacts}
         >
           {step === 0 && (

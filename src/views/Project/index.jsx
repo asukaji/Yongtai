@@ -106,6 +106,11 @@ export default {
       if (this.isProperty) {
         return this.filterDefaultProjects;
       }
+
+      if (this.isKiana) {
+        return this.KianaProjects;
+      }
+
       return _.filter(
         [
           ...this.planingProjects,
@@ -146,6 +151,10 @@ export default {
         return this.filterDefaultProjects;
       }
 
+      if (this.isKiana) {
+        return this.KianaProjects;
+      }
+
       if (this.isDefault) {
         return this.modelProjects;
       }
@@ -157,12 +166,22 @@ export default {
       return _.filter(this.filterDefaultProjects, ({ model }) => model === '1');
     },
 
+    KianaProjects() {
+      return _.filter(this.filterDefaultProjects, ({ imp }) =>
+        _.includes(imp, '4')
+      );
+    },
+
     isProperty() {
       return this.state.tab === 'property';
     },
 
     isDefault() {
       return this.state.tab === 'default';
+    },
+
+    isKiana() {
+      return this.state.tab === 'Kiana';
     }
   },
 
@@ -293,26 +312,38 @@ export default {
           } else {
             projects.add(id);
 
-            return ((this.isProperty || this.isDefault) && model) === '1' ? (
-              <Marker
-                key={`${id}.${this.isProperty}.${model}`}
-                position={position}
-                onClick={this.onMarkerNextClick.bind(null, id, title, position)}
-              >
-                <div
-                  class={[
-                    styles.markerModel
-                    // 'shake',
-                    // 'shake-constant',
-                    // 'shake-little',
-                    // 'shake-opacity',
-                    // 'shake-rotate'
-                  ]}
+            if (
+              (this.isKiana || this.isProperty || this.isDefault) &&
+              model === '1'
+            ) {
+              return (
+                <Marker
+                  key={`${id}.${this.isProperty}.${model}`}
+                  position={position}
+                  onClick={this.onMarkerNextClick.bind(
+                    null,
+                    id,
+                    title,
+                    position
+                  )}
                 >
-                  <img src={markerModel} />
-                </div>
-              </Marker>
-            ) : (
+                  <div
+                    class={[
+                      styles.markerModel
+                      // 'shake',
+                      // 'shake-constant',
+                      // 'shake-little',
+                      // 'shake-opacity',
+                      // 'shake-rotate'
+                    ]}
+                  >
+                    <img src={markerModel} />
+                  </div>
+                </Marker>
+              );
+            }
+
+            return (
               <Marker
                 key={`${id}.${this.isProperty}.${model}`}
                 position={position}
@@ -352,13 +383,13 @@ export default {
               position={position}
               text={title}
               offset={
-                model && (this.isProperty || this.isDefault)
+                model && (this.isKiana || this.isProperty || this.isDefault)
                   ? [-45, 20]
                   : [20, -2]
               }
               domStyle={{
                 color:
-                  model && (this.isProperty || this.isDefault)
+                  model && (this.isKiana || this.isProperty || this.isDefault)
                     ? '#FB3F62'
                     : this.colorType(type),
                 width: '120px',
@@ -375,6 +406,20 @@ export default {
       });
     },
 
+    renderProjectsSize(projects) {
+      const { isDefault, isKiana } = this;
+
+      if (isDefault) {
+        return _.size(_.filter(projects, ['model', '1']));
+      }
+
+      if (isKiana) {
+        return _.size(_.filter(projects, ({ imp }) => _.includes(imp, '4')));
+      }
+
+      return _.size(projects);
+    },
+
     renderDefaultFooter() {
       const {
         showProvince,
@@ -383,7 +428,7 @@ export default {
         provinceProjects,
         cityProjects,
         otherProjects,
-        isDefault
+        renderProjectsSize
       } = this;
 
       return (
@@ -398,10 +443,7 @@ export default {
                   'province'
                 )}
               >
-                {isDefault
-                  ? _.size(_.filter(provinceProjects, ['model', '1']))
-                  : _.size(provinceProjects)}
-                项
+                {renderProjectsSize(provinceProjects)}项
               </pre>
             </div>
             <Switcher value={showProvince} />
@@ -416,10 +458,7 @@ export default {
                   'city'
                 )}
               >
-                {isDefault
-                  ? _.size(_.filter(cityProjects, ['model', '1']))
-                  : _.size(cityProjects)}
-                项
+                {renderProjectsSize(cityProjects)}项
               </pre>
             </div>
             <Switcher value={showCity} />
@@ -434,10 +473,7 @@ export default {
                   'other'
                 )}
               >
-                {isDefault
-                  ? _.size(_.filter(otherProjects, ['model', '1']))
-                  : _.size(otherProjects)}
-                项
+                {renderProjectsSize(otherProjects)}项
               </pre>
             </div>
             <Switcher value={showOther} />
@@ -567,6 +603,9 @@ export default {
               </TabPane>
               <TabPane label="按项目阶段" name="timeline">
                 {this.renderFooter()}
+              </TabPane>
+              <TabPane label="三察一体" name="Kiana">
+                {this.renderDefaultFooter()}
               </TabPane>
             </Tabs>
           </FooterTabs>
