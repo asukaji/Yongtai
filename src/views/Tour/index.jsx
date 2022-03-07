@@ -344,7 +344,7 @@ export default {
     return (
       <div class={styles.home}>
         <Header>
-          <ChartsDrawer />
+          <ChartsDrawer visibleText="查看旅游数据" />
         </Header>
         <YtMap onMapClick={this.onMapClick}>
           {this.renderProjects()}

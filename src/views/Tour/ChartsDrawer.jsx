@@ -17,6 +17,7 @@ export default {
 
   props: {
     styles: VueTypes.object.def(),
+    visibleText: VueTypes.string.def(),
     visible: VueTypes.bool.def(false)
   },
 
@@ -54,7 +55,7 @@ export default {
           class={styles.button}
           onClick={() => (this.state.visible = !this.state.visible)}
         >
-          {this.state.visible ? '收起' : '展开'}
+          {this.state.visible ? '收起' : this.visibleText ?? '展开'}
         </Button>
 
         <Drawer
