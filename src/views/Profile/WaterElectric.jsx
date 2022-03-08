@@ -1,6 +1,6 @@
 import { Marker, Text, InfoWindow } from '@amap/amap-vue';
 import { StreetsPolygon } from '@/components/Map';
-import { ParagraphModal } from '@/components/Custom';
+import { ParagraphModal, Float } from '@/components/Custom';
 
 import { fetchElectricList, fetchElectricDetail } from '@/api';
 import _ from 'lodash';
@@ -71,7 +71,11 @@ export default {
           position={position}
           text={title}
           offset={[-10, 20]}
-          domStyle={{ color: '#0078FF' }}
+          domStyle={{
+            color: '#FB3F62',
+            fontWeight: 'bolder',
+            fontSize: '15px'
+          }}
           onClick={this.onMarkerClick.bind(
             null,
             id,
@@ -107,7 +111,15 @@ export default {
           </div>
         </InfoWindow>
 
-        <ParagraphModal ref="modal"></ParagraphModal>
+        <Float bottom="100px" onClick={() => this.$refs.modal?.open()} />
+
+        <ParagraphModal ref="modal">
+          <h2>水域水流</h2>
+          <pre>Water Flow</pre>
+          <p>
+            永泰县共有水电站113座，其中：中型水电站1座（界竹口水电站），装机容量6万千瓦，小型水电站112座，总装机容量达16.46万千瓦。
+          </p>
+        </ParagraphModal>
       </div>
     );
   }

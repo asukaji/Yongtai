@@ -1,0 +1,233 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-image: url('~@/assets/Bg/BG.png');
+  background-size: cover;
+  background-position: center center;
+
+  .header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    margin-bottom: 12px;
+    background-image: url('~@/assets/Bg/property-head.png');
+    background-size: contain;
+    background-position: center 10px;
+    background-repeat: no-repeat;
+
+    & > h1 {
+      color: #fff;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    & > p {
+      color: #fff;
+      font-size: 12px;
+      margin: 0;
+      margin-top: -8px;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    & > div:first-child,
+    & > div:last-child {
+      max-width: 380px;
+    }
+
+    & > div + div {
+      margin-left: 4px;
+    }
+  }
+
+  .table {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    flex: 1;
+
+    :global .el-radio-group {
+      position: relative;
+      margin: 0 24px;
+
+      .el-radio-button.is-active {
+        position: relative;
+
+        &::before {
+          content: ' ';
+          position: absolute;
+          bottom: 12px;
+          width: 100%;
+          left: 0;
+          border-bottom: 8px solid #2724b7;
+        }
+      }
+
+      .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+        border-width: 0;
+        box-shadow: none;
+      }
+
+      .el-radio-button__inner {
+        border-width: 0;
+        font-size: 20px;
+        background-color: transparent;
+      }
+    }
+
+    :global .el-table {
+      width: calc(100% - 48px);
+      margin: 12px 24px;
+      background-color: rgba(0, 22, 47, 0.4) !important;
+      color: #fff !important;
+
+      .el-table__body-wrapper {
+        height: 580px !important;
+        max-height: 580px;
+      }
+
+      .el-table__body tr:hover > td.el-table__cell {
+        background-color: transparent !important;
+      }
+
+      tr,
+      th {
+        background-color: rgba(0, 22, 47, 0.4) !important;
+        color: #fff !important;
+
+        td {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}
+
+.titles {
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    flex: 1;
+    margin-left: 12px;
+    text-align: left;
+  }
+
+  p,
+  pre {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.center {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  & > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 230px;
+    margin-bottom: 48px;
+    background-image: url('~@/assets/Bg/property-card.png');
+    background-size: 100% 100%;
+    background-position: center center;
+    padding: 0 12px;
+
+    & > h2 {
+      color: #fff;
+      margin: 8px 0 0;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    & > div {
+      display: flex;
+      flex: 1;
+      padding: 16px;
+      width: calc(100% - 24px);
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(0, 83, 108, 0.4);
+        flex: 1;
+        padding: 12px;
+
+        & > a {
+          flex: 1;
+          width: calc(100% - 24px);
+          text-decoration: none;
+
+          & + a {
+            border-top: 2px solid rgba(0, 22, 47, 0.4);
+          }
+        }
+
+        p {
+          color: #fff;
+          margin: 0;
+          font-size: 14px;
+        }
+
+        p:first-child {
+          margin-top: 8px;
+          color: #8ffbff;
+          font-size: 24px;
+        }
+
+        & + div {
+          margin-left: 12px;
+        }
+      }
+    }
+  }
+
+  & > div:last-child {
+    display: flex;
+    justify-content: space-around;
+
+    & > a {
+      background-image: url('~@/assets/Bg/property-link.png');
+      background-size: contain;
+      background-position: center 0;
+      background-repeat: no-repeat;
+      height: 100px;
+      width: 70px;
+
+      color: white;
+      text-decoration: none;
+      line-height: 10;
+
+      & + a {
+        margin-left: 16px;
+      }
+    }
+  }
+}

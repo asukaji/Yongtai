@@ -1,13 +1,13 @@
 import styles from './index.module.less';
 
-import bg1 from '@/assets/Bg/profile-bg1.png';
-import bg2 from '@/assets/Bg/profile-bg2.png';
-import bg3 from '@/assets/Bg/profile-bg3.png';
-import bg4 from '@/assets/Bg/profile-bg4.png';
-import bg5 from '@/assets/Bg/profile-bg5.png';
-import bg6 from '@/assets/Bg/profile-bg6.png';
-import bg7 from '@/assets/Bg/profile-bg7.png';
-import bg8 from '@/assets/Bg/profile-bg8.png';
+import bg1 from '@/assets/Bg/profile-bg1.jpg';
+import bg2 from '@/assets/Bg/profile-bg2.jpg';
+import bg3 from '@/assets/Bg/profile-bg3.jpg';
+import bg4 from '@/assets/Bg/profile-bg4.jpg';
+import bg5 from '@/assets/Bg/profile-bg5.jpg';
+import bg6 from '@/assets/Bg/profile-bg6.jpg';
+import bg7 from '@/assets/Bg/profile-bg7.jpg';
+import bg8 from '@/assets/Bg/profile-bg8.jpg';
 
 const CARDS = [
   {

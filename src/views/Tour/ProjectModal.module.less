@@ -1,0 +1,27 @@
+.modal {
+  :global .el-menu {
+    overflow: auto;
+
+    .el-menu-item {
+      height: 48px;
+    }
+
+    .el-menu-item,
+    .el-submenu__title {
+      display: flex;
+      align-items: center;
+      text-align: left;
+
+      & p {
+        margin: 0;
+        line-height: 21px;
+        word-break: break-word;
+        white-space: pre-wrap;
+      }
+    }
+
+    .el-menu-item + .el-menu-item {
+      border-top: 1px dashed #ccc;
+    }
+  }
+}

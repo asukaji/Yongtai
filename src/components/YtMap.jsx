@@ -14,6 +14,17 @@ export default {
 
     setFeatures(features) {
       this.$refs.Config.setFeatures(features);
+    },
+
+    setCenter(center) {
+      try {
+        this.$refs.Config.setCenter(center);
+        this.$refs.Config.setFeatures('road', 'building', 'point');
+      } catch (e) {
+        setTimeout(
+          () => this.setCenter(center), 1024
+        );
+      }
     }
   },
 

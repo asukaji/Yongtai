@@ -1,0 +1,34 @@
+h4 {
+  position: relative;
+  text-align: left;
+  margin-left: 20px;
+  margin-bottom: 10px;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 64px;
+    left: 0;
+    bottom: 2px;
+    border-top: 7px solid #0072ef;
+    z-index: -1;
+  }
+}
+
+.upload {
+  margin-left: 20px;
+  text-align: left;
+
+  :global .el-upload {
+    width: 57px;
+    height: 57px;
+    line-height: 67px;
+    border-radius: 3px;
+  }
+
+  :global .el-upload-list--picture-card .el-upload-list__item {
+    width: 57px;
+    height: 57px;
+    border-radius: 3px;
+  }
+}

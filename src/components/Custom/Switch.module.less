@@ -1,0 +1,37 @@
+.switch {
+  margin-top: -12px;
+  transform: rotate(180deg);
+
+  :global .el-switch {
+    .el-switch__core {
+      position: relative;
+      border-color: #dcdfe6 !important;
+      background-color: #fff !important;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        top: 50%;
+        width: 70%;
+        left: 15%;
+        margin-top: -1px;
+        border-top: 2px solid #aaa;
+      }
+
+      &::after {
+        top: 3px;
+        width: 12px;
+        height: 12px;
+        background-color: #aaa;
+      }
+    }
+
+    &.is-checked .el-switch__core::before {
+      border-top-color: #0078ff;
+    }
+
+    &.is-checked .el-switch__core::after {
+      background-color: #0078ff;
+    }
+  }
+}

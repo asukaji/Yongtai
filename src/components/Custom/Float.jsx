@@ -9,7 +9,8 @@ export default {
 
   props: {
     type: VueTypes.string.def('file'),
-    bottom: VueTypes.string.def()
+    bottom: VueTypes.string.def(),
+    left: VueTypes.bool.def(false)
   },
 
   render() {
@@ -18,15 +19,26 @@ export default {
         class={styles.float}
         style={{
           background: this.type !== 'file' && 'transparent',
-          bottom: this.bottom
+          // prettier-ignore
+          ...(this.left
+            ? {
+              bottom: 'auto',
+              left: '40px',
+              right: 'auto',
+              top: '86px'
+            }
+            : {
+              bottom: this.bottom
+            })
         }}
         onClick={this.$emit.bind(this, 'click')}
       >
-        {this.type === 'file' ? (
-          <img src={iconFile} />
-        ) : (
-          <img src={iconCamera} style={{ width: '80px' }} />
-        )}
+        {this.$slots.default ??
+          (this.type === 'file' ? (
+            <img src={iconFile} />
+          ) : (
+            <img src={iconCamera} style={{ width: '80px' }} />
+          ))}
 
         {this.type === 'file' && '概况'}
       </div>

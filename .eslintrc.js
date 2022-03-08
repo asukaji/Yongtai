@@ -50,7 +50,7 @@ module.exports = {
         ADHOC_ORIGIN: false,
         LATEST_CHANGELOG: false,
         WEB_SDK_KEY: false,
-        mtstat: false
+        AMap: false
     },
     // add your custom rules here
     rules: {

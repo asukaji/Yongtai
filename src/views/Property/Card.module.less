@@ -1,0 +1,107 @@
+.card {
+  display: flex;
+  flex: 1;
+  border-width: 1.5px;
+  border-style: solid;
+  border-image: linear-gradient(rgba(255, 255, 255, 0.5), transparent) 30;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+  padding: 4px 12px;
+  max-height: calc(33% - 17px);
+
+  & + .card {
+    margin-top: 8px;
+  }
+
+  & > div:last-child {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .title {
+    width: 18px;
+    writing-mode: vertical-lr;
+
+    p {
+      position: relative;
+      margin: 14px 0 0 -6px;
+      text-align: left;
+      font-size: 12px;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        top: -12px;
+        width: 12px;
+        left: 2px;
+        border-top: 2px solid #689aff;
+      }
+    }
+  }
+
+  .header {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 16px;
+    padding: 0 12px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    color: white;
+    & > p {
+      margin: 0;
+    }
+
+    & > a {
+      position: absolute;
+      right: 0px;
+      top: -4px;
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 12px;
+    padding-right: 12px;
+
+    & > div {
+      width: 100%;
+    }
+  }
+
+  :global .el-table {
+    background-color: transparent !important;
+    color: #fff !important;
+    max-height: 200px;
+    max-width: 380px;
+    overflow: auto;
+
+    &::before {
+      display: none;
+    }
+
+    tr {
+      background-color: transparent !important;
+
+      &:nth-child(2n - 1) {
+        background-color: rgba(240, 72, 100, 0.4) !important;
+      }
+
+      td {
+        border-width: 0;
+        font-size: 10px;
+      }
+    }
+
+    .el-table__body tr:hover > td.el-table__cell {
+      background-color: transparent !important;
+    }
+  }
+}

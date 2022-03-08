@@ -34,6 +34,14 @@ export default {
       });
     },
 
+    onMarkerNextClick(id, title, position, area, description) {
+      _.assign(this.state, {
+        infoWindowContent: { id, title, position, area, description }
+      });
+
+      this.onInfoWindowClick();
+    },
+
     onMapClick() {
       _.assign(this.state, {
         infoWindowContent: undefined,
@@ -55,7 +63,7 @@ export default {
         <Marker
           position={position}
           icon={markerGeothermal}
-          onClick={this.onMarkerClick.bind(
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,
@@ -73,8 +81,12 @@ export default {
           position={position}
           text={title}
           offset={[-3, 20]}
-          domStyle={{ color: '#FB3F62' }}
-          onClick={this.onMarkerClick.bind(
+          domStyle={{
+            color: '#FB3F62',
+            fontWeight: 'bolder',
+            fontSize: '15px'
+          }}
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,

@@ -1,5 +1,6 @@
 import { ZOOM } from '@/constants';
 import { Marker, Text } from '@amap/amap-vue';
+import { highwayLayer } from '@/components/Map';
 
 import { fetchHighwayList } from '@/api';
 import _ from 'lodash';
@@ -34,7 +35,11 @@ export default {
           position={position}
           text={title}
           offset={[-20, 20]}
-          domStyle={{ color: '#FB3F62' }}
+          domStyle={{
+            color: '#FB3F62',
+            fontWeight: 'bolder',
+            fontSize: '15px'
+          }}
         />
       ));
     }
@@ -45,6 +50,7 @@ export default {
       <div>
         {this.renderProjects()}
         {this.renderText()}
+        <highwayLayer />
       </div>
     );
   }

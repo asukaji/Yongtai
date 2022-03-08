@@ -1,0 +1,32 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 54px;
+
+  :global .img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 60px;
+
+    img {
+      width: 20px;
+    }
+  }
+
+  :global .el-button--small {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -16px;
+    border: none;
+    font-size: 16px;
+  }
+}

@@ -1,6 +1,6 @@
 .home {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 54px);
 
   :global .amap-icon {
     width: 24px !important;
@@ -8,6 +8,14 @@
     & img {
       width: 100%;
       left: 0;
+    }
+  }
+
+  .markerModel {
+    width: 24px;
+    height: 24px;
+    img {
+      width: 24px;
     }
   }
 
@@ -25,10 +33,9 @@
   :global .amap-overlay-text-container {
     background: transparent;
     border-width: 0;
-    text-shadow: 0 1px 4px #fff;
     font-size: 10px;
     font-weight: bold;
-    -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.2);
     -webkit-text-stroke-width: 1px;
   }
 
@@ -48,6 +55,44 @@
       position: absolute;
       right: 12px;
       height: 50%;
+    }
+  }
+
+  :global .el-tabs {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    .el-tabs__header {
+      border-bottom: none !important;
+      margin-bottom: 0;
+      padding-left: 12px;
+    }
+
+    .el-tabs__content {
+      margin-bottom: 10px;
+    }
+
+    .el-tabs__item {
+      position: relative;
+      width: 160px;
+      height: 48px;
+      font-size: 18px;
+      line-height: 48px;
+      color: #fff;
+      background-color: #3d98ff;
+      border-radius: 10px 10px 0 0;
+      z-index: 1;
+
+      &.is-active {
+        border-bottom: none !important;
+        background-color: #0078ff;
+        z-index: 2;
+      }
+
+      & + .el-tabs__item {
+        margin-left: -10px;
+      }
     }
   }
 }
@@ -74,6 +119,7 @@
 
       pre {
         margin-left: 4px;
+        color: #ddd;
       }
 
       &.planing pre {

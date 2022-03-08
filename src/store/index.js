@@ -1,13 +1,16 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 
-export default function createStore() {
-  Vue.use(Vuex);
+import control from './control';
+import mobile from './mobile';
 
-  new Vuex.Store({
-    devtools: false,
-    modules: {}
-  });
-}
+Vue.use(Vuex);
 
-export const store = createStore();
+export default new Vuex.Store({
+  devtools: false,
+  
+  modules: {
+    control,
+    mobile
+  }
+});

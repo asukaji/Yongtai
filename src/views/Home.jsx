@@ -1,46 +1,32 @@
-import YtMap from '@/components/YtMap';
-import { SatelliteLayer, Polygon, Marker } from '@amap/amap-vue';
+// import YtMap from '@/components/YtMap';
+// import { StreetsPolygon } from '@/components/Map';
 import SideBar from './SideBar';
+import Header from './Header';
 import styles from './Home.module.less';
 
-import { FUZHOU, YONGTAI } from '@/constants';
-import { coordinates } from '@/assets/Geo/Yongtai.json';
-import markerBlue from '@/assets/MapPlugin/marker-blue.png';
-import markerRed from '@/assets/MapPlugin/marker-red.png';
+import Title from '@/assets/Bg/home-title.png';
+import HeaderBg from '@/assets/Bg/home-header-bg.png';
+import Names from '@/assets/Bg/home-streets-name.png';
 
 export default {
   name: 'Home',
 
+  methods: {
+    open(path) {
+      this.$router.push(path);
+    }
+  },
+
   render() {
     return (
       <div class={styles.home}>
-        <YtMap zoom={9} showLabel={false}>
-          <SatelliteLayer visible />
-
-          <Polygon
-            path={coordinates}
-            strokeColor="#0078FF"
-            fillColor="#0078FF"
-            fillOpacity={0.2}
-          />
-
-          <Marker
-            position={FUZHOU}
-            icon={markerRed}
-            label={{
-              content: '福州市'
-            }}
-            class={styles.markerRed}
-          />
-
-          <Marker
-            position={YONGTAI}
-            icon={markerBlue}
-            label={{
-              content: '永泰县'
-            }}
-          />
-        </YtMap>
+        <Header />
+        <img src={Title} />
+        <img src={HeaderBg} />
+        <img src={Names} class={styles.streetsName} />
+        {/* <YtMap showLabel={false}>
+          <StreetsPolygon />
+        </YtMap> */}
         <SideBar />
       </div>
     );

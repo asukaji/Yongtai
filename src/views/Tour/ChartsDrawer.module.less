@@ -1,0 +1,109 @@
+.drawer {
+  :global .el-drawer {
+    width: 810px !important;
+    height: 84%;
+    right: 10px;
+    margin: auto 0;
+    padding: 8px 20px;
+
+    h4 {
+      position: relative;
+      margin: 0 0 10px 10px;
+      font-weight: normal;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: -10px;
+        top: 0;
+        height: 100%;
+        border-left: 2px solid #0078ff;
+      }
+    }
+
+    .el-drawer__body {
+      & > div {
+        padding: 10px 0;
+      }
+      & > div + div {
+        border-top: 1px solid #ddd;
+      }
+    }
+
+    :local .panel {
+      display: flex;
+      padding: 0 8px;
+    }
+
+    :local .panelItem {
+      flex: 1;
+
+      :global pre {
+        font-size: 18px;
+        font-weight: bolder;
+        color: #0078ff;
+        margin: 0;
+      }
+    }
+
+    img {
+      width: 32px;
+    }
+
+    :local .panelItems {
+      display: flex;
+      flex: 33%;
+      align-items: center;
+      justify-content: center;
+
+      pre {
+        font-size: 14px;
+        font-weight: normal;
+        color: #333;
+        margin: 0;
+      }
+    }
+
+    :local .statistic {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background-image: url('~@/assets/Bg/bg-statistic.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+
+      p {
+        margin: 0;
+
+        & + p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  &.small {
+    :global .el-drawer {
+      width: 480px !important;
+      height: 88%;
+      top: 6%;
+    }
+  }
+}
+
+.button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0078ff;
+}
+
+:global .v-modal {
+  opacity: 0;
+}

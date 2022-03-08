@@ -16,8 +16,7 @@ export const ZOOM = 10.5;
 export const FUZHOU = [119.300537, 26.07991];
 
 /** 永泰 */
-export const YONGTAI = [118.93326759338379,
-  25.863008074133162];
+export const YONGTAI = [118.93326759338379, 25.863008074133162];
 
 /** 交通 - 点 */
 export const TRAFFIC_POINTS = [

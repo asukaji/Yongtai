@@ -1,12 +1,23 @@
 import axios from 'axios';
+import _ from 'lodash';
+import { isMobile } from '../main';
+
+import { TOKEN } from '@/constants';
 
 export function createInstance(config) {
-  const instance = axios.create(
-    Object.assign({}, config, { withCredentials: true })
-  );
-  instance.interceptors.request.use((config) => {
-    return config;
-  });
+  const instance = axios.create(config);
+
+  if (isMobile()) {
+    instance.interceptors.request.use((config) => {
+      const token = localStorage.getItem(TOKEN);
+
+      if (token) {
+        _.set(config, 'headers.X-Access-Token', token);
+      }
+
+      return config;
+    });
+  }
 
   instance.interceptors.response.use(
     (response) => {
@@ -24,17 +35,18 @@ export function createInstance(config) {
 
       throw Object.assign(
         new Error(
-          response.data.meta?.msg ??
-            response.data.meta?.error ??
-            response.statusText
+          response.data?.message ?? response.data?.error ?? response.statusText
         ),
         {
           status: response.status,
-          errorCode: response.data.meta?.code
+          errorCode: response.data?.code
         }
       );
     },
     (error) => {
+      if (error.response.data?.code === 401) {
+        location.href = `${location.protocol}//${location.host}/#/login`;
+      }
       return error;
     }
   );

@@ -1,0 +1,66 @@
+.paragraph {
+  padding: 14px 10px;
+  max-height: 800px;
+  overflow-y: auto;
+
+  h2,
+  h1 {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: left;
+
+    &::after {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      bottom: -12px;
+      width: 40px;
+      border-top: 2px solid #0078ff;
+    }
+  }
+
+  pre {
+    margin-top: 24px;
+    color: #a1a8af;
+    font-size: 10px;
+    text-align: left;
+    letter-spacing: 2px;
+  }
+
+  p {
+    margin: 12px 0;
+    font-size: 12px;
+    text-align: left;
+    text-indent: 36px;
+  }
+
+  .indicator {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    & > div {
+      flex: 1;
+      text-align: center;
+
+      :global h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      :global pre {
+        text-align: center;
+        letter-spacing: -1px;
+
+        margin: 0;
+      }
+    }
+  }
+}
+
+:global .el-drawer__body {
+  > div > div {
+    max-height: none !important;
+  }
+}

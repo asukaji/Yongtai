@@ -1,123 +1,82 @@
 import YtMap from '@/components/YtMap';
 import { StreetsPolygon } from '@/components/Map';
-import { Marker, Text, InfoWindow } from '@amap/amap-vue';
-import { ParagraphModal } from '@/components/Custom';
+import { FooterTabs } from '@/components/Custom';
+import { Tabs, TabPane } from 'element-ui';
 import Header from '../Header';
+import ChartsDrawer from '../Tour/ChartsDrawer';
+import DrawerContainer from './DrawerContainer';
 import styles from './index.module.less';
 
-import { fetchPromoteList, fetchPromoteDetail } from '@/api';
-import _ from 'lodash';
-
-import markerRace from '@/assets/MapPlugin/marker-race.png';
+import { PROMOTE_INDEX, PROMOTE_VILLAGE } from '@/constants';
 
 export default {
   name: 'Promote',
 
   data() {
     return {
-      area: undefined,
-      state: {
-        infoVisible: false,
-        infoWindowContent: undefined
-      }
+      activeArea: undefined,
+      type: undefined
     };
   },
 
-  async mounted() {
-    this.area = await fetchPromoteList();
+  provide() {
+    return {
+      map: this
+    };
+  },
+
+  computed: {
+    activeKey() {
+      const [pathName, tabName] = this.$route.name.split('.');
+      return [pathName, tabName].join('.');
+    }
   },
 
   methods: {
-    onMarkerClick(id, title, position, area, description) {
-      _.assign(this.state, {
-        infoWindowContent: { id, title, position, area, description },
-        infoVisible: true
-      });
+    onClick(area, type) {
+      this.activeArea = area;
+      this.type = type;
     },
 
-    onMapClick() {
-      _.assign(this.state, {
-        infoWindowContent: undefined,
-        infoVisible: false
-      });
+    beforeLeave(name) {
+      this.$router.replace({ name });
     },
 
-    onInfoWindowClick() {
-      this.$refs.modal?.open(
-        fetchPromoteDetail.bind(null, this.state.infoWindowContent?.id),
-        this.state.infoWindowContent?.title
+    renderFooter() {
+      return (
+        <div class={styles.tabs}>
+          <Tabs value={this.activeKey} beforeLeave={this.beforeLeave}>
+            <TabPane
+              key={PROMOTE_INDEX}
+              name={PROMOTE_INDEX}
+              label="乡村振兴"
+            />
+            <TabPane
+              key={PROMOTE_VILLAGE}
+              name={PROMOTE_VILLAGE}
+              label="美丽乡村建设"
+            />
+          </Tabs>
+        </div>
       );
-
-      this.onMapClick();
-    },
-
-    renderProjects() {
-      return _.map(this.area, ({ position, title, id, area, description }) => (
-        <Marker
-          position={position}
-          icon={markerRace}
-          onClick={this.onMarkerClick.bind(
-            null,
-            id,
-            title,
-            position,
-            area,
-            description
-          )}
-        />
-      ));
-    },
-
-    renderText() {
-      return _.map(this.area, ({ position, title, id, area, description }) => (
-        <Text
-          position={position}
-          text={title}
-          offset={[-10, 2]}
-          domStyle={{ color: '#FB3F62' }}
-          onClick={this.onMarkerClick.bind(
-            null,
-            id,
-            title,
-            position,
-            area,
-            description
-          )}
-        />
-      ));
     }
   },
 
   render() {
     return (
       <div class={styles.home}>
-        <Header />
-        <YtMap onMapClick={this.onMapClick}>
-          <StreetsPolygon onStreetClick={this.onMapClick} />
-          {/* <PromoteLayer /> */}
-
-          {this.renderProjects()}
-          {this.renderText()}
-
-          <InfoWindow
-            visible={this.state.visible}
-            position={this.state.infoWindowContent?.position}
-            isCustom
-            autoMove
-          >
-            <div
-              class="info-window"
-              style={{ visibility: this.state.infoVisible ? '' : 'hidden' }}
-              onClick={this.onInfoWindowClick}
-            >
-              <h3>{this.state.infoWindowContent?.title}</h3>
-              <p>{this.state.infoWindowContent?.description}</p>
-              {this.state.infoWindowContent?.area}
-            </div>
-          </InfoWindow>
+        <Header>
+          {this.activeKey === PROMOTE_VILLAGE ? (
+            <ChartsDrawer ref="drawer" styles={{ width: '30%' }} visible={true}>
+              <DrawerContainer onClick={this.onClick} />
+            </ChartsDrawer>
+          ) : null}
+        </Header>
+        <YtMap>
+          <StreetsPolygon />
+          <router-view></router-view>
+          <FooterTabs>{this.renderFooter()}</FooterTabs>
         </YtMap>
-
-        <ParagraphModal ref="modal" />
       </div>
     );
   }

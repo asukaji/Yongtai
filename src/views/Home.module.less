@@ -1,9 +1,14 @@
 .home {
   width: 100%;
   height: 100%;
+  background-image: url('~@/assets/Bg/home-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center 50px;
+  background-color: #313a6d;
 
   :global .amap-icon {
-    width: 20px !important;;
+    width: 20px !important;
     height: 24px !important;
     & img {
       width: 100%;
@@ -12,20 +17,77 @@
   }
 
   :global .amap-marker:first-child {
-    color: #FB3F62;
+    color: #fb3f62;
   }
 
   :global .amap-marker:not(:first-child) {
-    color: #0078FF;
+    color: #0078ff;
   }
 
   :global .amap-marker-label {
     background: transparent;
     border-width: 0;
     text-shadow: 0 1px 4px #fff;
-    font-size: 20px;
-    font-weight: bold;
-    -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    font-weight: bolder;
+    -webkit-text-stroke-color: rgba(255, 255, 255, 0.5);
     -webkit-text-stroke-width: 1px;
+  }
+
+  :global .amap-overlay-text-container {
+    background: transparent;
+    border-width: 0;
+    text-shadow: 0 1px 4px #dedede;
+    font-size: 12px;
+    font-weight: bolder;
+    // -webkit-text-stroke-color: rgba(188, 188, 188, 0.5);
+    // -webkit-text-stroke-width: 1px;
+  }
+
+  :global .el-carousel {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    width: 33vw;
+    height: calc(100% - 134px);
+    z-index: 4;
+
+    .el-carousel__item {
+      width: 33vw;
+
+      & > div {
+        width: 33vw;
+        height: 50vh;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
+  :local .title {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    margin-top: -255px;
+    z-index: 2;
+  }
+
+  & > img {
+    width: 67%;
+    margin-top: 24px;
+
+    & + img {
+      margin-top: 0;
+    }
+
+    &.streetsName {
+      position: absolute;
+      top: 18vw;
+      left: 50%;
+      width: 60vw;
+      margin-left: -30vw;
+    }
   }
 }

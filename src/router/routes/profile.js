@@ -56,12 +56,12 @@ export default [
           {
             name: PROFILE_TRAFFIC_NATIONAL,
             path: 'national',
-            component: () => import('@/views/Profile/TrafficHighway')
+            component: () => import('@/views/Profile/TrafficNational')
           },
           {
             name: PROFILE_TRAFFIC_PROVINCIAL,
             path: 'provincial',
-            component: () => import('@/views/Profile/TrafficHighway')
+            component: () => import('@/views/Profile/TrafficProvincial')
           }
         ]
       },
@@ -84,7 +84,7 @@ export default [
         name: PROFILE_WATER,
         path: 'water',
         component: () => import('@/views/Profile/Water'),
-        redirect: { name: PROFILE_WATER_BRANCH },
+        redirect: { name: PROFILE_WATER_ELECTRIC },
 
         children: [
           {

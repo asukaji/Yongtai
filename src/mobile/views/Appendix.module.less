@@ -1,0 +1,43 @@
+h4 {
+  position: relative;
+  text-align: left;
+  margin-left: 20px;
+  margin-bottom: 10px;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 64px;
+    left: 0;
+    bottom: 2px;
+    border-top: 7px solid #0072ef;
+    z-index: -1;
+  }
+}
+
+.container {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  & > img {
+    width: 57px;
+    height: 57px;
+    border-radius: 3px;
+
+    & > img {
+      margin-left: 8px;
+    }
+  }
+
+  & > video {
+    width: 57px;
+    height: 57px;
+    border-radius: 3px;
+
+    & > video {
+      margin-left: 8px;
+    }
+  }
+}

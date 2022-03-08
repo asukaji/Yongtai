@@ -6,6 +6,7 @@ export const TOUR = 'tour';
 export const PROMOTE = 'promote';
 export const CONTROL = 'control';
 export const VIDEO = 'video';
+export const PROPERTY = 'property';
 
 export const homeRoutes = [
   [PROFILE, '县情县况'],
@@ -14,8 +15,9 @@ export const homeRoutes = [
   [PROJECT, '重点项目'],
   [TOUR, '全域旅游'],
   [PROMOTE, '乡村振兴'],
+  [PROPERTY, '农村产权交易'],
   [CONTROL, '重点督查'],
-  [VIDEO, '视频连线']
+  // [VIDEO, '视频连线']
 ];
 
 export const PROFILE_TRAFFIC = 'profile.traffic';
@@ -40,11 +42,29 @@ export const PROFILE_WATER_MAIN = 'profile.water.main';
 
 export const BUSINESS_EVALUATION = 'business.evaluation';
 export const BUSINESS_SCHEDULE = 'business.schedule';
+export const BUSINESS_PROJECT = 'business.project';
+export const BUSINESS_TASK = 'business.task';
+
+export const BUSINESS_EVALUATION_PROFILE = 'business.evaluation.profile';
+export const BUSINESS_EVALUATION_UNIT = 'business.evaluation.unit';
+export const BUSINESS_EVALUATION_UNIT_TOWN = 'business.evaluation.unit.town';
+export const BUSINESS_EVALUATION_UNIT_STREET = 'business.evaluation.unit.street';
+export const BUSINESS_SCHEDULE_UNIT = 'business.schedule.unit';
+export const BUSINESS_SCHEDULE_TOWN = 'business.schedule.town';
+export const BUSINESS_SCHEDULE_STREET = 'business.schedule.street';
+export const BUSINESS_TASK_UNIT = 'business.task.unit';
+export const BUSINESS_TASK_TOWN = 'business.task.town';
+export const BUSINESS_TASK_STREET = 'business.task.street';
 
 export const ECONOMY_PROFILE = 'economy.profile';
 export const ECONOMY_DETAIL = 'economy.detail';
 
+export const PROMOTE_INDEX = 'promote.index';
+export const PROMOTE_VILLAGE = 'promote.village';
+
 export const businessRoutes = [
-  [BUSINESS_EVALUATION, '考评情况'],
-  [BUSINESS_SCHEDULE, '任务序时进度']
+  [BUSINESS_EVALUATION, '“招商效率和招商质量提升工程”\n考评情况'],
+  [BUSINESS_SCHEDULE, '“招商效率和招商质量提升工程”\n任务序时进度'],
+  [BUSINESS_PROJECT, '列入市“攻坚120天”重大活动\n签约项目任务完成情况'],
+  [BUSINESS_TASK, '攻坚120天招商任务\n完成情况']
 ];

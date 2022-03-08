@@ -23,10 +23,6 @@ export default {
 
   async mounted() {
     this.area = await fetchTownList();
-
-    setTimeout(() => {
-      this.$refs.Map?.setFeatures('road');
-    }, 2048);
   },
 
   methods: {
@@ -35,6 +31,14 @@ export default {
         infoWindowContent: { id, title, position, area, description },
         infoVisible: true
       });
+    },
+
+    onMarkerNextClick(id, title, position, area, description) {
+      _.assign(this.state, {
+        infoWindowContent: { id, title, position, area, description }
+      });
+
+      this.onInfoWindowClick();
     },
 
     onMapClick() {
@@ -60,7 +64,7 @@ export default {
           text={title}
           offset={[-20, 0]}
           domStyle={{ color: '#0078FF' }}
-          onClick={this.onMarkerClick.bind(
+          onClick={this.onMarkerNextClick.bind(
             null,
             id,
             title,
@@ -78,7 +82,7 @@ export default {
       <div class={styles.home}>
         <Header />
         <YtMap ref="Map" onMapClick={this.onMapClick}>
-          <StreetsPolygon onStreetClick={this.onMapClick} />
+          <StreetsPolygon mark={false} onStreetClick={this.onMapClick} />
 
           {this.renderText()}
 
@@ -97,7 +101,11 @@ export default {
             </div>
           </InfoWindow>
 
-          <Float type="camera" onClick={() => this.$refs.selectModal?.open()} />
+          <Float
+            type="camera"
+            left
+            onClick={() => this.$refs.selectModal?.open()}
+          />
         </YtMap>
 
         <SelectModal ref="selectModal" options={this.area} />

@@ -2,6 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home';
 import Control from '@/views/Control';
+import Property from '@/views/Property';
+import PropertyDetails from '@/views/Property/Details';
+
 import tour from './routes/tour';
 import video from './routes/video';
 import profile from './routes/profile';
@@ -29,11 +32,28 @@ const routes = [
   ...project,
   ...promote,
   ...business,
-  ...economy
+  ...economy,
+
+  {
+    path: '/property',
+    name: 'property',
+    component: Property,
+  },
+
+  {
+    name: 'PropertyDetails',
+    path: '/property/details/:name/:type',
+    component: PropertyDetails,
+  },
+
+  {
+    path: '*',
+    redirect: { name: 'Home' },
+  }
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 });

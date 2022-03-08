@@ -1,0 +1,31 @@
+.container {
+  padding-top: 16px;
+  min-height: 120px;
+
+  :global .el-checkbox-button {
+    pre {
+      display: flex;
+      align-items: flex-end;
+      font-size: 16px;
+      color: #333333;
+      margin: 0;
+      margin-left: 8px;
+
+      span {
+        color: #999999;
+        font-size: 12px;
+        margin-left: 2px;
+      }
+    }
+
+    &.is-checked {
+      pre {
+        color: #ffffff;
+
+        span {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

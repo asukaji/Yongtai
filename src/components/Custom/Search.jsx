@@ -39,8 +39,13 @@ export default {
         : (this.state.visible = true);
     },
 
-    onClick({ id, position, title }) {
-      this.$emit('click', [id, title, position]);
+    onClick({ id, position, title, contacts, filePath }) {
+      this.$emit('click', [id, title, position, contacts, filePath]);
+    },
+
+    close() {
+      this.state.visible = false;
+      this.state.value = '';
     }
   },
 
