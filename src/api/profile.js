@@ -16,6 +16,7 @@ export function fetchProjectDetail(projectId) {
     belong: result.belong,
     investments: `${result.investments}亿元`,
     contacts: result.contacts,
+    tags: result.tags,
     media: _.map(result.fileList, ({ filePath, fileType }) => ({
       src: filePath,
       type:

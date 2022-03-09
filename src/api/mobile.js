@@ -64,14 +64,11 @@ export function fetchUserCheckedRecord(projectId) {
   return instance
     .post(
       '/profession/xiangcun/sign/list',
-      {},
       {
-        params: {
-          pageNo: 1,
-          pageSize: 500,
-          projectId,
-          signType: localStorage.getItem(SIGN_TYPE) || undefined
-        }
+        pageNo: 1,
+        pageSize: 500,
+        projectId,
+        signType: localStorage.getItem(SIGN_TYPE) || undefined
       }
     )
     .then(({ result: { records } }) => records);
