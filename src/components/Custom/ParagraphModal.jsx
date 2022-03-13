@@ -105,8 +105,11 @@ export default {
                 justifyContent: 'space-between'
               }}
             >
-              <h1>{this.title}</h1>
-              {this.renderTag()}
+              <h1>
+                {this.title}
+                {this.renderTag()}
+              </h1>
+
               {this.$slots.title}
             </div>
           )}
