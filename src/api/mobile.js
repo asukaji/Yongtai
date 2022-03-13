@@ -20,6 +20,7 @@ export function login(username, password) {
       if (code === 200) {
         localStorage.setItem(TOKEN, result.token);
         localStorage.setItem(USER_INFO, JSON.stringify(result.userInfo));
+        sessionStorage.setItem(TOKEN, result.token);
         return message;
       }
       throw new Error(message);

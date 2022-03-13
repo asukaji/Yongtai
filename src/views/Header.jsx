@@ -44,6 +44,7 @@ const routeTitleMap = new Map([
   ['business.task.town', '招商管理'],
   ['business.task.street', '招商管理'],
   ['Home', process.env.VUE_APP_TITLE],
+  ['Login', process.env.VUE_APP_TITLE],
   ['property', '农村产权交易']
 ]);
 
@@ -63,7 +64,7 @@ export default {
   render() {
     return (
       <div class={styles.header}>
-        {this.$route.name === 'Home' ? null : (
+        {this.$route.name === 'Home' || this.$route.name === 'Login' ? null : (
           <div class="img" onClick={() => this.$router.go(-1)}>
             <img src={IconBack} />
           </div>
