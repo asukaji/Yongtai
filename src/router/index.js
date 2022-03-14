@@ -4,6 +4,7 @@ import Home from '@/views/Home';
 import Control from '@/views/Control';
 import Property from '@/views/Property';
 import PropertyDetails from '@/views/Property/Details';
+import PropertyFrame from '@/views/Property/Frame';
 import Login from '@/views/Login';
 
 import tour from './routes/tour';
@@ -47,6 +48,12 @@ const routes = [
     name: 'PropertyDetails',
     path: '/property/details/:name/:type',
     component: PropertyDetails,
+  },
+
+  {
+    name: 'PropertyFrame',
+    path: '/property/frame',
+    component: PropertyFrame,
   },
 
   {

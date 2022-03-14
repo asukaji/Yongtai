@@ -251,6 +251,14 @@ export default {
             >
               <div slot="header">
                 永泰县农村产权流转服务中心目前公告清单20220215
+                <span
+                  onClick={() => {
+                    console.log(222);
+                    window.location.href = 'https://www.ytcqlz.com';
+                  }}
+                >
+                  &nbsp;&nbsp;更多&nbsp;&gt;&gt;&gt;
+                </span>
               </div>
             </Card>
           </div>

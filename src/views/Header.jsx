@@ -45,7 +45,8 @@ const routeTitleMap = new Map([
   ['business.task.street', '招商管理'],
   ['Home', process.env.VUE_APP_TITLE],
   ['Login', process.env.VUE_APP_TITLE],
-  ['property', '农村产权交易']
+  ['property', '农村产权交易'],
+  ['PropertyFrame', '农交中心']
 ]);
 
 export default {
