@@ -5,14 +5,13 @@ import { Text } from '@amap/amap-vue';
 import VueTypes from 'vue-types';
 import _ from 'lodash';
 
-import { features } from '@/assets/Geo/format.json';
-
-const color = ['#28D2B0', '#FF7937', '#AE3AF0', '#0078FF'];
+import { features } from '@/assets/Geo/village.json';
 
 export default {
-  name: 'StreetsPolygon',
+  name: 'VillagesPolygon',
 
   props: {
+    features: VueTypes.array.def(features),
     fillColor: VueTypes.string.def(),
     mark: VueTypes.bool.def(true)
   },
@@ -26,7 +25,7 @@ export default {
   computed: {
     sortedCoordinates() {
       const coordinates = _.map(
-        features,
+        this.features,
         ({ geometry: { coordinates } }) => coordinates
       );
 
@@ -34,7 +33,7 @@ export default {
     },
 
     points() {
-      return _.map(features, ({ properties: { point, name } }) => ({
+      return _.map(this.features, ({ properties: { point, name } }) => ({
         point,
         name
       }));
@@ -43,12 +42,12 @@ export default {
 
   methods: {
     renderText() {
-      return _.map(this.points, ({ point, name }, index) => (
+      return _.map(this.points, ({ point, name }) => (
         <Text
           position={point}
           text={name}
           offset={[-36, -16]}
-          domStyle={{ color: color[index % 4] }}
+          domStyle={{ color: '#0078FF' }}
         />
       ));
     }
@@ -62,7 +61,7 @@ export default {
             path={coordinates}
             strokeColor="#0078FF"
             strokeWeight={1}
-            fillColor={color[index % 4]}
+            fillColor="#0078FF"
             fillOpacity={0.15}
             onClick={this.$emit.bind(this, 'streetClick', this.points[index])}
           />

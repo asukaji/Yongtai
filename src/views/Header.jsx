@@ -20,7 +20,7 @@ const routeTitleMap = new Map([
   ['profile.water.electric', '水域水流'],
   ['profile.water.main', '水域水流'],
   ['profile.water.branch', '水域水流'],
-  ['project', '重点项目'],
+  ['project.profile', '重点项目'],
   ['tour', '全域旅游'],
   ['promote', '乡村振兴'],
   ['promote.index', '乡村振兴'],

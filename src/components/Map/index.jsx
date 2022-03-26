@@ -8,3 +8,4 @@ export { default as FlowLayer } from './FlowLayer';
 export { default as NationalLayer } from './NationalLayer';
 export { default as ProvincialLayer } from './ProvincialLayer';
 export { default as highwayLayer } from './highwayLayer';
+export { default as VillagesPolygon } from './VillagesPolygon';

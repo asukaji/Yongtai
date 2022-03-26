@@ -19,11 +19,9 @@ export default {
     setCenter(center) {
       try {
         this.$refs.Config.setCenter(center);
-        this.$refs.Config.setFeatures('road', 'building', 'point');
+        // this.$refs.Config.setFeatures('road', 'building', 'point');
       } catch (e) {
-        setTimeout(
-          () => this.setCenter(center), 1024
-        );
+        setTimeout(() => this.setCenter(center), 1024);
       }
     }
   },
@@ -37,7 +35,7 @@ export default {
         center={CENTER}
         zoom={zoom}
         class={styles.map}
-        attrs={{...mapProps}}
+        attrs={{ ...mapProps }}
         onClick={this.$emit.bind(this, 'mapClick')}
       >
         <Config ref="Config" />

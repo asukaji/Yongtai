@@ -253,7 +253,6 @@ export default {
                 永泰县农村产权流转服务中心目前公告清单20220215
                 <span
                   onClick={() => {
-                    console.log(222);
                     window.location.href = 'https://www.ytcqlz.com';
                   }}
                 >
