@@ -8,7 +8,6 @@ import {
 } from 'echarts/components';
 import VChart from 'vue-echarts';
 import VueTypes from 'vue-types';
-import _ from 'lodash';
 
 use([CanvasRenderer, PieChart, TitleComponent, LegendComponent, GridComponent]);
 
@@ -30,7 +29,7 @@ export default {
 
   computed: {
     innerData() {
-      const { per0, per1, per2, per3, per4, per5 } = this.value;
+      const { per0, per1, per2, per3, per4 } = this.value;
 
       return [
         { value: per0, name: '10000<' },

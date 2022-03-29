@@ -16,10 +16,22 @@ body {
   .el-dialog__wrapper {
     z-index: 1999 !important;
   }
+
+  .el-dialog__body {
+    z-index: 2000 !important;
+  }
 }
 
 .v-modal {
-  z-index: 1999 !important;
+  z-index: 200 !important;
+}
+
+.el-dialog__body {
+  z-index: 2000 !important;
+}
+
+.el-popover.el-popper {
+  z-index: 1998 !important;
 }
 
 #nav {

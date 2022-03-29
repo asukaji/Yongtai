@@ -214,6 +214,24 @@ export default {
         <div class={styles.content}>
           <div>
             <Card
+              fetchData={fetchProperty.bind(null, 'jitiZichan')}
+              link="jitiZichan"
+              scopedSlots={{
+                default: this.renderGauge
+              }}
+            >
+              <p slot="header">集体资产流转</p>
+            </Card>
+            <Card
+              fetchData={fetchProperty.bind(null, 'linquan')}
+              link="linquan"
+              scopedSlots={{
+                default: this.renderBarTree
+              }}
+            >
+              <p slot="header">商品林林权</p>
+            </Card>
+            <Card
               fetchData={fetchProperty.bind(null, 'nongdi')}
               link="nongdi"
               scopedSlots={{
@@ -221,24 +239,6 @@ export default {
               }}
             >
               <p slot="header">农地流转项目</p>
-            </Card>
-            <Card
-              fetchData={fetchProperty.bind(null, 'lvyou')}
-              link="lvyou"
-              scopedSlots={{
-                default: this.renderBar
-              }}
-            >
-              <p slot="header">旅游资源项目</p>
-            </Card>
-            <Card
-              fetchData={fetchProperty.bind(null, 'guoyouTudi')}
-              link="guoyouTudi"
-              scopedSlots={{
-                default: this.renderPie
-              }}
-            >
-              <p slot="header">国有建设用地使用权项目</p>
             </Card>
           </div>
           <div>
@@ -251,10 +251,26 @@ export default {
             >
               <div slot="header">
                 永泰县农村产权流转服务中心目前公告清单20220215
+                <span
+                  onClick={() => {
+                    window.location.href = 'https://www.ytcqlz.com';
+                  }}
+                >
+                  &nbsp;&nbsp;更多&nbsp;&gt;&gt;&gt;
+                </span>
               </div>
             </Card>
           </div>
           <div>
+            <Card
+              fetchData={fetchProperty.bind(null, 'guoyouTudi')}
+              link="guoyouTudi"
+              scopedSlots={{
+                default: this.renderPie
+              }}
+            >
+              <p slot="header">国有建设用地使用权项目</p>
+            </Card>
             <Card
               fetchData={fetchProperty.bind(null, 'guozi')}
               link="guozi"
@@ -265,22 +281,13 @@ export default {
               <p slot="header">国资项目</p>
             </Card>
             <Card
-              fetchData={fetchProperty.bind(null, 'linquan')}
-              link="linquan"
+              fetchData={fetchProperty.bind(null, 'lvyou')}
+              link="lvyou"
               scopedSlots={{
-                default: this.renderBarTree
+                default: this.renderBar
               }}
             >
-              <p slot="header">商品林林权</p>
-            </Card>
-            <Card
-              fetchData={fetchProperty.bind(null, 'jitiZichan')}
-              link="jitiZichan"
-              scopedSlots={{
-                default: this.renderGauge
-              }}
-            >
-              <p slot="header">集体资产流转</p>
+              <p slot="header">旅游资源项目</p>
             </Card>
           </div>
         </div>

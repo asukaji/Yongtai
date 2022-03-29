@@ -20,7 +20,7 @@ const routeTitleMap = new Map([
   ['profile.water.electric', '水域水流'],
   ['profile.water.main', '水域水流'],
   ['profile.water.branch', '水域水流'],
-  ['project', '重点项目'],
+  ['project.profile', '重点项目'],
   ['tour', '全域旅游'],
   ['promote', '乡村振兴'],
   ['promote.index', '乡村振兴'],
@@ -44,7 +44,9 @@ const routeTitleMap = new Map([
   ['business.task.town', '招商管理'],
   ['business.task.street', '招商管理'],
   ['Home', process.env.VUE_APP_TITLE],
-  ['property', '农村产权交易']
+  ['Login', process.env.VUE_APP_TITLE],
+  ['property', '农村产权交易'],
+  ['PropertyFrame', '农交中心']
 ]);
 
 export default {
@@ -63,7 +65,7 @@ export default {
   render() {
     return (
       <div class={styles.header}>
-        {this.$route.name === 'Home' ? null : (
+        {this.$route.name === 'Home' || this.$route.name === 'Login' ? null : (
           <div class="img" onClick={() => this.$router.go(-1)}>
             <img src={IconBack} />
           </div>

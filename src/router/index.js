@@ -4,6 +4,8 @@ import Home from '@/views/Home';
 import Control from '@/views/Control';
 import Property from '@/views/Property';
 import PropertyDetails from '@/views/Property/Details';
+import PropertyFrame from '@/views/Property/Frame';
+import Login from '@/views/Login';
 
 import tour from './routes/tour';
 import video from './routes/video';
@@ -12,6 +14,8 @@ import project from './routes/project';
 import promote from './routes/promote';
 import business from './routes/business';
 import economy from './routes/economy';
+
+import { TOKEN } from '@/constants';
 
 Vue.use(VueRouter);
 
@@ -47,6 +51,18 @@ const routes = [
   },
 
   {
+    name: 'PropertyFrame',
+    path: '/property/frame',
+    component: PropertyFrame,
+  },
+
+  {
+    name: 'Login',
+    path: '/login',
+    component: Login,
+  },
+
+  {
     path: '*',
     redirect: { name: 'Home' },
   }
@@ -56,6 +72,16 @@ const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login') {
+    const token = sessionStorage.getItem(TOKEN);
+
+    token ? next() : next('/login');
+  }
+
+  next();
 });
 
 export default router;

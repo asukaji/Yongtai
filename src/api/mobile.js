@@ -20,6 +20,7 @@ export function login(username, password) {
       if (code === 200) {
         localStorage.setItem(TOKEN, result.token);
         localStorage.setItem(USER_INFO, JSON.stringify(result.userInfo));
+        sessionStorage.setItem(TOKEN, result.token);
         return message;
       }
       throw new Error(message);
@@ -64,14 +65,11 @@ export function fetchUserCheckedRecord(projectId) {
   return instance
     .post(
       '/profession/xiangcun/sign/list',
-      {},
       {
-        params: {
-          pageNo: 1,
-          pageSize: 500,
-          projectId,
-          signType: localStorage.getItem(SIGN_TYPE) || undefined
-        }
+        pageNo: 1,
+        pageSize: 500,
+        projectId,
+        signType: localStorage.getItem(SIGN_TYPE) || undefined
       }
     )
     .then(({ result: { records } }) => records);

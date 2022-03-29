@@ -1,4 +1,4 @@
-import { Dialog, Carousel, CarouselItem } from 'element-ui';
+import { Dialog, Carousel, CarouselItem, Tag } from 'element-ui';
 import Paragraph from './Paragraph';
 import styles from './ParagraphModal.module.less';
 
@@ -48,6 +48,10 @@ export default {
 
     contacts() {
       return this.state.content?.contacts;
+    },
+
+    tags() {
+      return this.state.content?.tags;
     }
   },
 
@@ -101,7 +105,11 @@ export default {
                 justifyContent: 'space-between'
               }}
             >
-              <h1>{this.title}</h1>
+              <h1>
+                {this.title}
+                {this.renderTag()}
+              </h1>
+
               {this.$slots.title}
             </div>
           )}
@@ -161,6 +169,10 @@ export default {
       }
 
       return this.$slots.default;
+    },
+
+    renderTag() {
+      return _.map(this.tags, (tag) => <Tag key={tag}>{tag}</Tag>);
     }
   },
 

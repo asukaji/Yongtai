@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import { features } from '@/assets/Geo/format.json';
 
-const color = ['#28D2B0', '#FF7937', '#AE3AF0','#0078FF' ];
+const color = ['#28D2B0', '#FF7937', '#AE3AF0', '#0078FF'];
 
 export default {
   name: 'StreetsPolygon',
@@ -34,10 +34,10 @@ export default {
     },
 
     points() {
-      return _.map(
-        features,
-        ({ properties: { point, name } }) => ({ point, name })
-      );
+      return _.map(features, ({ properties: { point, name } }) => ({
+        point,
+        name
+      }));
     }
   },
 
@@ -64,7 +64,7 @@ export default {
             strokeWeight={1}
             fillColor={color[index % 4]}
             fillOpacity={0.15}
-            onClick={this.$emit.bind(this, 'streetClick')}
+            onClick={this.$emit.bind(this, 'streetClick', this.points[index])}
           />
         ))}
         {this.mark && this.renderText()}
