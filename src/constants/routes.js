@@ -5,6 +5,7 @@ export const PROJECT = 'project';
 export const TOUR = 'tour';
 export const PROMOTE = 'promote';
 export const CONTROL = 'control';
+export const EFFECT = 'effect';
 export const VIDEO = 'video';
 export const PROPERTY = 'property';
 
@@ -17,6 +18,7 @@ export const homeRoutes = [
   [PROMOTE, '乡村振兴'],
   [PROPERTY, '农村产权交易'],
   [CONTROL, '重点督查'],
+  [EFFECT, '工作成效总览'],
   // [VIDEO, '视频连线']
 ];
 
@@ -64,6 +66,11 @@ export const PROMOTE_VILLAGE = 'promote.village';
 
 export const PROJECT_PROFILE = 'project.profile';
 export const PROJECT_STREET = 'project.street';
+
+export const EFFECT_INDEX = 'effect.index';
+
+// export const EFFECT_PROFILE = 'project.profile';
+// export const EFFECT_STREET = 'project.street';
 
 export const businessRoutes = [
   [BUSINESS_EVALUATION, '“招商效率和招商质量提升工程”\n考评情况'],

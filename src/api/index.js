@@ -4,3 +4,5 @@ export * from './business';
 export * from './control';
 export * from './mobile';
 export * from './promote';
+export * from './effect';
+
