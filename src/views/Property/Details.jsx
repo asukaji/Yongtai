@@ -157,7 +157,7 @@ export default {
         case GL:
           return (
             <Table data={data} border height="800">
-              <TableColumn type="index" label="序号" />
+              {/* <TableColumn type="index" label="序号" />
               <TableColumn prop="townName" label="乡镇" />
               <TableColumn prop="villageName" label="村别" />
               <TableColumn prop="experiment" label="流转标的物" />
@@ -169,31 +169,46 @@ export default {
               <TableColumn prop="statue" label="是否签署合同" />
               <TableColumn prop="contractPeriod" label="合同期限" />
               <TableColumn prop="price" label="总价格（万元/年）" />
-              <TableColumn prop="remark" label="备注" />
+              <TableColumn prop="remark" label="备注" /> */}
+              <TableColumn type="index" label="序号" />
+              <TableColumn prop="classify" label="分类" />
+              <TableColumn prop="townName" label="乡镇" />
+              <TableColumn prop="villageName" label="村别" />
+              <TableColumn prop="experiment" label="资产名称" />
+              <TableColumn prop="property" label="资产性质（集体/国有）" />
+              <TableColumn prop="owner" label="产权所有人" />
+              <TableColumn prop="acreage" label="面积/数量" />
+              <TableColumn prop="address" label="地址" />
+              <TableColumn prop="certificate" label="是否有证（证书号）" />
+              <TableColumn prop="statue" label="状态（空闲/在租）" />
+              <TableColumn prop="signContract" label="是否签署合同" />
+              <TableColumn prop="contractPeriod" label="合同期限" />
             </Table>
           );
         case WT:
           return (
             <Table data={data} border height="800">
               <TableColumn type="index" label="序号" />
+              <TableColumn prop="classify" label="分类" />
               <TableColumn prop="townName" label="乡镇" />
               <TableColumn prop="villageName" label="村别" />
-              <TableColumn prop="experiment" label="流转标的物" />
-              <TableColumn prop="property" label="标的性质（集体/国有）" />
+              <TableColumn prop="experiment" label="资产名称" />
+              <TableColumn prop="property" label="资产性质（集体/国有）" />
               <TableColumn prop="owner" label="产权所有人" />
               <TableColumn prop="acreage" label="面积/数量" />
               <TableColumn prop="address" label="地址" />
               <TableColumn prop="certificate" label="是否有证（证书号）" />
-              <TableColumn prop="statue" label="是否签署合同" />
+              <TableColumn prop="statue" label="状态（空闲/在租）" />
+              <TableColumn prop="signContract" label="是否签署合同" />
               <TableColumn prop="contractPeriod" label="合同期限" />
-              <TableColumn prop="price" label="总价格（万元/年）" />
-              <TableColumn prop="remark" label="备注" />
+              {/* <TableColumn prop="price" label="总价格（万元/年）" /> */}
+              {/* <TableColumn prop="remark" label="备注" /> */}
             </Table>
           );
         case SK:
           return (
             <Table data={data} border height="640">
-              <TableColumn type="index" label="序号" />
+              {/* <TableColumn type="index" label="序号" />
               <TableColumn prop="villageName" label="村别" />
               <TableColumn prop="experiment" label="资产名称" />
               <TableColumn label="资产类型">
@@ -208,13 +223,26 @@ export default {
               </TableColumn>
               <TableColumn prop="acreage" label="面积" />
               <TableColumn prop="contractPeriod" label="合同起止时间" />
-              <TableColumn prop="remark" label="备注" />
+              <TableColumn prop="remark" label="备注" /> */}
+              <TableColumn type="index" label="序号" />
+              <TableColumn prop="classify" label="分类" />
+              <TableColumn prop="townName" label="乡镇" />
+              <TableColumn prop="villageName" label="村别" />
+              <TableColumn prop="experiment" label="资产名称" />
+              <TableColumn prop="property" label="资产性质（集体/国有）" />
+              <TableColumn prop="owner" label="产权所有人" />
+              <TableColumn prop="acreage" label="面积/数量" />
+              <TableColumn prop="address" label="地址" />
+              <TableColumn prop="certificate" label="是否有证（证书号）" />
+              <TableColumn prop="statue" label="状态（空闲/在租）" />
+              <TableColumn prop="signContract" label="是否签署合同" />
+              <TableColumn prop="contractPeriod" label="合同期限" />
             </Table>
           );
         case DY:
           return (
             <Table data={data} border height="640">
-              <TableColumn type="index" label="序号" />
+              {/* <TableColumn type="index" label="序号" />
               <TableColumn prop="villageName" label="村别" />
               <TableColumn prop="experiment" label="资产名称" />
               <TableColumn label="资产类型">
@@ -229,7 +257,20 @@ export default {
               </TableColumn>
               <TableColumn prop="acreage" label="面积" />
               <TableColumn prop="contractPeriod" label="合同起止时间" />
-              <TableColumn prop="remark" label="备注" />
+              <TableColumn prop="remark" label="备注" /> */}
+              <TableColumn type="index" label="序号" />
+              <TableColumn prop="classify" label="分类" />
+              <TableColumn prop="townName" label="乡镇" />
+              <TableColumn prop="villageName" label="村别" />
+              <TableColumn prop="experiment" label="资产名称" />
+              <TableColumn prop="property" label="资产性质（集体/国有）" />
+              <TableColumn prop="owner" label="产权所有人" />
+              <TableColumn prop="acreage" label="面积/数量" />
+              <TableColumn prop="address" label="地址" />
+              <TableColumn prop="certificate" label="是否有证（证书号）" />
+              <TableColumn prop="statue" label="状态（空闲/在租）" />
+              <TableColumn prop="signContract" label="是否签署合同" />
+              <TableColumn prop="contractPeriod" label="合同期限" />
             </Table>
           );
       }
