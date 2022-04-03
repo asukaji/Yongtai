@@ -1,6 +1,5 @@
 import styles from './SideBar.module.less';
 import { fetchIndustry, fetchAppraisal } from '@/api';
-import _ from 'lodash';
 
 import square from '../../assets/Effect/square.png';
 import line from '../../assets/Effect/line.png';
@@ -122,10 +121,7 @@ export default {
     },
     async group1() {
       const res = await fetchAppraisal(this.state.group1);
-      console.log(res);
       this.state.per1 = res.project.ratio;
-      console.log();
-
     },
     async group2() {
       const res = await fetchAppraisal(this.state.group2);

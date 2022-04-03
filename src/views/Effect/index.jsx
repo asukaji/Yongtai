@@ -72,7 +72,6 @@ export default {
       this.projectClass = projectClass;
     },
     async renderCard(location) {
-      console.log('location', location);
       if (this.projectClass === 'beautyVallage') {
         this.projects = await fetchProjectsByVillages(location.vallage);
       } else {
@@ -89,7 +88,6 @@ export default {
       this.cardVisible = false;
     },
     change(name) {
-      console.log('name', name);
       if (name === 'gzcx') {
         this.siderBarVisible = true;
         this.siderBarTwoVisible = false;

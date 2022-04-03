@@ -28,7 +28,6 @@ export default {
   watch: {
     async type() {
       this.list = await this.getList();
-      console.log(this.list);
     }
   },
 
