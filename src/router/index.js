@@ -15,6 +15,7 @@ import promote from './routes/promote';
 import business from './routes/business';
 import economy from './routes/economy';
 import industryMap from './routes/industryMap';
+import effect from './routes/effect';
 
 import { TOKEN } from '@/constants';
 
@@ -40,6 +41,7 @@ const routes = [
   ...business,
   ...economy,
   ...industryMap,
+  ...effect,
 
   {
     path: '/property',

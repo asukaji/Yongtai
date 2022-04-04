@@ -11,7 +11,6 @@ const instance = createInstance({
 export function fetchPromoteProfile() {
   return instance.get('/beautyVallage/index').then(({ result }) => result);
 }
-
 /**
  * 美丽乡村项目列表
  * @param {string} code
@@ -81,5 +80,7 @@ export function fetchProjectsByVillages(vallage) {
     .post('/beautyVallage/projectByVallage', {
       vallage
     })
-    .then(({ result }) => result);
+    .then(({ result }) => {
+      return result;
+    });
 }
