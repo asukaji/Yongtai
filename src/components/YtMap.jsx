@@ -12,8 +12,8 @@ export default {
       this.$refs.Config.setZoom(zoom);
     },
 
-    setFeatures(features) {
-      this.$refs.Config.setFeatures(features);
+    setFeatures(...features) {
+      this.$refs.Config.setFeatures(...features);
     },
 
     setCenter(center) {
@@ -23,7 +23,9 @@ export default {
       } catch (e) {
         setTimeout(() => this.setCenter(center), 1024);
       }
-    }
+    },
+
+    setStyle() {}
   },
 
   render() {
@@ -34,8 +36,8 @@ export default {
         ref="aMap"
         center={CENTER}
         zoom={zoom}
-        class={styles.map}
         attrs={{ ...mapProps }}
+        class={styles.map}
         onClick={this.$emit.bind(this, 'mapClick')}
       >
         <Config ref="Config" />

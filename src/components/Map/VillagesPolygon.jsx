@@ -63,7 +63,7 @@ export default {
             strokeWeight={1}
             fillColor="#0078FF"
             fillOpacity={0.15}
-            onClick={this.$emit.bind(this, 'streetClick', this.points[index])}
+            onClick={this.$emit.bind(this, 'villageClick', this.points[index])}
           />
         ))}
         {this.mark && this.renderText()}
