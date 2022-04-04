@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home';
+import About from '@/views/About';
 import Control from '@/views/Control';
 import Property from '@/views/Property';
 import PropertyDetails from '@/views/Property/Details';
@@ -24,7 +25,12 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: About
+  },
+  {
+    path: '/control',
+    name: 'control',
+    component: Control
   },
   {
     path: '/control',

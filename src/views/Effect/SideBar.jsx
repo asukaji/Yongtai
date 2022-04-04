@@ -1,5 +1,7 @@
 import styles from './SideBar.module.less';
 import { fetchIndustry, fetchAppraisal } from '@/api';
+import { BUSINESS, ECONOMY } from '@/constants';
+
 
 import square from '../../assets/Effect/square.png';
 import line from '../../assets/Effect/line.png';
@@ -141,7 +143,7 @@ export default {
             <img src={square} class={styles.titleImg}></img>
             <div class={styles.titleText}>
               <div class={styles.text}>经济运行指标</div>
-              <div class={styles.more}>更多</div>
+              <router-link to={{ name: ECONOMY }} class={styles.more}>更多</router-link>
             </div>
           </div>
           <div class={styles.scroll}>
@@ -163,7 +165,7 @@ export default {
             <img src={square} class={styles.titleImg}></img>
             <div class={styles.titleText}>
               <div class={styles.text}>招商管理</div>
-              <div class={styles.more}>更多</div>
+              <router-link to={{ name: BUSINESS }} class={styles.more}>更多</router-link>
             </div>
           </div>
           <div class={styles.scroll}>

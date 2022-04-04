@@ -28,7 +28,9 @@ export default {
           try {
             await login(this.form.username, this.form.password);
 
-            this.$router.push('/');
+            // this.$router.push('/');
+            // 跳转新首页
+            this.$router.push('/about');
           } catch (err) {
             this.$message({
               message: err.message,
