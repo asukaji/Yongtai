@@ -33,14 +33,14 @@ export default {
   },
 
   watch: {
-    division: {
+    village: {
       immediate: true,
-      async handler(division) {
-        if (!division) {
+      async handler(village) {
+        if (!village) {
           return;
         }
 
-        this.value = await fetchVillageDetail(this.village, division);
+        this.value = await fetchVillageDetail(village, this.division);
       }
     }
   },

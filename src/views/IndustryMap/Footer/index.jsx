@@ -4,6 +4,8 @@ import styles from '../index.module.less';
 
 import { fetchWorkData } from '@/api';
 
+import { VILLAGE_NAME } from '../index';
+
 export default {
   name: 'Footer',
 
@@ -17,7 +19,7 @@ export default {
 
   computed: {
     street() {
-      return this.$route.params.street;
+      return this.$route.params.street ?? VILLAGE_NAME;
     },
 
     village() {

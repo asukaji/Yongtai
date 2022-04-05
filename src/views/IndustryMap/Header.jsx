@@ -38,17 +38,17 @@ export default {
             <TabPane
               key={INDUSTRY_MAP_PROFILE}
               name={INDUSTRY_MAP_PROFILE}
-              label="乡村振兴"
+              label="乡镇资源总览"
             />
             <TabPane
               key={INDUSTRY_MAP_NATURAL}
               name={INDUSTRY_MAP_NATURAL}
-              label="乡村振兴"
+              label="自然资源"
             />
             <TabPane
               key={INDUSTRY_MAP_NATIVE}
               name={INDUSTRY_MAP_NATIVE}
-              label="美丽乡村建设"
+              label="特色产业"
             />
           </Tabs>
         </div>
@@ -75,6 +75,18 @@ export default {
         </Button>
         {this.renderTabs()}
         <span>永泰县数字乡村平台</span>
+        <router-link
+          to="/project"
+          style={{
+            position: 'absolute',
+            right: '24px',
+            color: '#fff',
+            textDecoration: 'none',
+            zIndex: 2
+          }}
+        >
+          重点项目
+        </router-link>
       </div>
     );
   }

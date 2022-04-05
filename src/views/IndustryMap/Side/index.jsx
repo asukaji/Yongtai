@@ -4,6 +4,8 @@ import styles from '../index.module.less';
 import { fetchStreetDetail } from '@/api';
 import _ from 'lodash';
 
+import { VILLAGE_NAME } from '../index';
+
 export default {
   name: 'Side',
 
@@ -15,7 +17,7 @@ export default {
 
   computed: {
     street() {
-      return this.$route.params.street;
+      return this.$route.params.street ?? VILLAGE_NAME;
     },
 
     village() {
