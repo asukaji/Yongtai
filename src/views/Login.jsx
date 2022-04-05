@@ -30,7 +30,7 @@ export default {
 
             // this.$router.push('/');
             // 跳转新首页
-            this.$router.push('/about');
+            this.$router.push('/');
           } catch (err) {
             this.$message({
               message: err.message,
