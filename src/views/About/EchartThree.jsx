@@ -14,6 +14,16 @@ export default {
 
       option: {
         backgroundColor: 'rgba(255, 255, 255, 0)',
+        legend: {
+          type: 'scroll',
+          top: '2%',
+          itemGap: 40,
+          data: ['公园数量(个)', '绿化面积(万平方米)'],
+          textStyle: {
+            fontSize: 9,
+            color: '#fff'
+          }
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -44,7 +54,7 @@ export default {
           }
         },
         grid: {
-          top: '15%',
+          top: '30%',
           left: '5%',
           right: '5%',
           bottom: '15%'
@@ -70,7 +80,7 @@ export default {
               show: false
             },
             boundaryGap: false,
-            data: ['A', 'B', 'C', 'D', 'E', 'F']
+            data: ['2016', '2017', '2018', '2019', '2020']
           }
         ],
 
@@ -103,7 +113,7 @@ export default {
         ],
         series: [
           {
-            name: '注册总量',
+            name: '公园数量(个)',
             type: 'line',
             // smooth: true, //是否平滑
             showAllSymbol: true,
@@ -162,10 +172,10 @@ export default {
             //     shadowBlur: 20
             //   }
             // },
-            data: [502.84, 205.97, 332.79, 281.55, 398.35, 214.02]
+            data: [12, 16, 17, 18, 19]
           },
           {
-            name: '注册总量',
+            name: '绿化面积(万平方米)',
             type: 'line',
             // smooth: true, //是否平滑
             showAllSymbol: true,
@@ -224,7 +234,7 @@ export default {
             //     shadowBlur: 20
             //   }
             // },
-            data: [281.55, 398.35, 214.02, 179.55, 289.57, 356.14]
+            data: [155.81, 163.81, 175.81, 180.31, 185.61]
           }
         ]
       }

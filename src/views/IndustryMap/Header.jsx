@@ -1,6 +1,8 @@
 import { Button, Tabs, TabPane } from 'element-ui';
 import styles from './index.module.less';
 
+import line from '../../assets/Effect/header-line.png';
+
 import _ from 'lodash';
 
 import {
@@ -74,12 +76,22 @@ export default {
           返回
         </Button>
         {this.renderTabs()}
-        <span>永泰县数字乡村平台</span>
+        <img src={line} class={styles.line1}></img>
+        <span
+          style={{
+            color: '#ffffff',
+            fontWeight: 'bold'
+          }}
+        >
+          永泰县产业地图
+        </span>
+        <img src={line} class={styles.line2}></img>
         <router-link
           to="/project"
           style={{
             position: 'absolute',
-            right: '24px',
+            right: '25%',
+            fontSize: '13px',
             color: '#fff',
             textDecoration: 'none',
             zIndex: 2

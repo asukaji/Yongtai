@@ -6,7 +6,7 @@ import Footer from './Footer';
 import Introduce from './Introduce';
 import Sidebar from './SideBar';
 
-import { EFFECT_INDEX, PROPERTY,  } from '@/constants';
+import { EFFECT_INDEX, PROPERTY, INDUSTRY_MAP } from '@/constants';
 
 
 import styles from './index.module.less';
@@ -25,7 +25,7 @@ export default {
         <div class={styles.button}>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
-            <router-link to={{ name: EFFECT_INDEX }}  class={styles.text}>乡村振兴</router-link>
+            <router-link to={{ name: INDUSTRY_MAP }}  class={styles.text}>产业地图</router-link>
           </div>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
@@ -34,6 +34,10 @@ export default {
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
             <router-link to={{ name: EFFECT_INDEX }} class={styles.text}>工作成效</router-link>
+          </div>
+          <div class={styles.on}>
+            <img src={click} class={styles.click}></img>
+            <router-link to={{ name: 'Home' }} class={styles.text}>其他重点工作</router-link>
           </div>
         </div>
         <div>
