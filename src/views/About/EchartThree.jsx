@@ -245,7 +245,7 @@ export default {
     return (
       <div class={styles.background}>
         <div class={styles.title}>
-          幼儿园入园情况
+          城市建设
         </div>
         <div>
           <Chart option={this.option} />

@@ -48,7 +48,7 @@ export default {
           <div class={styles.title}>
             <img src={square} class={styles.titleImg}></img>
             <div class={styles.titleText}>
-              <div class={styles.text}>绩效管理工作</div>
+              <div class={styles.text}>乡镇绩效考评得分(2019)</div>
               <router-link class={styles.more}>更多</router-link>
             </div>
           </div>

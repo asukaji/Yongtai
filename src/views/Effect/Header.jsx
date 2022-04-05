@@ -4,6 +4,8 @@ import { EFFECT_INDEX, BUSINESS, ECONOMY, PROJECT } from '@/constants';
 
 import headerText from '../../assets/Effect/header-line.png';
 
+import { Button } from 'element-ui';
+
 export default {
   name: 'Header',
 
@@ -24,6 +26,19 @@ export default {
     return (
       <div class={styles.tabs}>
         <div class={styles.texts}>
+          <Button
+            icon="el-icon-arrow-left"
+            style={{
+              color: '#fff',
+              position: 'absolute',
+              left: '12px',
+              backgroundColor: 'transparent',
+              borderWidth: '0 !important'
+            }}
+            onClick={() => this.$router.replace('/')}
+          >
+            返回
+          </Button>
           <span
             onclick={this.change.bind(this, 'gzcx')}
             class={[styles.text, this.active === 'gzcx' && styles.textActive]}

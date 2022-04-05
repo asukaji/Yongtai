@@ -14,13 +14,13 @@ export const homeRoutes = [
   [PROFILE, '县情县况'],
   [ECONOMY, '经济运行'],
   // [BUSINESS, '招商管理'],
-  [INDUSTRY_MAP, '产业地图'],
+  // [INDUSTRY_MAP, '产业地图'],
   [PROJECT, '重点项目'],
   [TOUR, '全域旅游'],
   [PROMOTE, '乡村振兴'],
-  [PROPERTY, '农村产权交易'],
+  // [PROPERTY, '农村产权交易'],
   [CONTROL, '重点督查'],
-  [EFFECT, '工作成效总览'],
+  // [EFFECT, '工作成效总览'],
   // [VIDEO, '视频连线']
 ];
 
