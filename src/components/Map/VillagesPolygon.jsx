@@ -1,5 +1,4 @@
 import { Polygon } from '@amap/amap-vue';
-import { Fragment } from 'vue-fragment';
 import { Text } from '@amap/amap-vue';
 
 import VueTypes from 'vue-types';
@@ -55,7 +54,7 @@ export default {
 
   render() {
     return (
-      <Fragment>
+      <div>
         {_.map(this.sortedCoordinates, (coordinates, index) => (
           <Polygon
             path={coordinates}
@@ -63,11 +62,11 @@ export default {
             strokeWeight={1}
             fillColor="#0078FF"
             fillOpacity={0.15}
-            onClick={this.$emit.bind(this, 'streetClick', this.points[index])}
+            onClick={this.$emit.bind(this, 'villageClick', this.points[index])}
           />
         ))}
         {this.mark && this.renderText()}
-      </Fragment>
+      </div>
     );
   }
 };

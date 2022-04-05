@@ -8,11 +8,13 @@ export const CONTROL = 'control';
 export const EFFECT = 'effect';
 export const VIDEO = 'video';
 export const PROPERTY = 'property';
+export const INDUSTRY_MAP = 'industryMap';
 
 export const homeRoutes = [
   [PROFILE, '县情县况'],
   [ECONOMY, '经济运行'],
-  [BUSINESS, '招商管理'],
+  // [BUSINESS, '招商管理'],
+  [INDUSTRY_MAP, '产业地图'],
   [PROJECT, '重点项目'],
   [TOUR, '全域旅游'],
   [PROMOTE, '乡村振兴'],
@@ -67,6 +69,9 @@ export const PROMOTE_VILLAGE = 'promote.village';
 export const PROJECT_PROFILE = 'project.profile';
 export const PROJECT_STREET = 'project.street';
 
+export const INDUSTRY_MAP_PROFILE = 'industryMap.profile';
+export const INDUSTRY_MAP_NATURAL = 'industryMap.natural';
+export const INDUSTRY_MAP_NATIVE = 'industryMap.native';
 export const EFFECT_INDEX = 'effect.index';
 
 // export const EFFECT_PROFILE = 'project.profile';

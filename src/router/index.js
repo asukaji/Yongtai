@@ -15,6 +15,7 @@ import project from './routes/project';
 import promote from './routes/promote';
 import business from './routes/business';
 import economy from './routes/economy';
+import industryMap from './routes/industryMap';
 import effect from './routes/effect';
 
 import { TOKEN } from '@/constants';
@@ -37,6 +38,7 @@ const routes = [
     name: 'control',
     component: Control
   },
+
   ...tour,
   ...video,
   ...profile,
@@ -44,6 +46,7 @@ const routes = [
   ...promote,
   ...business,
   ...economy,
+  ...industryMap,
   ...effect,
 
   {

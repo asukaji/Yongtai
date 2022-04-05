@@ -1,5 +1,4 @@
 import { Polygon } from '@amap/amap-vue';
-import { Fragment } from 'vue-fragment';
 import { Text } from '@amap/amap-vue';
 
 import VueTypes from 'vue-types';
@@ -56,7 +55,7 @@ export default {
 
   render() {
     return (
-      <Fragment>
+      <div>
         {_.map(this.sortedCoordinates, (coordinates, index) => (
           <Polygon
             path={coordinates}
@@ -68,7 +67,7 @@ export default {
           />
         ))}
         {this.mark && this.renderText()}
-      </Fragment>
+      </div>
     );
   }
 };
