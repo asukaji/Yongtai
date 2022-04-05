@@ -6,7 +6,7 @@ import Footer from './Footer';
 import Introduce from './Introduce';
 import Sidebar from './SideBar';
 
-import { EFFECT_INDEX } from '@/constants';
+import { EFFECT_INDEX, PROPERTY,  } from '@/constants';
 
 
 import styles from './index.module.less';
@@ -29,7 +29,7 @@ export default {
           </div>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
-            <router-link to={{ name: EFFECT_INDEX }}  class={styles.text}>农村产权交易</router-link>
+            <router-link to={{ name: PROPERTY }}  class={styles.text}>农村产权交易</router-link>
           </div>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
