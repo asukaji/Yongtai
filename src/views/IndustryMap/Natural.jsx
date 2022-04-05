@@ -3,6 +3,8 @@ import { Marker, Text } from '@amap/amap-vue';
 import { fetchNatures } from '@/api';
 import _ from 'lodash';
 
+import { VILLAGE_NAME } from './index';
+
 export default {
   name: 'Natural',
 
@@ -14,7 +16,23 @@ export default {
 
   computed: {
     street() {
-      return this.$route.params.street;
+      return this.$route.params.street ?? VILLAGE_NAME;
+    }
+  },
+
+  watch: {
+    street: {
+      immediate: true,
+
+      async handler(street) {
+        if (!street) {
+          return;
+        }
+
+        this.markers = Object.freeze(
+          await fetchNatures(this.street, 'natural')
+        );
+      }
     }
   },
 

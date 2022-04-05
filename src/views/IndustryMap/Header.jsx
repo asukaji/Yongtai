@@ -25,9 +25,9 @@ export default {
       const { street, village } = this.$route.params;
 
       this.$router.replace(
-        `/${INDUSTRY_MAP}/${street}${village ? `/${village}` : ''}/${_.last(
-          name.split('.')
-        )}`
+        `/${INDUSTRY_MAP}${street ? `/${street}` : ''}${
+          village ? `/${village}` : ''
+        }/${_.last(name.split('.'))}`
       );
     },
 
