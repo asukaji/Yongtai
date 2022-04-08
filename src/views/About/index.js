@@ -44,7 +44,7 @@ export default {
           <img src={map} class={styles.map}></img>
         </div>
         <div class={styles.foot}>
-          <Footer class={styles.footer}/>
+          {/* <Footer class={styles.footer}/> */}
           <Introduce class={styles.introduce}/>
         </div>
         <Sidebar />

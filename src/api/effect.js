@@ -52,3 +52,9 @@ export function fetchProject(code, type, projectClass) {
   }).then(({ result }) => result);
 }
 
+export function cardProject(projectId, projectClass) {
+  return instance.post('/work/schedule', {
+    projectId,
+    projectClass
+  }).then(({ result }) => result);
+}

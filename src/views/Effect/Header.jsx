@@ -64,9 +64,6 @@ export default {
           >
             乡镇指标考核
           </span>
-          <router-link to={{ name: EFFECT_INDEX }} class={styles.text}>
-            乡村振兴项目
-          </router-link>
           <router-link to={{ name: PROJECT }} class={styles.text}>
             重点项目打卡
           </router-link>

@@ -94,7 +94,7 @@ export default {
             interval: 0,
             textStyle: {
               color: 'rgb(138, 163, 176)',
-              fontSize: 9
+              fontSize: 11
             }
           }
           // axisLine: {

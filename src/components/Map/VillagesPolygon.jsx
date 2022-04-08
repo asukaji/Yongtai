@@ -46,7 +46,7 @@ export default {
           position={point}
           text={name}
           offset={[-36, -16]}
-          domStyle={{ color: '#0078FF' }}
+          domStyle={{ color: '#fff' }}
         />
       ));
     }

@@ -170,10 +170,10 @@ export default {
             <div style={{ height: '540px', overflow: 'auto' }}>
               <h2>乡村振兴</h2>
               <div>
-                <img src={bg1} />
+                {/* <img src={bg1} />
                 <img src={bg2} />
                 <img src={bg3} />
-                <img src={bg4} />
+                <img src={bg4} /> */}
               </div>
               <p>
                 乡村振兴近5年和今年工作情况及今后5年和明年工作思路

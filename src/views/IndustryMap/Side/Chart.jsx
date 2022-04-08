@@ -29,6 +29,10 @@ export default {
 
     title() {
       return this.value?.title;
+    },
+
+    unit() {
+      return this.value?.unit;
     }
   },
 
@@ -48,7 +52,7 @@ export default {
   render() {
     return (
       <div class={styles.chart}>
-        <h4 class={styles.title}>{this.title}</h4>
+        <h4 class={styles.title}>{this.title}({this.unit})</h4>
         <VChart option={this.option} />
       </div>
     );

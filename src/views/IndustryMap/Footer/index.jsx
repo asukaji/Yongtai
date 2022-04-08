@@ -52,13 +52,19 @@ export default {
     }
   },
 
+  methods: {
+    handleChange (item) {
+      this.$emit('change', item);
+    },
+  },
+
   render() {
     const { street } = this.state;
 
     return (
       <div class={styles.footer}>
         <Profile value={street?.element} />
-        <Project value={street?.project} />
+        <Project value={street?.project} onClick={this.handleChange.bind(this)} />
       </div>
     );
   }

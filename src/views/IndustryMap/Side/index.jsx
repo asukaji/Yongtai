@@ -66,11 +66,10 @@ export default {
 
     renderStreet() {
       const { street } = this.state;
-
       return (
         <div class={styles.paragraph}>
           <h1>{this.street}</h1>
-
+          
           <pre>{street?.content}</pre>
           {this.renderMedia()}
         </div>

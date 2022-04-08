@@ -46,7 +46,7 @@ export default {
     'state.activeKey': {
       async handler(key) {
         const result = await fetchWorkData(
-          this.village ?? this.street,
+          this.village ?? this.street ?? '一镇一品',
           this.type,
           key
         );
@@ -72,35 +72,44 @@ export default {
   },
 
   methods: {
+    handleClick(item) {
+      this.$emit('click', item);
+    },
     renderProjects() {
       return (
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            overflow: 'auto',
+            flexWrap: 'wrap',
+            overflow: 'scroll',
+            height: '130px',
             width: '436px',
-            marginTop: '48px'
+            marginTop: '10px'
           }}
         >
           {_.map(
             _.isEmpty(this.state.projects) ? this.value : this.state.projects,
-            ({ name }) => (
+            (item) => (
               <div
-                key={name}
+                key={this.state.projects.nameCode}
+                onClick={() => this.handleClick.call(this, item)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: '#DBDB8A',
-                  flex: '128px',
+                  width: '130px',
+                  // flex: '128px',
                   fontSize: '12px',
                   height: '64px',
                   minWidth: '128px',
-                  marginRight: '8px'
+                  marginTop: '5px',
+                  marginRight: '8px',
+                  cursor: 'pointer'
                 }}
               >
-                {name}
+                {item.name}
               </div>
             )
           )}

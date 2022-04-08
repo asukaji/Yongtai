@@ -83,7 +83,7 @@ export default {
             fontWeight: 'bold'
           }}
         >
-          永泰县产业地图
+          乡村产业地图
         </span>
         <img src={line} class={styles.line2}></img>
         <router-link

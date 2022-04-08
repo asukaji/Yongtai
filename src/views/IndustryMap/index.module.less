@@ -1,14 +1,46 @@
 .line1 {
-  width: 132px;
-  height: 11px;
+  width: 80px;
+  height: 8px;
   margin-right: 10px;
 }
 
 .line2 {
-  width: 132px;
-  height: 11px;
+  width: 80px;
+  height: 8px;
   margin-left: 10px;
   transform: rotateY(180deg); 
+}
+.card {
+  width: 350px;
+  height: calc(100vh - 580px);
+  // overflow:scroll;
+  background-color: rgba(25, 121, 228, 0.1);
+  border: 1px solid #1979E4;
+  border-radius: 10px;
+  z-index: 333;
+  position: fixed;
+  top: 51px;
+  left: 10px;
+  transition: 0.3s;
+  transform: translateX(calc(-100% - 10px));
+}
+
+.back {
+  color: #fff;
+  position: fixed;
+  left: 5%;
+  top: 8%;
+}
+
+.cardVisible {
+  transform: translateX(0);
+}
+
+.close {
+  width: 20px;
+  margin-top: 10px;
+  margin-left: 90%;
+  cursor: pointer;
 }
 
 .home {
@@ -16,8 +48,8 @@
   height: 100%;
 
   :global .amap-icon {
-    width: 24px !important;
-    height: 24px !important;
+    width: 30px !important;
+    height: 30px !important;
     & img {
       width: 100%;
       left: 0;
@@ -159,13 +191,17 @@
   }
 
   pre {
+    width: 100%;
     margin-top: 24px;
     color:#ffffff;
     font-size: 13px;
-    text-align: left;
+    text-align: justify;
     letter-spacing: 2px;
-    max-height: 400px;
-    overflow-y: auto;
+    max-height: 450px;
+    overflow: scroll;
+    white-space: pre-wrap;
+    word-wrap: break-word;  
+    // overflow-y: auto;
   }
 
   p {
@@ -342,3 +378,40 @@
     }
   }
 }
+
+.marker {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    img:first-child {
+      width: 140px;
+      height: 38px;
+    }
+
+    p {
+      position: absolute;
+      left: 48px;
+      margin: 0;
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    .tag {
+      width: 18px;
+      height: 43px;
+    }
+  }
+
+  .icon {
+      width: 30px;
+      height: 20px;
+  }
+
+  .name{
+    width: 80px;//可以自定义宽度
+    word-break: keep-all; // 不换行
+    white-space: nowrap; // 不换行 
+    overflow: hidden;//内容超出宽度时隐藏超出部分的内容 
+    text-overflow: ellipsis;
+  }

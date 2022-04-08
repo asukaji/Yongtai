@@ -17,6 +17,7 @@ export default {
   computed: {
     street() {
       return this.$route.params.street ?? VILLAGE_NAME;
+      
     }
   },
 
@@ -25,31 +26,40 @@ export default {
       immediate: true,
 
       async handler(street) {
-        if (!street) {
+        if (street === '一镇一品') {
+          this.markers = Object.freeze(
+            _.concat(
+              await fetchNatures('永泰县', 'town'),
+              // await fetchNatures(this.street, 'natural'),
+              // await fetchNatures(this.street, 'native')
+            )
+          );
           return;
         }
-
+        
         this.markers = Object.freeze(
           _.concat(
-            await fetchNatures(this.street, 'natural'),
-            await fetchNatures(this.street, 'native')
+            // await fetchNatures('永泰县', 'town'),
+            // await fetchNatures(this.street, 'native') 
           )
         );
-      }
+      },
     }
   },
 
   async mounted() {
     this.markers = Object.freeze(
       _.concat(
-        await fetchNatures(this.street, 'natural'),
-        await fetchNatures(this.street, 'native')
+        await fetchNatures('永泰县', 'town'),
+        // await fetchNatures(this.street, 'natural'),
+        // await fetchNatures(this.street, 'native')
       )
     );
   },
 
   methods: {
     renderMarkers() {
+
       return _.map(this.markers, ({ position, icon }) => (
         <Marker position={position} icon={icon} />
       ));

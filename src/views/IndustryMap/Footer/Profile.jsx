@@ -21,7 +21,8 @@ export default {
           width: 130,
           textStyle: {
             lineHeight: 14,
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            fontSize: 10
           }
         },
         grid: {
@@ -36,11 +37,19 @@ export default {
         yAxis: {
           show: false
         },
+        tooltip: {
+          trigger: 'item'
+        },
         series: [
           {
             type: 'pie',
             label: {
-              show: false
+              show: false,
+              normal: {
+                show: true,
+                formatter: '{c}',
+                margin: 0
+              }
             },
             data: [
               { value: this.value.project_szx, name: '省专项' },
@@ -48,8 +57,17 @@ export default {
               { value: this.value.project_mlxc, name: '美丽乡村' },
               { value: this.value.project_city, name: '市项目' }
             ],
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true,
+                  position: 'inside',
+                  formatter: '{b} : {c} ({d}%)'
+                }
+              }
+            },
             radius: ['50%', '60%'],
-            center: ['70%', '50%'],
+            center: ['70%', '40%'],
             labelLine: {
               show: false
             }
