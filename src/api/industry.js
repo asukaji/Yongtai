@@ -97,14 +97,14 @@ const content = `21个乡镇星罗棋布，一个乡镇就是一道风景；272�
  * @param {string} town
  */
 export function fetchStreetDetail(town) {
-  if('一镇一品' === town){
+  if ('一镇一品' === town) {
     return {
       content: content,
       media: [
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye1.jpg',type:'image'},
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye2.jpg',type:'image'},
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye3.jpg',type:'image'},
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye4.jpg',type:'image'}
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye1.jpg', type: 'image' },
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye2.jpg', type: 'image' },
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye3.jpg', type: 'image' },
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye4.jpg', type: 'image' }
       ],
     };
   }
@@ -146,13 +146,28 @@ export function fetchWorkData(name, mapLevel, projectClass = 'project_szx') {
 export function fetchNatures(town, type) {
   return instance.post('/natures', { town, type }).then(({ result }) =>
     _.map(result,
-      ({ id, latitudes, longitudes, icon, content, name }) => ({
+      ({ id, latitudes, longitudes, icon, content, name, village }) => ({
         id,
         position: [longitudes, latitudes],
         icon,
         name,
-        content
+        content,
+        village
       })
     )
+  );
+}
+
+/**
+ * 产业地图-获取村下所有项目以及坐标
+ * @param {string} village
+ */
+export function fetchProjectByVillage(village) {
+  return instance.post('/projectByVillage', { village }).then(({ result }) => _.map(result,
+    ({ latitudes, longitudes, ...result }) => ({
+      ...result,
+      position: [longitudes, latitudes]
+    })
+  )
   );
 }

@@ -4,9 +4,12 @@ import { fetchNatures } from '@/api';
 import _ from 'lodash';
 
 import { VILLAGE_NAME } from './index';
+import { INDUSTRY_MAP } from '@/constants';
 
 export default {
   name: 'Natural',
+
+  inject: ['map'],
 
   data() {
     return {
@@ -41,9 +44,23 @@ export default {
   },
 
   methods: {
+    onClick({ name, point }) {
+      if (point) {
+        this.map.$refs.Map.setCenter(point);
+        this.map.$refs.Map.setZoom(12);
+      }
+
+      this.$router.replace(`/${INDUSTRY_MAP}/${name}/profile`);
+    },
+
     renderMarkers() {
-      return _.map(this.markers, ({ position, icon }) => (
-        <Marker position={position} icon={icon} />
+      return _.map(this.markers, ({ position, icon, name, village }) => (
+        <Marker
+          position={position}
+          icon={icon}
+          key={name}
+          onClick={this.onClick.bind(this, { name: village, point: position })}
+        />
       ));
     },
 

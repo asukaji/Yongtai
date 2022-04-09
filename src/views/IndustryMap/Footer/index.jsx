@@ -42,20 +42,23 @@ export default {
       immediate: true,
 
       async handler(village) {
-        village &&
-          (this.state.street = await fetchWorkData(
+        if (village) {
+          this.state.street = await fetchWorkData(
             village,
             'village',
             'project_szx'
-          ));
+          );
+        } else {
+          this.state.street = await fetchWorkData(this.street, 'town');
+        }
       }
     }
   },
 
   methods: {
-    handleChange (item) {
+    handleChange(item) {
       this.$emit('change', item);
-    },
+    }
   },
 
   render() {
@@ -64,7 +67,10 @@ export default {
     return (
       <div class={styles.footer}>
         <Profile value={street?.element} />
-        <Project value={street?.project} onClick={this.handleChange.bind(this)} />
+        <Project
+          value={street?.project}
+          onClick={this.handleChange.bind(this)}
+        />
       </div>
     );
   }

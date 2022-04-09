@@ -58,11 +58,12 @@ export default {
       immediate: true,
 
       async handler(village) {
-        if (!village) {
+        if (!village && !this.street) {
           return;
         }
+
         const result = await fetchWorkData(
-          village,
+          village ?? this.street,
           this.type,
           this.state.activeKey
         );

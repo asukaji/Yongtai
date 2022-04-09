@@ -41,14 +41,19 @@ export default {
 
   methods: {
     renderText() {
-      return _.map(this.points, ({ point, name }) => (
+      return _.map(this.points, (point) => (
         <Text
-          position={point}
-          text={name}
+          position={point.point}
+          text={point.name}
           offset={[-36, -16]}
           domStyle={{ color: '#fff' }}
+          onClick={this.onClick.bind(this, point)}
         />
       ));
+    },
+
+    onClick(point) {
+      this.$emit('villageClick', point);
     }
   },
 
@@ -62,7 +67,7 @@ export default {
             strokeWeight={1}
             fillColor="#0078FF"
             fillOpacity={0.15}
-            onClick={this.$emit.bind(this, 'villageClick', this.points[index])}
+            onClick={this.onClick.bind(this, this.points[index])}
           />
         ))}
         {this.mark && this.renderText()}

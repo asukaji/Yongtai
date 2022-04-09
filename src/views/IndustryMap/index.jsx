@@ -4,6 +4,7 @@ import { Marker, Text, TrafficLayer } from '@amap/amap-vue';
 import Header from './Header';
 import Side from './Side';
 import Footer from './Footer';
+import VillageProjects from './VillageProjects';
 import styles from './index.module.less';
 
 import Card from './Card';
@@ -35,6 +36,12 @@ const featuresMap = new Map([
 export default {
   name: 'IndustryMap',
 
+  provide() {
+    return {
+      map: this
+    };
+  },
+
   data() {
     return {
       items: {},
@@ -51,10 +58,13 @@ export default {
     center() {
       return _.find(streets, ({ properties: { name } }) => name === this.street)
         ?.properties.point;
-    },
+    }
+  },
 
-    // village() {
-    // }
+  watch: {
+    street() {
+      this.mapLocations = [];
+    }
   },
 
   methods: {
@@ -68,11 +78,15 @@ export default {
       const lastPath = _.last(this.$route.path.split('/'));
 
       this.$router.replace(`/${INDUSTRY_MAP}/${street}/${name}/${lastPath}`);
+      this.cardVisible = false;
     },
 
     onStreetClick({ name, point }) {
-      this.$refs.Map.setCenter(point);
-      this.$refs.Map.setZoom(12);
+      if (point) {
+        this.$refs.Map.setCenter(point);
+        this.$refs.Map.setZoom(12);
+      }
+
       const lastPath = _.last(this.$route.path.split('/'));
       this.mapLocations.splice(0);
       this.cardVisible = false;
@@ -99,7 +113,7 @@ export default {
 
     close() {
       this.cardVisible = false;
-    },
+    }
   },
 
   render() {
@@ -128,11 +142,15 @@ export default {
             />
           ) : (
             <StreetsPolygonNoName onStreetClick={this.onStreetClick} />
-
-            
           )}
 
-          {this.street ? <Marker position={this.center} icon={marker} /> : null}
+          {this.street ? (
+            <Marker
+              position={this.center}
+              icon={marker}
+              onClick={this.onStreetClick.bind(this, { name: this.street })}
+            />
+          ) : null}
           {this.street ? (
             <Text
               position={this.center}
@@ -150,8 +168,8 @@ export default {
             <Marker
               position={[location.longitudes, location.latitudes]}
               offset={[-75, -50]}
+              key={location.name}
               onClick={this.renderCard}
-              
             >
               <div>
                 <div class={styles.marker}>
@@ -164,6 +182,8 @@ export default {
               </div>
             </Marker>
           ))}
+
+          <VillageProjects />
 
           <router-view></router-view>
         </YtMap>
