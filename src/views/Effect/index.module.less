@@ -95,7 +95,7 @@
 .card {
   width: 350px;
   height: calc(100vh - 323px);
-  overflow:scroll;
+  overflow: scroll;
   background-color: rgba(25, 121, 228, 0.1);
   border: 1px solid #1979E4;
   border-radius: 10px;
@@ -107,9 +107,50 @@
   transform: translateX(calc(-100% - 10px));
 }
 
+.bottomback {
+  position: fixed;
+  top: 60px;
+  left: 370px;
+  display: none;
+}
+
+.backVisible {
+  display: block;
+}
+
+.back {
+  width: 45px;
+}
+
+.backs {
+  color: #fff;
+  position: fixed;
+  left: 5%;
+  top: 8%;
+}
+
 .cardVisible {
   transform: translateX(0);
 }
+
+.cardOne {
+  display: none;
+}
+
+.cardTwo {
+  display: none;
+}
+
+
+.cardOneVisible {
+  display: block;
+}
+
+.cardTwoVisible {
+  display: block;
+}
+
+
 
 .close {
   width: 20px;

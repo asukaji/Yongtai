@@ -13,6 +13,7 @@ import _ from 'lodash';
 import text from '../../assets/Effect/bg-ditutext.png';
 import icon from '../../assets/Effect/location.png';
 import close from '../../assets/Effect/close.png';
+import back from '../../assets/Effect/back.png';
 
 import { VillagesPolygon, StreetsPolygon } from '@/components/Map';
 
@@ -21,7 +22,8 @@ import Footer from './Footer';
 import SideBar from './SideBar';
 import SideBarTwo from './SideBarTwo';
 import Card from './Card';
-import { EFFECT_INDEX, ZOOM, CENTER } from '@/constants';
+import CardTwo from './CardTwo';
+import { EFFECT, ZOOM, CENTER } from '@/constants';
 
 
 import { features as wt } from '@/assets/Geo/village-WT.json';
@@ -53,11 +55,16 @@ export default {
       villages: undefined,
       projects: [],
       cardVisible: false,
+      cardOneVisible: false,
+      cardTwoVisible: false,
+      backVisible: false,
       code: '',
       typed: '',
       projectClass: '',
+      projectId: '',
       siderBarVisible: true,
-      siderBarTwoVisible: false
+      siderBarTwoVisible: false,
+      point: []
     };
   },
 
@@ -84,10 +91,6 @@ export default {
   },
 
   methods: {
-    // onClick(area, type) {
-    //   this.activeArea = area;
-    //   this.type = type;
-    // },
 
     beforeLeave(name) {
       this.$router.replace({ name });
@@ -101,6 +104,9 @@ export default {
       this.code = code;
       this.typed = type;
       this.projectClass = projectClass;
+      this.point.push(this.mapLocations[0].longitude,this.mapLocations[0].latitude);
+      this.$refs.Map.setCenter(this.point);
+      this.point.splice(0);
     },
     async renderCard(location) {
       if (this.projectClass === 'beautyVallage') {
@@ -114,7 +120,19 @@ export default {
       }
       this.location = location;
       this.cardVisible = true;
+      this.cardOneVisible = true;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
     },
+
+    handleItemSend(item) {
+      this.projectId = item.projectId;
+      console.log('projectId', this.projectId);
+      this.cardOneVisible = false;
+      this.cardTwoVisible = true;
+      this.backVisible = true;
+    },
+
     close() {
       this.cardVisible = false;
     },
@@ -122,10 +140,15 @@ export default {
       if (name === 'gzcx') {
         this.siderBarVisible = true;
         this.siderBarTwoVisible = false;
+        this.mapLocations = [];
+        this.onMapClick();
+        this.$refs.Map.setCenter([118.987800, 25.768119]);
+        this.$refs.Map.setZoom(10.4);
       } else if (name === 'zbkh') {
         this.siderBarVisible = false;
         this.siderBarTwoVisible = true;
       }
+      
     },
     onVillageClick({ name, point }) {
       this.$refs.Map.setCenter(point);
@@ -135,24 +158,33 @@ export default {
         return;
       }
       const lastPath = _.last(this.$route.path.split('/'));
-
-      this.$router.replace(`/${EFFECT_INDEX}/${street}/${name}/index`);
+      this.$router.replace(`/${EFFECT}/${street}/${name}/${lastPath}`);
     },
 
     onStreetClick({ name, point }) {
       this.$refs.Map.setCenter(point);
       this.$refs.Map.setZoom(12);
-
       const lastPath = _.last(this.$route.path.split('/'));
-
-      this.$router.replace(`/${EFFECT_INDEX}/${name}/index`);
+      console.log(`/${EFFECT}/${name}/${lastPath}`);
+      this.$router.replace(`/${EFFECT}/${name}/${lastPath}`);
+      this.cardVisible = false;
+      this.cardOneVisible = false;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
+      this.mapLocations = [];
     },
 
     onMapClick() {
       this.$refs.Map.setCenter(CENTER);
       this.$refs.Map.setZoom(ZOOM);
+      const lastPath = _.last(this.$route.path.split('/'));
+      this.$router.replace(`/${EFFECT}/${lastPath}`);
+    },
 
-      this.$router.replace(`/${EFFECT_INDEX}/index`);
+    backBottom() {
+      this.cardOneVisible = true;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
     }
   },
 
@@ -170,6 +202,11 @@ export default {
           zoom={10.4}
           onMapClick={this.onMapClick}
         >
+          {this.street ? (
+            <div onClick={this.onMapClick} class={styles.backs}>
+              返回乡镇地图
+            </div>
+          ) : null}
           {this.street ? (
             <VillagesPolygon
               features={featuresMap.get(this.street ?? VILLAGE_NAME)}
@@ -198,7 +235,28 @@ export default {
         </YtMap>
         <div class={[styles.card, this.cardVisible && styles.cardVisible]}>
           <img class={styles.close} src={close} onClick={this.close}></img>
-          <Card projects={this.projects} village={this.location} jdList={[]} />
+          <Card
+            projects={this.projects}
+            village={this.location}
+            onSend={this.handleItemSend.bind(this)}
+            class={[
+              styles.cardOne,
+              this.cardOneVisible && styles.cardOneVisible
+            ]}
+          />
+          <CardTwo
+            projectClass={this.projectClass}
+            projectId={this.projectId}
+            class={[
+              styles.cardTwo,
+              this.cardTwoVisible && styles.cardTwoVisible
+            ]}
+          />
+        </div>
+        <div
+          class={[styles.bottomback, this.backVisible && styles.backVisible]}
+        >
+          <img src={back} class={styles.back} onClick={this.backBottom}></img>
         </div>
       </div>
     );

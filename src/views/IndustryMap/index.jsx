@@ -60,6 +60,7 @@ export default {
   methods: {
     onVillageClick({ name, point }) {
       this.$refs.Map.setCenter(point);
+      console.log('点标记', point);
 
       const { street = VILLAGE_NAME, village } = this.$route.params;
       if (name === village) {

@@ -48,6 +48,7 @@ export default {
           text={name}
           offset={[-36, -16]}
           domStyle={{ color: color[index % 4] }}
+          onClick={this.$emit.bind(this, 'streetClick', this.points[index])}
         />
       ));
     }

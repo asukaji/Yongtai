@@ -19,7 +19,7 @@ export default {
     change(name) {
       this.active = name;
       this.$emit('change', name);
-    }
+    },
   },
 
   render() {

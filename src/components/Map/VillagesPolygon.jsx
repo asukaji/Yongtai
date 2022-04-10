@@ -41,12 +41,13 @@ export default {
 
   methods: {
     renderText() {
-      return _.map(this.points, ({ point, name }) => (
+      return _.map(this.points, ({ point, name }, index) => (
         <Text
           position={point}
           text={name}
           offset={[-36, -16]}
           domStyle={{ color: '#fff' }}
+          onClick={this.$emit.bind(this, 'villageClick', this.points[index])}
         />
       ));
     }
