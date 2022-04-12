@@ -96,17 +96,24 @@ export default {
       this.$router.replace({ name });
     },
     async handleItemChange({ code, type, projectClass }) {
-      if (projectClass === 'beautyVallage') {
-        this.mapLocations = await fetchVillages(code, type);
+      if (this.mapLocations.length !== 0){
+        this.mapLocations = [];
       } else {
-        this.mapLocations = await fetchCoordProfile(code, type, projectClass);
+        if (projectClass === 'beautyVallage') {
+          this.mapLocations = await fetchVillages(code, type);
+        } else {
+          this.mapLocations = await fetchCoordProfile(code, type, projectClass);
+        }
+        this.code = code;
+        this.typed = type;
+        this.projectClass = projectClass;
+        this.point.push(
+          this.mapLocations[0].longitude + 0.105,
+          this.mapLocations[0].latitude
+        );
+        this.$refs.Map.setCenter(this.point);
+        this.point.splice(0);
       }
-      this.code = code;
-      this.typed = type;
-      this.projectClass = projectClass;
-      this.point.push(this.mapLocations[0].longitude,this.mapLocations[0].latitude);
-      this.$refs.Map.setCenter(this.point);
-      this.point.splice(0);
     },
     async renderCard(location) {
       if (this.projectClass === 'beautyVallage') {
@@ -135,6 +142,7 @@ export default {
 
     close() {
       this.cardVisible = false;
+      this.backVisible = false;
     },
     change(name) {
       if (name === 'gzcx') {
@@ -159,6 +167,7 @@ export default {
       }
       const lastPath = _.last(this.$route.path.split('/'));
       this.$router.replace(`/${EFFECT}/${street}/${name}/${lastPath}`);
+      this.mapLocations = [];
     },
 
     onStreetClick({ name, point }) {
@@ -197,10 +206,11 @@ export default {
         {this.siderBarTwoVisible && <SideBarTwo />}
         <YtMap
           center={[118.987697, 25.768119]}
+          offset={[500,500]}
           ref="Map"
           map-style="amap://styles/grey"
           zoom={10.4}
-          onMapClick={this.onMapClick}
+          // onMapClick={this.onMapClick}
         >
           {this.street ? (
             <div onClick={this.onMapClick} class={styles.backs}>

@@ -4,9 +4,12 @@ import { fetchNatures } from '@/api';
 import _ from 'lodash';
 
 import { VILLAGE_NAME } from './index';
+import { INDUSTRY_MAP } from '@/constants';
 
 export default {
   name: 'Profile',
+
+  inject: ['map'],
 
   data() {
     return {
@@ -17,7 +20,6 @@ export default {
   computed: {
     street() {
       return this.$route.params.street ?? VILLAGE_NAME;
-      
     }
   },
 
@@ -29,28 +31,29 @@ export default {
         if (street === '一镇一品') {
           this.markers = Object.freeze(
             _.concat(
-              await fetchNatures('永泰县', 'town'),
+              await fetchNatures('永泰县', 'town')
               // await fetchNatures(this.street, 'natural'),
               // await fetchNatures(this.street, 'native')
             )
           );
           return;
         }
-        
+
         this.markers = Object.freeze(
-          _.concat(
+          _
+            .concat
             // await fetchNatures('永泰县', 'town'),
-            // await fetchNatures(this.street, 'native') 
-          )
+            // await fetchNatures(this.street, 'native')
+            ()
         );
-      },
+      }
     }
   },
 
   async mounted() {
     this.markers = Object.freeze(
       _.concat(
-        await fetchNatures('永泰县', 'town'),
+        await fetchNatures('永泰县', 'town')
         // await fetchNatures(this.street, 'natural'),
         // await fetchNatures(this.street, 'native')
       )
@@ -58,10 +61,23 @@ export default {
   },
 
   methods: {
-    renderMarkers() {
+    onClick({ name, point }) {
+      if (point) {
+        this.map.$refs.Map.setCenter(point);
+        this.map.$refs.Map.setZoom(12);
+      }
 
-      return _.map(this.markers, ({ position, icon }) => (
-        <Marker position={position} icon={icon} />
+      this.$router.replace(`/${INDUSTRY_MAP}/${name}/profile`);
+    },
+
+    renderMarkers() {
+      return _.map(this.markers, ({ position, icon, name, village }, index) => (
+        <Marker
+          position={position}
+          icon={icon}
+          key={`${name}.${index}`}
+          onClick={this.onClick.bind(this, { name: village, point: position })}
+        />
       ));
     },
 
@@ -70,6 +86,7 @@ export default {
         <Text
           position={position}
           text={name}
+          key={name}
           offset={[8 - _.size(name) * 6, -24]}
           domStyle={{
             color: '#fff',

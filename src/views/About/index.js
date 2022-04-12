@@ -25,7 +25,7 @@ export default {
         <div class={styles.button}>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
-            <router-link to={{ name: INDUSTRY_MAP }}  class={styles.text}>产业地图</router-link>
+            <router-link to={{ name: INDUSTRY_MAP }}  class={styles.text}>乡村振兴</router-link>
           </div>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
@@ -33,7 +33,7 @@ export default {
           </div>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>
-            <router-link to={{ name: EFFECT_INDEX }} class={styles.text}>工作成效</router-link>
+            <router-link to={{ name: EFFECT_INDEX }} class={styles.text}>成效考评</router-link>
           </div>
           <div class={styles.on}>
             <img src={click} class={styles.click}></img>

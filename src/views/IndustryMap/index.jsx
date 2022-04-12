@@ -4,6 +4,7 @@ import { Marker, Text, TrafficLayer } from '@amap/amap-vue';
 import Header from './Header';
 import Side from './Side';
 import Footer from './Footer';
+import VillageProjects from './VillageProjects';
 import styles from './index.module.less';
 
 import Card from './Card';
@@ -35,11 +36,19 @@ const featuresMap = new Map([
 export default {
   name: 'IndustryMap',
 
+  provide() {
+    return {
+      map: this
+    };
+  },
+
   data() {
     return {
       items: {},
+      markers: {},
       mapLocations: [],
-      cardVisible: false
+      cardVisible: false,
+      change: false,
     };
   },
 
@@ -51,14 +60,19 @@ export default {
     center() {
       return _.find(streets, ({ properties: { name } }) => name === this.street)
         ?.properties.point;
-    },
+    }
+  },
 
-    // village() {
-    // }
+  watch: {
+    street() {
+      this.mapLocations = [];
+    }
   },
 
   methods: {
     onVillageClick({ name, point }) {
+      this.mapLocations = [];
+      this.change = false;
       this.$refs.Map.setCenter(point);
       console.log('点标记', point);
 
@@ -69,11 +83,15 @@ export default {
       const lastPath = _.last(this.$route.path.split('/'));
 
       this.$router.replace(`/${INDUSTRY_MAP}/${street}/${name}/${lastPath}`);
+      this.cardVisible = false;
     },
 
     onStreetClick({ name, point }) {
-      this.$refs.Map.setCenter(point);
-      this.$refs.Map.setZoom(12);
+      if (point) {
+        this.$refs.Map.setCenter(point);
+        this.$refs.Map.setZoom(12);
+      }
+
       const lastPath = _.last(this.$route.path.split('/'));
       this.mapLocations.splice(0);
       this.cardVisible = false;
@@ -89,9 +107,19 @@ export default {
     },
 
     handleItemChange(item) {
-      this.items = item;
-      this.mapLocations.splice(0);
-      this.mapLocations.push(item);
+      if(this.mapLocations.length !== 0){
+        this.mapLocations = [];
+      } else {
+        this.items = item;
+        this.mapLocations.splice(0);
+        this.mapLocations.push(item);
+        this.cardVisible = false;
+        this.change = true;
+      }
+    },
+
+    handleItemClicks(item) {
+      this.markers = item;  
     },
 
     renderCard() {
@@ -100,7 +128,7 @@ export default {
 
     close() {
       this.cardVisible = false;
-    },
+    }
   },
 
   render() {
@@ -111,7 +139,7 @@ export default {
           zoom={10.4}
           center={[118.987697, 25.768119]}
           mapStyle="amap://styles/grey"
-          onMapClick={this.onMapClick}
+          // onMapClick={this.onMapClick}
         >
           {this.street ? (
             <div onClick={this.onMapClick} class={styles.back}>
@@ -129,11 +157,15 @@ export default {
             />
           ) : (
             <StreetsPolygonNoName onStreetClick={this.onStreetClick} />
-
-            
           )}
 
-          {this.street ? <Marker position={this.center} icon={marker} /> : null}
+          {this.street ? (
+            <Marker
+              position={this.center}
+              icon={marker}
+              onClick={this.onStreetClick.bind(this, { name: this.street })}
+            />
+          ) : null}
           {this.street ? (
             <Text
               position={this.center}
@@ -151,8 +183,8 @@ export default {
             <Marker
               position={[location.longitudes, location.latitudes]}
               offset={[-75, -50]}
+              key={location.name}
               onClick={this.renderCard}
-              
             >
               <div>
                 <div class={styles.marker}>
@@ -166,12 +198,17 @@ export default {
             </Marker>
           ))}
 
+          <VillageProjects
+            onClick={[this.renderCard, this.handleItemClicks.bind(this)]}
+            change={this.change}
+          />
+
           <router-view></router-view>
         </YtMap>
 
         <div class={[styles.card, this.cardVisible && styles.cardVisible]}>
           <img class={styles.close} src={close} onClick={this.close}></img>
-          <Card projects={this.items} />
+          <Card projects={this.items} mark={this.markers} />
         </div>
       </div>
     );

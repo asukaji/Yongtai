@@ -97,27 +97,66 @@ const content = `21个乡镇星罗棋布，一个乡镇就是一道风景；272�
  * @param {string} town
  */
 export function fetchStreetDetail(town) {
-  if('一镇一品' === town){
+  if ('一镇一品' === town) {
     return {
       content: content,
+      honors: [
+        {honor: '福建省“中国温泉之乡”'},
+        {honor: '中国天然氧吧'},
+        {honor: '首批国家全域旅游示范区'},
+      ],
+      townSituations: [
+        {num: '2229.86”',unit: 'km²',name: '总面积'},
+        {num: '272',unit: '万亩',name: '山地面积'},
+        {num: '281216',unit: '人',name: '常驻人口'},
+        {num: '242”',unit: '万亩',name: '有林地'},
+        {num: '76.8',unit: '%',name: '森林覆盖率'},
+        {num: '9镇',unit: '12乡',name: '下辖地区'},
+      ],
       media: [
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye1.jpg',type:'image'},
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye2.jpg',type:'image'},
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye3.jpg',type:'image'},
-        {src:'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye4.jpg',type:'image'}
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye1.jpg', type: 'image' },
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye2.jpg', type: 'image' },
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye3.jpg', type: 'image' },
+        { src: 'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/yiXiangYiPing/chanye4.jpg', type: 'image' }
       ],
     };
   }
-  return instance.post('/getTownInfo', { town }).then(({ result }) => ({
-    content: result.content,
-    media: _.map(result.fileList, ({ filePath, fileType }) => ({
-      src: filePath,
-      type:
+  return instance.post('/getTownInfo', { town }).then(({ result }) => {
+    const data = {
+      content: result.content,
+      honors: result.honors,
+      townSituations: result.townSituations,
+      media: _.map(result.fileList, ({ filePath, fileType }) => ({
+        src: filePath,
+        type:
         fileType === '.jpg' || fileType === '.png' || fileType === '.jpeg'
           ? 'image'
           : 'video'
-    }))
-  }));
+      }))
+    };
+
+    if(data.honors.length === 0) {
+      data.honors = [
+        {honor: '暂无'},
+        {honor: '暂无'},
+        {honor: '暂无'},
+      ];
+    }
+
+    if(data.townSituations.length === 0) {
+      data.townSituations = [
+        {num: '暂无',unit: '暂无',name: '暂无'},
+        {num: '暂无',unit: '暂无',name: '暂无'},
+        {num: '暂无',unit: '暂无',name: '暂无'},
+        {num: '暂无',unit: '暂无',name: '暂无'},
+        {num: '暂无',unit: '暂无',name: '暂无'},
+        {num: '暂无',unit: '暂无',name: '暂无'},
+      ];
+    }
+
+    return data;
+
+  });
 }
 
 /**
@@ -146,13 +185,28 @@ export function fetchWorkData(name, mapLevel, projectClass = 'project_szx') {
 export function fetchNatures(town, type) {
   return instance.post('/natures', { town, type }).then(({ result }) =>
     _.map(result,
-      ({ id, latitudes, longitudes, icon, content, name }) => ({
+      ({ id, latitudes, longitudes, icon, content, name, village }) => ({
         id,
         position: [longitudes, latitudes],
         icon,
         name,
-        content
+        content,
+        village
       })
     )
+  );
+}
+
+/**
+ * 产业地图-获取村下所有项目以及坐标
+ * @param {string} village
+ */
+export function fetchProjectByVillage(village) {
+  return instance.post('/projectByVillage', { village }).then(({ result }) => _.map(result,
+    ({ latitudes, longitudes, ...result }) => ({
+      ...result,
+      position: [longitudes, latitudes]
+    })
+  )
   );
 }

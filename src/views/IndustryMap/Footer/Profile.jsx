@@ -66,7 +66,7 @@ export default {
                 }
               }
             },
-            radius: ['50%', '60%'],
+            radius: ['30%', '60%'],
             center: ['70%', '40%'],
             labelLine: {
               show: false

@@ -43,7 +43,7 @@ export default {
             onclick={this.change.bind(this, 'gzcx')}
             class={[styles.text, this.active === 'gzcx' && styles.textActive]}
           >
-            工作成效总览
+            成效考评总览
           </span>
           <router-link to={{ name: BUSINESS }} class={styles.text}>
             招商管理
@@ -54,7 +54,7 @@ export default {
         </div>
         <div class={styles.center}>
           <img src={headerText} class={styles.left}></img>
-          <h2 class={styles.title}>工作成效</h2>
+          <h2 class={styles.title}>成效考评</h2>
           <img src={headerText} class={styles.right}></img>
         </div>
         <div class={styles.texts}>
