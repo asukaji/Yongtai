@@ -1,10 +1,10 @@
 import styles from './Header.module.less';
 
-import { EFFECT_INDEX, BUSINESS, ECONOMY, PROJECT } from '@/constants';
+import { INDUSTRY_MAP, BUSINESS, ECONOMY, PROJECT } from '@/constants';
 
 import headerText from '../../assets/Effect/header-line.png';
 
-import { Button } from 'element-ui';
+// import { Button } from 'element-ui';
 
 export default {
   name: 'Header',
@@ -26,19 +26,22 @@ export default {
     return (
       <div class={styles.tabs}>
         <div class={styles.texts}>
-          <Button
+          {/* <Button
             icon="el-icon-arrow-left"
             style={{
               color: '#fff',
               position: 'absolute',
-              left: '12px',
+              left: '1px',
               backgroundColor: 'transparent',
               borderWidth: '0 !important'
             }}
             onClick={() => this.$router.replace('/')}
           >
             返回
-          </Button>
+          </Button> */}
+          <router-link to={{ name: INDUSTRY_MAP }} class={styles.text}>
+            乡村振兴
+          </router-link>
           <span
             onclick={this.change.bind(this, 'gzcx')}
             class={[styles.text, this.active === 'gzcx' && styles.textActive]}
@@ -54,16 +57,16 @@ export default {
         </div>
         <div class={styles.center}>
           <img src={headerText} class={styles.left}></img>
-          <h2 class={styles.title}>成效考评</h2>
+          <h3 class={styles.title}>成效考评</h3>
           <img src={headerText} class={styles.right}></img>
         </div>
         <div class={styles.texts}>
-          <span
+          {/* <span
             onclick={this.change.bind(this, 'zbkh')}
             class={[styles.text, this.active === 'zbkh' && styles.textActive]}
           >
             乡镇指标考核
-          </span>
+          </span> */}
           <router-link to={{ name: PROJECT }} class={styles.text}>
             重点项目打卡
           </router-link>

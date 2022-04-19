@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home';
-import About from '@/views/About';
+// import Industry from '@/views/IndustryMap';
+// import About from '@/views/About';
+import Effect from '@/views/Effect';
 import Control from '@/views/Control';
 import Property from '@/views/Property';
 import PropertyDetails from '@/views/Property/Details';
@@ -25,8 +27,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'About',
-    component: About
+    name: 'Effect',
+    component: Effect
   },
   {
     path: '/home',

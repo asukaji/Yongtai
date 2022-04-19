@@ -5,7 +5,8 @@ import {
   fetchCoordProfile,
   fetchVillages,
   fetchProjectsByVillages,
-  fetchProject
+  fetchProject,
+  summaryProject
 } from '@/api';
 
 import _ from 'lodash';
@@ -21,6 +22,7 @@ import Header from './Header';
 import Footer from './Footer';
 import SideBar from './SideBar';
 import SideBarTwo from './SideBarTwo';
+import SideBarThree from './SideBarThree';
 import Card from './Card';
 import CardTwo from './CardTwo';
 import { EFFECT, ZOOM, CENTER } from '@/constants';
@@ -64,7 +66,10 @@ export default {
       projectId: '',
       siderBarVisible: true,
       siderBarTwoVisible: false,
-      point: []
+      siderBarThreeVisible: false,
+      point: [],
+      pageOpen: false,
+      cardInfo: {}
     };
   },
 
@@ -91,18 +96,60 @@ export default {
   },
 
   methods: {
-
     beforeLeave(name) {
       this.$router.replace({ name });
     },
-    async handleItemChange({ code, type, projectClass }) {
-      if (this.mapLocations.length !== 0){
-        this.mapLocations = [];
+
+    //点击文件夹事件
+    async handleItemChange({ code, type, projectClass, treeCard}) {
+
+      this.cardInfo = await summaryProject(code, type, projectClass);
+
+      console.log('card', this.cardInfo);
+
+      if (this.mapLocations.length !== 0) {
+        if (projectClass === 'beautyVallage') {
+          this.mapLocations = await fetchVillages(code, type);
+          // this.summary = await summaryProject(code, type, projectClass);
+        } else {
+          this.mapLocations = await fetchCoordProfile(code, type, projectClass);
+          // this.summary = await summaryProject(code, type, projectClass);
+        }
+        if (treeCard) {//关闭汇总
+          this.mapLocations = [];
+          this.siderBarVisible = true; //jingji
+          this.siderBarThreeVisible = false; // huizong
+        } else {
+          this.siderBarVisible = false;
+          this.siderBarThreeVisible = true;
+
+        }
+        console.log('zuobiaoValue1:',this.mapLocations.length);
+        this.point.splice(0);
+       
+        this.cardVisible = false, 
+        this.cardOneVisible = false;
+        this.cardTwoVisible = false;
+        this.backVisible = false;
+        this.$refs.Map.setCenter([118.987697, 25.768119]);
+        this.$refs.Map.setZoom(10.4);
       } else {
+        
         if (projectClass === 'beautyVallage') {
           this.mapLocations = await fetchVillages(code, type);
         } else {
           this.mapLocations = await fetchCoordProfile(code, type, projectClass);
+
+        }
+        // console.log('mmmmmmmmm',this.summary);
+        //刚进入也没有，没有点击卡片执行的顺序 
+
+        if (treeCard) {
+          this.siderBarVisible = true; //jingji
+          this.siderBarThreeVisible = false; // huizong
+        } else {
+          this.siderBarVisible = false;
+          this.siderBarThreeVisible = true;
         }
         this.code = code;
         this.typed = type;
@@ -115,6 +162,8 @@ export default {
         this.point.splice(0);
       }
     },
+
+    //点击地图点位事件
     async renderCard(location) {
       if (this.projectClass === 'beautyVallage') {
         this.projects = await fetchProjectsByVillages(location.vallage);
@@ -134,7 +183,6 @@ export default {
 
     handleItemSend(item) {
       this.projectId = item.projectId;
-      console.log('projectId', this.projectId);
       this.cardOneVisible = false;
       this.cardTwoVisible = true;
       this.backVisible = true;
@@ -148,15 +196,15 @@ export default {
       if (name === 'gzcx') {
         this.siderBarVisible = true;
         this.siderBarTwoVisible = false;
+        this.siderBarThreeVisible = false; 
         this.mapLocations = [];
         this.onMapClick();
-        this.$refs.Map.setCenter([118.987800, 25.768119]);
+        this.$refs.Map.setCenter([118.9878, 25.768119]);
         this.$refs.Map.setZoom(10.4);
       } else if (name === 'zbkh') {
         this.siderBarVisible = false;
         this.siderBarTwoVisible = true;
       }
-      
     },
     onVillageClick({ name, point }) {
       this.$refs.Map.setCenter(point);
@@ -174,7 +222,6 @@ export default {
       this.$refs.Map.setCenter(point);
       this.$refs.Map.setZoom(12);
       const lastPath = _.last(this.$route.path.split('/'));
-      console.log(`/${EFFECT}/${name}/${lastPath}`);
       this.$router.replace(`/${EFFECT}/${name}/${lastPath}`);
       this.cardVisible = false;
       this.cardOneVisible = false;
@@ -201,12 +248,13 @@ export default {
     return (
       <div class={styles.home}>
         <Header onChange={this.change.bind(this)} />
-        <Footer onChange={this.handleItemChange.bind(this)} />
+        <Footer onChange={this.handleItemChange.bind(this)}/>
         {this.siderBarVisible && <SideBar />}
         {this.siderBarTwoVisible && <SideBarTwo />}
+        {this.siderBarThreeVisible && <SideBarThree cardInfo={this.cardInfo}/>}
         <YtMap
           center={[118.987697, 25.768119]}
-          offset={[500,500]}
+          offset={[500, 500]}
           ref="Map"
           map-style="amap://styles/grey"
           zoom={10.4}

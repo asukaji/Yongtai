@@ -24,8 +24,6 @@ export default {
         setTimeout(() => this.setCenter(center), 1024);
       }
     },
-
-    setStyle() {}
   },
 
   render() {

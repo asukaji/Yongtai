@@ -1,8 +1,6 @@
-import map from '@/assets/About/map.png';
 import click from '@/assets/About/click.png';
 
 import Header from './Header';
-import Footer from './Footer';
 import Introduce from './Introduce';
 import Sidebar from './SideBar';
 
@@ -41,7 +39,7 @@ export default {
           </div>
         </div>
         <div>
-          <img src={map} class={styles.map}></img>
+          <img src={'https://zhengxinyun.oss-cn-guangzhou.aliyuncs.com/xiangcun/icon/background/map.png'} class={styles.map}></img>
         </div>
         <div class={styles.foot}>
           {/* <Footer class={styles.footer}/> */}

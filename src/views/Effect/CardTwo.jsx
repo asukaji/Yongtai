@@ -24,7 +24,6 @@ export default {
   watch: {
     async projectId() {
       this.jindulist = await cardProject(this.projectId, this.projectClass);
-      console.log('ninininininin',this.jindulist);
     }
   },
 

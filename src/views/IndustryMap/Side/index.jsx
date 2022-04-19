@@ -90,15 +90,21 @@ export default {
           <div class={styles.rongyus}>
             <div class={styles.rongyu}>
               <img class={styles.rongyuIcon} src={rice}></img>
-              <span class={styles.rongyuText}>{street?.honors[0].honor}</span>
+              <div>
+                <span class={styles.rongyuText}>{street?.honors[0].honor}</span>
+              </div>
             </div>
             <div class={styles.rongyu}>
               <img class={styles.rongyuIcon} src={anli}></img>
-              <span class={styles.rongyuText}>{street?.honors[1].honor}</span>
+              <div>
+                <span class={styles.rongyuText}>{street?.honors[1].honor}</span>
+              </div>
             </div>
             <div class={styles.rongyu}>
               <img class={styles.rongyuIcon} src={daxiangcun}></img>
-              <span class={styles.rongyuText}>{street?.honors[2].honor}</span>
+              <div>
+                <span class={styles.rongyuText}>{street?.honors[2].honor}</span>
+              </div>
             </div>
           </div>
 
@@ -202,7 +208,7 @@ export default {
           </div>
           <div>
             <pre>{street?.content}</pre>
-            {this.renderMedia()}
+            {/* {this.renderMedia()} */}
           </div>
         </div>
       );

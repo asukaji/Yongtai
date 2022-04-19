@@ -8,6 +8,9 @@ import VillageProjects from './VillageProjects';
 import styles from './index.module.less';
 
 import Card from './Card';
+import CardTwo from './CardTwo';
+import CardThree from './CardThree';
+import SideBar from './SideBar';
 
 import text from '../../assets/Effect/bg-ditutext.png';
 import icon from '../../assets/Effect/location.png';
@@ -48,7 +51,17 @@ export default {
       markers: {},
       mapLocations: [],
       cardVisible: false,
+      cardTwoVisible: false,
+      cardThreeVisible: false,
       change: false,
+      point: [],
+      name: '',
+      content: '',
+      names: '',
+      contents: '',
+      survey: {},
+      sideVisible: true,
+      sideBarVisible: false
     };
   },
 
@@ -84,6 +97,8 @@ export default {
 
       this.$router.replace(`/${INDUSTRY_MAP}/${street}/${name}/${lastPath}`);
       this.cardVisible = false;
+      this.cardTwoVisible = false;
+      this.cardThreeVisible = false;
     },
 
     onStreetClick({ name, point }) {
@@ -95,6 +110,8 @@ export default {
       const lastPath = _.last(this.$route.path.split('/'));
       this.mapLocations.splice(0);
       this.cardVisible = false;
+      this.cardTwoVisible = false;
+      this.cardThreeVisible = false;
 
       this.$router.replace(`/${INDUSTRY_MAP}/${name}/${lastPath}`);
     },
@@ -107,7 +124,7 @@ export default {
     },
 
     handleItemChange(item) {
-      if(this.mapLocations.length !== 0){
+      if (this.mapLocations.length !== 0) {
         this.mapLocations = [];
       } else {
         this.items = item;
@@ -119,15 +136,47 @@ export default {
     },
 
     handleItemClicks(item) {
-      this.markers = item;  
+      this.markers = item;
     },
 
     renderCard() {
       this.cardVisible = true;
+      this.cardTwoVisible = false;
+      this.cardThreeVisible = false;
     },
 
     close() {
       this.cardVisible = false;
+      this.cardTwoVisible = false;
+      this.cardThreeVisible = false;
+    },
+
+    handleResource(item) {
+      this.name = item.name;
+      this.content = item.content;
+      this.cardTwoVisible = true;
+    },
+
+    handleFeature(item) {
+      this.names = item.name;
+      this.contents = item.content;
+      this.cardThreeVisible = true;
+    },
+
+    handleMoveFeature() {
+      this.mapLocations = [];
+      this.change = true;
+    },
+
+    handleSurveyFeature(item) {
+      this.survey = item;
+      this.sideVisible = false;
+      this.sideBarVisible = true;
+    },
+
+    handelBack() {
+      this.sideVisible = true;
+      this.sideBarVisible = false;
     }
   },
 
@@ -140,14 +189,19 @@ export default {
           center={[118.987697, 25.768119]}
           mapStyle="amap://styles/grey"
           // onMapClick={this.onMapClick}
+          onChange={this.handleResource.bind(this)}
         >
           {this.street ? (
             <div onClick={this.onMapClick} class={styles.back}>
               返回乡镇地图
             </div>
           ) : null}
-          <Header />
-          <Side />
+          <Header
+            onChange={this.handleMoveFeature.bind(this)}
+            onClick={this.handleSurveyFeature.bind(this)}
+          />
+          {this.sideVisible && <Side />}
+
           <Footer onChange={this.handleItemChange.bind(this)} />
 
           {this.street ? (
@@ -203,12 +257,40 @@ export default {
             change={this.change}
           />
 
-          <router-view></router-view>
+          <router-view
+            onChange={this.handleResource.bind(this)}
+            onMove={this.handleFeature.bind(this)}
+          />
         </YtMap>
 
         <div class={[styles.card, this.cardVisible && styles.cardVisible]}>
           <img class={styles.close} src={close} onClick={this.close}></img>
           <Card projects={this.items} mark={this.markers} />
+        </div>
+
+        <div
+          class={[styles.cardTwo, this.cardTwoVisible && styles.cardTwoVisible]}
+        >
+          <img class={styles.close} src={close} onClick={this.close}></img>
+          <CardTwo name={this.name} content={this.content} />
+        </div>
+
+        <div
+          class={[
+            styles.cardTwo,
+            this.cardThreeVisible && styles.cardThreeVisible
+          ]}
+        >
+          <img class={styles.close} src={close} onClick={this.close}></img>
+          <CardThree name={this.names} content={this.contents} />
+        </div>
+        <div class={styles.sideBar}>
+          {this.sideBarVisible && (
+            <SideBar
+              survey={this.survey}
+              onClick={this.handelBack.bind(this)}
+            />
+          )}
         </div>
       </div>
     );

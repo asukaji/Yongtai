@@ -42,22 +42,24 @@ export default {
   },
 
   methods: {
-    onClick({ name, point }) {
-      if (point) {
-        this.map.$refs.Map.setCenter(point);
-        this.map.$refs.Map.setZoom(12);
-      }
+    onClick(item) {
+      this.$emit('move', item);
+      // if (point) {
+      //   this.map.$refs.Map.setCenter(point);
+      //   this.map.$refs.Map.setZoom(12);
+      // }
 
-      this.$router.replace(`/${INDUSTRY_MAP}/${name}/profile`);
+      // this.$router.replace(`/${INDUSTRY_MAP}/${name}/profile`);
     },
 
     renderMarkers() {
-      return _.map(this.markers, ({ position, icon, name, village }) => (
+      return _.map(this.markers, (item) => (
         <Marker
-          position={position}
-          icon={icon}
-          key={name}
-          onClick={this.onClick.bind(this, { name: village, point: position })}
+          position={item.position}
+          icon={item.icon}
+          key={item.id}
+          // onClick={this.onClick.bind(this, { name: village, point: position })}
+          onClick={this.onClick.bind(this, item)}
         />
       ));
     },

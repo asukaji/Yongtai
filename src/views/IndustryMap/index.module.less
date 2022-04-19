@@ -25,6 +25,21 @@
   transform: translateX(calc(-100% - 10px));
 }
 
+.cardTwo {
+  width: 350px;
+  height: calc(100vh - 245px);
+  // overflow:scroll;
+  background-color: rgba(25, 121, 228, 0.1);
+  border: 1px solid #1979E4;
+  border-radius: 10px;
+  z-index: 333;
+  position: fixed;
+  top: 51px;
+  left: 10px;
+  transition: 0.3s;
+  transform: translateX(calc(-100% - 10px));
+}
+
 .back {
   color: #fff;
   position: fixed;
@@ -33,6 +48,14 @@
 }
 
 .cardVisible {
+  transform: translateX(0);
+}
+
+.cardTwoVisible {
+  transform: translateX(0);
+}
+
+.cardThreeVisible {
   transform: translateX(0);
 }
 
@@ -52,8 +75,8 @@
   height: 100%;
 
   :global .amap-icon {
-    width: 30px !important;
-    height: 30px !important;
+    width: 35px !important;
+    height: 35px !important;
     & img {
       width: 100%;
       left: 0;
@@ -202,7 +225,7 @@
     font-size: 13px;
     text-align: justify;
     letter-spacing: 2px;
-    max-height: 175px;
+    max-height: 340px;
     overflow: scroll;
     white-space: pre-wrap;
     word-wrap: break-word;  
@@ -479,4 +502,10 @@
   .xiangzhenName {
     color: rgba(255, 233, 207, 1);
     font-size: 13px;
+  }
+
+  .sideBar {
+    position: fixed;
+    right: 0;
+    top: 45px;
   }

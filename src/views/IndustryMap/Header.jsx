@@ -1,9 +1,11 @@
-import { Button, Tabs, TabPane } from 'element-ui';
+import { Button, Tabs, TabPane, Dropdown, DropdownMenu, DropdownItem } from 'element-ui';
 import styles from './index.module.less';
 
 import line from '../../assets/Effect/header-line.png';
 
 import _ from 'lodash';
+
+import { surveyProject } from '@/api';
 
 import {
   INDUSTRY_MAP,
@@ -15,6 +17,12 @@ import {
 export default {
   name: 'Header',
 
+  data() {
+    return {
+      survey: {}
+    };
+  },
+
   computed: {
     activeKey() {
       const activeKey = _.last(this.$route.path?.split('/'));
@@ -25,6 +33,7 @@ export default {
   methods: {
     beforeLeave(name) {
       const { street, village } = this.$route.params;
+      this.$emit('change');
 
       this.$router.replace(
         `/${INDUSTRY_MAP}${street ? `/${street}` : ''}${
@@ -33,10 +42,19 @@ export default {
       );
     },
 
+    change() {
+      this.$emit('change');
+      console.log(222221222222);
+    },
+
     renderTabs() {
       return (
         <div class={[styles.tabs, styles.tabsHeader]}>
-          <Tabs value={this.activeKey} beforeLeave={this.beforeLeave}>
+          <Tabs
+            value={this.activeKey}
+            beforeLeave={this.beforeLeave}
+            tabClick={this.change.bind(this)}
+          >
             <TabPane
               key={INDUSTRY_MAP_PROFILE}
               name={INDUSTRY_MAP_PROFILE}
@@ -55,6 +73,12 @@ export default {
           </Tabs>
         </div>
       );
+    },
+
+    async handelSurveyProject(command) {
+      this.survey = await surveyProject(command);
+      // console.log('sasasa',this.survey);
+      this.$emit('click', this.survey);
     }
   },
 
@@ -86,6 +110,29 @@ export default {
           乡村振兴
         </span>
         <img src={line} class={styles.line2}></img>
+
+        <Dropdown trigger="click" onCommand={this.handelSurveyProject}>
+          <span
+            style={{
+              color: '#fff',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              bottom: '0',
+              backgroundColor: 'transparent',
+              borderWidth: '0 !important'
+            }}
+          >
+            乡村振兴概况
+          </span>
+          <DropdownMenu slot="dropdown">
+            <DropdownItem command="产业振兴">产业振兴</DropdownItem>
+            <DropdownItem command="人才振兴">人才振兴</DropdownItem>
+            <DropdownItem command="生态振兴">生态振兴</DropdownItem>
+            <DropdownItem command="文化振兴">文化振兴</DropdownItem>
+            <DropdownItem command="组织振兴">组织振兴</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
         <router-link
           to="/project"
           style={{

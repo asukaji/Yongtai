@@ -58,3 +58,26 @@ export function cardProject(projectId, projectClass) {
     projectClass
   }).then(({ result }) => result);
 }
+
+/**
+ * 项目-详细信息
+ */
+
+export function summaryProject(code, type, projectClass) {
+  return instance.post('/work/summary', {
+    code,
+    type,
+    projectClass
+  }).then(({ result }) => result);
+}
+
+/**
+ * 乡村振兴概况
+ */
+
+export function surveyProject(itemname) {
+  return instance.post('/industry/revitalization', {
+    itemname
+  }).then(({ result }) => result);
+}
+
