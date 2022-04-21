@@ -60,10 +60,29 @@ export default {
           </div>
         </div>
         <div>
-          <router-link to="/property/details/葛岭/2">葛岭镇村</router-link>
-          <router-link to="/property/details/梧桐/2">梧桐镇村</router-link>
-          <router-link to="/property/details/嵩口/2">嵩口镇村</router-link>
-          <router-link to="/property/details/大洋/2">大洋镇村</router-link>
+          <router-link to="/property/details/葛岭/2">葛岭镇</router-link>
+          <router-link to="/property/details/梧桐/2">梧桐镇</router-link>
+          <router-link to="/property/details/嵩口/2">嵩口镇</router-link>
+          <router-link to="/property/details/大洋/2">大洋镇</router-link>
+        </div>
+        <div>
+          <router-link to="">丹云乡</router-link>
+          <router-link to="">白云乡</router-link>
+          <router-link to="">红星乡</router-link>
+          <router-link to="">盘古乡</router-link>
+          <router-link to="">霞拔乡</router-link>
+          <router-link to="">东洋乡</router-link>
+          <router-link to="">长庆镇</router-link>
+          <router-link to="">盖洋乡</router-link>
+          <router-link to="">洑口乡</router-link>
+          <router-link to="">同安镇</router-link>
+          <router-link to="">赤溪乡</router-link>
+          <router-link to="">富泉乡</router-link>
+          <router-link to="">樟城镇</router-link>
+          <router-link to="">城峰镇</router-link>
+          <router-link to="">岭路乡</router-link>
+          <router-link to="">清凉镇</router-link>
+          <router-link to="">塘前乡</router-link>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import {
 } from '@/api';
 
 import _ from 'lodash';
+import moment from 'moment';
 
 import styles from './Footer.module.less';
 
@@ -26,9 +27,7 @@ export default {
         type: []
       },
       state: {
-        date: [],
-        id: undefined,
-        title: ''
+        date: '2022'
       }
     };
   },
@@ -51,11 +50,11 @@ export default {
     getList() {
       switch (this.type) {
         case 'project_city':
-          return fetchProvinceProfile('project_city');
+          return fetchProvinceProfile('project_city', this.state.date);
         case 'project_sfz':
-          return fetchProvinceProfile('project_sfz');
+          return fetchProvinceProfile('project_sfz', this.state.date);
         case 'project_szx':
-          return fetchProvinceProfile('project_szx');
+          return fetchProvinceProfile('project_szx', this.state.date);
         case 'beautyVallage':
           return beautyVallage();
       }
@@ -75,8 +74,16 @@ export default {
         code: item.nameCode,
         type: this.active,
         projectClass: this.type,
-        treeCard:item.treeCard,
+        treeCard: item.treeCard
       });
+    },
+    setDate(item) {
+      const date =  moment(item).format('YYYY');
+      console.log(date);
+      this.state.date = date;
+      this.getList();
+      this.init();
+      console.log('??????',this.state); 
     }
   },
 
@@ -150,8 +157,9 @@ export default {
           </div>
           <DatePicker
             type="year"
-            placeholder="选择年"
+            placeholder="选择年份"
             vModel={this.state.date}
+            onChange={this.setDate.bind(this)}
           />
         </div>
         {/* page */}

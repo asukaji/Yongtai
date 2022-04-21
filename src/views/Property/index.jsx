@@ -214,13 +214,13 @@ export default {
         <div class={styles.content}>
           <div>
             <Card
-              fetchData={fetchProperty.bind(null, 'jitiZichan')}
-              link="jitiZichan"
+              fetchData={fetchProperty.bind(null, 'guoyouTudi')}
+              link="guoyouTudi"
               scopedSlots={{
-                default: this.renderGauge
+                default: this.renderPie
               }}
             >
-              <p slot="header">集体资产流转</p>
+              <p slot="header">国有建设用地使用权项目</p>
             </Card>
             <Card
               fetchData={fetchProperty.bind(null, 'linquan')}
@@ -263,13 +263,13 @@ export default {
           </div>
           <div>
             <Card
-              fetchData={fetchProperty.bind(null, 'guoyouTudi')}
-              link="guoyouTudi"
+              fetchData={fetchProperty.bind(null, 'jitiZichan')}
+              link="jitiZichan"
               scopedSlots={{
-                default: this.renderPie
+                default: this.renderGauge
               }}
             >
-              <p slot="header">国有建设用地使用权项目</p>
+              <p slot="header">集体资产流转</p>
             </Card>
             <Card
               fetchData={fetchProperty.bind(null, 'guozi')}

@@ -22,9 +22,10 @@ export function fetchPromoteProjectList(code, type) {
  * 省政-目录索引
  */
 
-export function fetchProvinceProfile(projectClass) {
+export function fetchProvinceProfile(projectClass, datetime) {
   return instance.post('/work/catalogue', {
     projectClass,
+    datetime,
   }).then(({ result }) => result);
 }
 
@@ -81,3 +82,12 @@ export function surveyProject(itemname) {
   }).then(({ result }) => result);
 }
 
+/**
+ * 项目打卡
+ */
+
+export function projectClock(projectId) {
+  return instance.post('/work/projectRecords', {
+    projectId
+  }).then(({ result }) => result);
+}

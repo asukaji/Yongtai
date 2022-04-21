@@ -2,6 +2,7 @@
 import styles from './CardTwo.module.less';
 
 import { cardProject } from '@/api';
+import card from '../../assets/Effect/card.png';
 
 export default {
   props: {
@@ -27,9 +28,17 @@ export default {
     }
   },
 
+  methods: {
+    onClick(item) {
+      console.log('aaaaa',item);
+      this.$emit('change', item);
+    }
+  },
+
   render() {
     return (
       <div>
+        <img src={card} class={styles.cardIcon} onClick={this.onClick.bind(this, true)}></img>
         {this.jindulist.map((data) => {
           return (
             <div class={styles.card}>

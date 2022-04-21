@@ -26,6 +26,7 @@ export default {
       return this.$route.params.village;
     }
   },
+  
 
   watch: {
     street: {

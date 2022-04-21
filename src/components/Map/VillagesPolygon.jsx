@@ -5,6 +5,7 @@ import VueTypes from 'vue-types';
 import _ from 'lodash';
 
 import { features } from '@/assets/Geo/village.json';
+// import { features } from '@/assets/Geo/format.json';
 
 export default {
   name: 'VillagesPolygon',

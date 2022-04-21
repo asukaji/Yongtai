@@ -1,5 +1,7 @@
 import styles from './Card.module.less';
 
+import card from '../../assets/Effect/card.png';
+
 export default {
   props: {
     projects: {
@@ -16,11 +18,22 @@ export default {
     return {};
   },
 
+  methods: {
+    onClick(item) {
+      this.$emit('change', item);
+    }
+  },
+
   render() {
     return (
       <div>
         {/* {this.mark.map((item) => {
           return ( */}
+        <img
+          src={card}
+          class={styles.cardIcon}
+          onClick={this.onClick.bind(this, true)}
+        ></img>
         <div class={styles.card}>
           <div class={styles.title}></div>
           <div class={styles.second}>

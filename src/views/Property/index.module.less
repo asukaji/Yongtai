@@ -145,7 +145,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
+  // justify-content: flex-end;
 
   & > div:first-child {
     display: flex;
@@ -153,7 +153,7 @@
     align-items: center;
     width: 400px;
     height: 230px;
-    margin-bottom: 48px;
+    margin-bottom: 5px;
     background-image: url('~@/assets/Bg/property-card.png');
     background-size: 100% 100%;
     background-position: center center;
@@ -209,16 +209,17 @@
     }
   }
 
-  & > div:last-child {
+  & > div:nth-last-child(2) {
     display: flex;
     justify-content: space-around;
+    font-size: 15px;
 
     & > a {
       background-image: url('~@/assets/Bg/property-link.png');
       background-size: contain;
       background-position: center 0;
       background-repeat: no-repeat;
-      height: 100px;
+      height: 90px;
       width: 70px;
 
       color: white;
@@ -227,6 +228,37 @@
 
       & + a {
         margin-left: 16px;
+      }
+    }
+  }
+
+  & > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    // line-height: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+
+    & > a {
+      background-image: url('~@/assets/Icon/build.png');
+      background-size: contain;
+      background-position: center 0;
+      background-repeat: no-repeat;
+      height: 70px;
+      width: 50px;
+
+      color: white;
+      text-decoration: none;
+      line-height: 8;
+
+      & + a {
+        margin-left: 6px;
+        margin-right: 6px;
       }
     }
   }

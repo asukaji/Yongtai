@@ -173,8 +173,8 @@ export function fetchVillageDetail(village, division) {
  * @param {string} mapLevel
  * @param {string} projectClass
  */
-export function fetchWorkData(name, mapLevel, projectClass = 'project_szx') {
-  return instance.post('/workData', { name, mapLevel, projectClass }).then(({ result }) => result);
+export function fetchWorkData(name, mapLevel, projectClass = 'project_szx',datetime) {
+  return instance.post('/workData', { name, mapLevel, projectClass,datetime }).then(({ result }) => result);
 }
 
 /**

@@ -4,6 +4,8 @@ import styles from '../index.module.less';
 import VueTypes from 'vue-types';
 import _ from 'lodash';
 import { fetchWorkData } from '@/api';
+import moment from 'moment';
+import { DatePicker } from 'element-ui';
 
 const TABS = [
   { label: '省专项', name: 'project_szx' },
@@ -22,8 +24,11 @@ export default {
   data() {
     return {
       state: {
-        activeKey: 'project_szx',
+        activeKey: '',
         projects: []
+      },
+      states: {
+        date: '2022'
       }
     };
   },
@@ -48,7 +53,8 @@ export default {
         const result = await fetchWorkData(
           this.village ?? this.street ?? '一镇一品',
           this.type,
-          key
+          key,
+          this.states.date
         );
         this.state.projects = result.project;
       }
@@ -65,11 +71,16 @@ export default {
         const result = await fetchWorkData(
           village ?? this.street,
           this.type,
-          this.state.activeKey
+          this.state.activeKey,
+          this.states.date
         );
         this.state.projects = result.project;
       }
     }
+  },
+
+  created() {
+    this.state.activeKey = 'project_szx';
   },
 
   methods: {
@@ -116,6 +127,19 @@ export default {
           )}
         </div>
       );
+    },
+
+    async setDate(item) {
+      const date = moment(item).format('YYYY');
+      this.states.date = date;
+      const result = await fetchWorkData(
+        this.village ?? this.street ?? '一镇一品',
+        this.type,
+        this.state.activeKey,
+        this.states.date
+      );
+      this.state.projects = result.project;
+
     }
   },
 
@@ -136,6 +160,16 @@ export default {
             </TabPane>
           ))}
         </Tabs>
+        <DatePicker
+          style={{
+            marginTop: '10px',
+            transform: 'translateX(50%)'
+          }}
+          type="year"
+          placeholder="选择年份"
+          vModel={this.states.date}
+          onChange={this.setDate.bind(this)}
+        />
         {this.renderProjects()}
       </div>
     );

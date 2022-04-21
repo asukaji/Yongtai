@@ -640,7 +640,7 @@ export default {
             ) : (
               <div>
                 <img
-                  src={iconCalendar}
+                  src={iconCalendar}//打卡
                   height="50"
                   onClick={this.setStep.bind(null, 1)}
                 />

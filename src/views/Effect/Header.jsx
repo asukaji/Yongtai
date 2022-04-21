@@ -1,6 +1,12 @@
 import styles from './Header.module.less';
 
-import { INDUSTRY_MAP, BUSINESS, ECONOMY, PROJECT } from '@/constants';
+import {
+  PROPERTY,
+  INDUSTRY_MAP,
+  BUSINESS,
+  ECONOMY,
+  PROJECT
+} from '@/constants';
 
 import headerText from '../../assets/Effect/header-line.png';
 
@@ -69,6 +75,12 @@ export default {
           </span> */}
           <router-link to={{ name: PROJECT }} class={styles.text}>
             重点项目打卡
+          </router-link>
+          <router-link to={{ name: PROPERTY }} class={styles.text}>
+            农村产权交易
+          </router-link>
+          <router-link to={{ name: 'Home' }} class={styles.text}>
+            其他重点工作
           </router-link>
         </div>
       </div>

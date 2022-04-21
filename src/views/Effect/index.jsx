@@ -6,7 +6,8 @@ import {
   fetchVillages,
   fetchProjectsByVillages,
   fetchProject,
-  summaryProject
+  summaryProject,
+  projectClock
 } from '@/api';
 
 import _ from 'lodash';
@@ -25,15 +26,37 @@ import SideBarTwo from './SideBarTwo';
 import SideBarThree from './SideBarThree';
 import Card from './Card';
 import CardTwo from './CardTwo';
+import SignList from './SignList';
 import { EFFECT, ZOOM, CENTER } from '@/constants';
 
 
 import { features as wt } from '@/assets/Geo/village-WT.json';
 import { features as dy } from '@/assets/Geo/village-DY.json';
-import { features as gl } from '@/assets/Geo/village-GL.json';
+import { features as gl } from '@/assets/Geo/village-GL.json';//2
 import { features as sk } from '@/assets/Geo/village-SK.json';
 import { features as ta } from '@/assets/Geo/village-TA.json';
+
+import { features as by } from '@/assets/Geo/town-baiYun.json';
+import { features as pg } from '@/assets/Geo/town-panGu.json';
+import { features as hx } from '@/assets/Geo/town-hongXing.json';
+import { features as xb } from '@/assets/Geo/town-xiaBa.json';
+import { features as cq } from '@/assets/Geo/town-changQing.json';
+import { features as fk } from '@/assets/Geo/town-fuKou.json';
+import { features as gy } from '@/assets/Geo/town-gaiYang.json';
+import { features as cx } from '@/assets/Geo/town-chiXi.json';
+import { features as ll } from '@/assets/Geo/town-linLu.json';
+import { features as fq } from '@/assets/Geo/town-fuQuan.json';
+import { features as zc } from '@/assets/Geo/town-zhangCheng.json';
+import { features as cf } from '@/assets/Geo/town-chengFeng.json';
+import { features as ql } from '@/assets/Geo/town-qingLiang.json';
+import { features as dany } from '@/assets/Geo/town-danYun.json';
+import { features as tq } from '@/assets/Geo/town-tangQian.json'; 
+import { features as dongy } from '@/assets/Geo/town-dongYang.json';
+
+
+
 import { features as streets } from '@/assets/Geo/format.json';
+
 
 export const VILLAGE_NAME = '梧桐镇';
 
@@ -42,8 +65,25 @@ const featuresMap = new Map([
   ['大洋镇', dy],
   ['葛岭镇', gl],
   ['嵩口镇', sk],
-  ['同安镇', ta]
+  ['同安镇', ta],
+  ['白云乡', by],
+  ['盘古乡', pg],
+  ['红星乡', hx],
+  ['霞拔乡', xb],
+  ['长庆镇', cq],
+  ['洑口乡', fk],
+  ['盖洋乡', gy],
+  ['赤锡乡', cx],
+  ['岭路乡', ll],
+  ['富泉乡', fq],
+  ['樟城镇', zc],
+  ['城峰镇', cf],
+  ['清凉镇', ql],
+  ['丹云乡', dany],
+  ['塘前乡', tq],
+  ['东洋乡', dongy]
 ]);
+
 
 export default {
   name: 'Effect',
@@ -64,12 +104,16 @@ export default {
       typed: '',
       projectClass: '',
       projectId: '',
+      projectName: '',
       siderBarVisible: true,
       siderBarTwoVisible: false,
       siderBarThreeVisible: false,
       point: [],
       pageOpen: false,
-      cardInfo: {}
+      cardInfo: {},
+      step: false,
+      record: [],
+      records: []
     };
   },
 
@@ -101,8 +145,7 @@ export default {
     },
 
     //点击文件夹事件
-    async handleItemChange({ code, type, projectClass, treeCard}) {
-
+    async handleItemChange({ code, type, projectClass, treeCard }) {
       this.cardInfo = await summaryProject(code, type, projectClass);
 
       console.log('card', this.cardInfo);
@@ -110,39 +153,34 @@ export default {
       if (this.mapLocations.length !== 0) {
         if (projectClass === 'beautyVallage') {
           this.mapLocations = await fetchVillages(code, type);
-          // this.summary = await summaryProject(code, type, projectClass);
         } else {
           this.mapLocations = await fetchCoordProfile(code, type, projectClass);
-          // this.summary = await summaryProject(code, type, projectClass);
         }
-        if (treeCard) {//关闭汇总
+        if (treeCard) {
+          //关闭汇总
           this.mapLocations = [];
           this.siderBarVisible = true; //jingji
           this.siderBarThreeVisible = false; // huizong
         } else {
           this.siderBarVisible = false;
           this.siderBarThreeVisible = true;
-
         }
-        console.log('zuobiaoValue1:',this.mapLocations.length);
+        console.log('zuobiaoValue1:', this.mapLocations.length);
         this.point.splice(0);
-       
-        this.cardVisible = false, 
-        this.cardOneVisible = false;
+
+        (this.cardVisible = false), (this.cardOneVisible = false);
         this.cardTwoVisible = false;
         this.backVisible = false;
         this.$refs.Map.setCenter([118.987697, 25.768119]);
         this.$refs.Map.setZoom(10.4);
       } else {
-        
         if (projectClass === 'beautyVallage') {
           this.mapLocations = await fetchVillages(code, type);
         } else {
           this.mapLocations = await fetchCoordProfile(code, type, projectClass);
-
         }
         // console.log('mmmmmmmmm',this.summary);
-        //刚进入也没有，没有点击卡片执行的顺序 
+        //刚进入也没有，没有点击卡片执行的顺序
 
         if (treeCard) {
           this.siderBarVisible = true; //jingji
@@ -183,6 +221,7 @@ export default {
 
     handleItemSend(item) {
       this.projectId = item.projectId;
+      this.projectName = item.projectName;
       this.cardOneVisible = false;
       this.cardTwoVisible = true;
       this.backVisible = true;
@@ -196,7 +235,7 @@ export default {
       if (name === 'gzcx') {
         this.siderBarVisible = true;
         this.siderBarTwoVisible = false;
-        this.siderBarThreeVisible = false; 
+        this.siderBarThreeVisible = false;
         this.mapLocations = [];
         this.onMapClick();
         this.$refs.Map.setCenter([118.9878, 25.768119]);
@@ -219,6 +258,7 @@ export default {
     },
 
     onStreetClick({ name, point }) {
+      console.log('乡镇模块点击时间', name);
       this.$refs.Map.setCenter(point);
       this.$refs.Map.setZoom(12);
       const lastPath = _.last(this.$route.path.split('/'));
@@ -241,6 +281,33 @@ export default {
       this.cardOneVisible = true;
       this.cardTwoVisible = false;
       this.backVisible = false;
+    },
+
+    async handelCardOpen(item) {
+      this.step = item;
+      const project = await projectClock(this.projectId);
+      this.record = project.records;
+      this.records = this.record.map(
+        ({ createTime, userId_dictText, area, remark, troubles, nextPlan }) => {
+          return Object.assign(
+            {},
+            {
+              'createTime':createTime,
+              'userId_dictText':userId_dictText,
+              'area':area,
+              'remark':remark,
+              'troubles':troubles,
+              'nextPlan': nextPlan
+            }
+          );
+        }
+      );
+      console.log('11111111111',this.records);
+      console.log('222222222222', this.record);
+    },
+
+    handleCardClose(item) {
+      this.step = item;
     }
   },
 
@@ -248,10 +315,10 @@ export default {
     return (
       <div class={styles.home}>
         <Header onChange={this.change.bind(this)} />
-        <Footer onChange={this.handleItemChange.bind(this)}/>
+        <Footer onChange={this.handleItemChange.bind(this)} />
         {this.siderBarVisible && <SideBar />}
         {this.siderBarTwoVisible && <SideBarTwo />}
-        {this.siderBarThreeVisible && <SideBarThree cardInfo={this.cardInfo}/>}
+        {this.siderBarThreeVisible && <SideBarThree cardInfo={this.cardInfo} />}
         <YtMap
           center={[118.987697, 25.768119]}
           offset={[500, 500]}
@@ -271,7 +338,7 @@ export default {
               onVillageClick={this.onVillageClick}
             />
           ) : (
-            <StreetsPolygon onStreetClick={this.onStreetClick} />
+            <StreetsPolygon />
           )}
           {this.mapLocations.map((location) => (
             <Marker
@@ -305,6 +372,7 @@ export default {
           <CardTwo
             projectClass={this.projectClass}
             projectId={this.projectId}
+            onChange={this.handelCardOpen.bind(this)}
             class={[
               styles.cardTwo,
               this.cardTwoVisible && styles.cardTwoVisible
@@ -316,6 +384,12 @@ export default {
         >
           <img src={back} class={styles.back} onClick={this.backBottom}></img>
         </div>
+        {this.step && <SignList 
+          onChange={this.handleCardClose} 
+          records={this.records} 
+          name={this.projectName}
+          record={this.record}
+        />}
       </div>
     );
   }

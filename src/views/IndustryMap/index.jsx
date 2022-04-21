@@ -6,11 +6,13 @@ import Side from './Side';
 import Footer from './Footer';
 import VillageProjects from './VillageProjects';
 import styles from './index.module.less';
+import { projectClock } from '@/api';
 
 import Card from './Card';
 import CardTwo from './CardTwo';
 import CardThree from './CardThree';
 import SideBar from './SideBar';
+import SignList from './SignList';
 
 import text from '../../assets/Effect/bg-ditutext.png';
 import icon from '../../assets/Effect/location.png';
@@ -61,7 +63,12 @@ export default {
       contents: '',
       survey: {},
       sideVisible: true,
-      sideBarVisible: false
+      sideBarVisible: false,
+      projectId: '',
+      projectName: '',
+      step: false,
+      record: [],
+      records: []
     };
   },
 
@@ -124,10 +131,13 @@ export default {
     },
 
     handleItemChange(item) {
-      if (this.mapLocations.length !== 0) {
+      if (this.projectId === item.nameCode) {
         this.mapLocations = [];
+        this.projectId = '';
       } else {
         this.items = item;
+        this.projectId = item.nameCode;
+        this.projectName = item.name;
         this.mapLocations.splice(0);
         this.mapLocations.push(item);
         this.cardVisible = false;
@@ -177,6 +187,33 @@ export default {
     handelBack() {
       this.sideVisible = true;
       this.sideBarVisible = false;
+    },
+
+    async handelCardOpen(item) {
+      this.step = item;
+      const project = await projectClock(this.projectId);
+      this.record = project.records;
+      this.records = this.record.map(
+        ({ createTime, userId_dictText, area, remark, troubles, nextPlan }) => {
+          return Object.assign(
+            {},
+            {
+              'createTime':createTime,
+              'userId_dictText':userId_dictText,
+              'area':area,
+              'remark':remark,
+              'troubles':troubles,
+              'nextPlan': nextPlan
+            }
+          );
+        }
+      );
+      console.log('11111111111', this.records);
+      console.log('222222222222', this.record);
+    },
+
+    handleCardClose(item) {
+      this.step = item;
     }
   },
 
@@ -265,7 +302,11 @@ export default {
 
         <div class={[styles.card, this.cardVisible && styles.cardVisible]}>
           <img class={styles.close} src={close} onClick={this.close}></img>
-          <Card projects={this.items} mark={this.markers} />
+          <Card
+            projects={this.items}
+            mark={this.markers}
+            onChange={this.handelCardOpen.bind(this)}
+          />
         </div>
 
         <div
@@ -292,6 +333,14 @@ export default {
             />
           )}
         </div>
+        {this.step && (
+          <SignList
+            onChange={this.handleCardClose}
+            records={this.records}
+            name={this.projectName}
+            record={this.record}
+          />
+        )}
       </div>
     );
   }
