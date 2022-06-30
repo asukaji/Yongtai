@@ -19,7 +19,8 @@ export default {
 
   data() {
     return {
-      survey: {}
+      survey: {},
+      state: null
     };
   },
 
@@ -32,28 +33,32 @@ export default {
 
   methods: {
     beforeLeave(name) {
+      this.$emit('tabs', false);
       const { street, village } = this.$route.params;
-      this.$emit('change');
+      // this.$emit('change');
 
       this.$router.replace(
         `/${INDUSTRY_MAP}${street ? `/${street}` : ''}${
           village ? `/${village}` : ''
         }/${_.last(name.split('.'))}`
       );
-    },
 
-    change() {
-      this.$emit('change');
-      console.log(222221222222);
+      if (name.split('.')[1] === 'natural' || name.split('.')[1] === 'native') {
+        this.$emit('change', false);
+      } else {
+        this.$emit('change', true);
+      }
     },
 
     renderTabs() {
       return (
-        <div class={[styles.tabs, styles.tabsHeader]}>
+        <div
+          class={[styles.tabs, styles.tabsHeader]}
+          style={{ fontSize: '12px' }}
+        >
           <Tabs
             value={this.activeKey}
             beforeLeave={this.beforeLeave}
-            tabClick={this.change.bind(this)}
           >
             <TabPane
               key={INDUSTRY_MAP_PROFILE}
@@ -77,9 +82,8 @@ export default {
 
     async handelSurveyProject(command) {
       this.survey = await surveyProject(command);
-      // console.log('sasasa',this.survey);
       this.$emit('click', this.survey);
-    }
+    },
   },
 
   render() {
@@ -99,53 +103,63 @@ export default {
         >
           返回
         </Button>
-        {this.renderTabs()}
-        <img src={line} class={styles.line1}></img>
-        <span
-          style={{
-            color: '#ffffff',
-            fontWeight: 'bold'
-          }}
-        >
-          乡村振兴
-        </span>
-        <img src={line} class={styles.line2}></img>
+        <div style={{ width: '30%' }}>{this.renderTabs()}</div>
 
-        <Dropdown trigger="click" onCommand={this.handelSurveyProject}>
+        <div>
+          <img src={line} class={styles.line1}></img>
           <span
             style={{
-              color: '#fff',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              bottom: '0',
-              backgroundColor: 'transparent',
-              borderWidth: '0 !important'
+              color: '#ffffff',
+              fontWeight: 'bold'
             }}
           >
-            乡村振兴概况
+            乡村振兴
           </span>
-          <DropdownMenu slot="dropdown">
-            <DropdownItem command="产业振兴">产业振兴</DropdownItem>
-            <DropdownItem command="人才振兴">人才振兴</DropdownItem>
-            <DropdownItem command="生态振兴">生态振兴</DropdownItem>
-            <DropdownItem command="文化振兴">文化振兴</DropdownItem>
-            <DropdownItem command="组织振兴">组织振兴</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+          <img src={line} class={styles.line2}></img>
+        </div>
 
-        <router-link
-          to="/project"
+        <div
           style={{
-            position: 'absolute',
-            right: '25%',
-            fontSize: '13px',
-            color: '#fff',
-            textDecoration: 'none',
-            zIndex: 2
+            width: '30%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
-          重点项目
-        </router-link>
+          <Dropdown trigger="click" onCommand={this.handelSurveyProject}>
+            <span
+              style={{
+                color: '#fff',
+                fontSize: '12px',
+                fontWeight: 'bold',
+                bottom: '0',
+                backgroundColor: 'transparent',
+                borderWidth: '0 !important'
+              }}
+            >
+              乡村振兴概况
+            </span>
+            <DropdownMenu slot="dropdown">
+              <DropdownItem command="产业振兴">产业振兴</DropdownItem>
+              <DropdownItem command="人才振兴">人才振兴</DropdownItem>
+              <DropdownItem command="生态振兴">生态振兴</DropdownItem>
+              <DropdownItem command="文化振兴">文化振兴</DropdownItem>
+              <DropdownItem command="组织振兴">组织振兴</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+          <router-link
+            to="/project"
+            style={{
+              fontSize: '12px',
+              color: '#fff',
+              marginLeft: '40px',
+              textDecoration: 'none',
+              zIndex: 2
+            }}
+          >
+            重点项目
+          </router-link>
+        </div>
       </div>
     );
   }

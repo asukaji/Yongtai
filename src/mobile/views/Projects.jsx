@@ -116,7 +116,7 @@ export default {
               <div class={styles.list}>
                 {_.map(
                   this.otherProjects,
-                  ({ title, id, longitudes, latitudes }) => (
+                  ({ projectName, tags, id, longitudes, latitudes }) => (
                     <div
                       onClick={this.onClick.bind(
                         null,
@@ -125,7 +125,12 @@ export default {
                         'village'
                       )}
                     >
-                      <h3>{title}</h3>
+                      <h3>{projectName}</h3>
+                      {_.map(tags, (tag) => (
+                        <Tag type="primary" key={tag} size="mini">
+                          {tag}
+                        </Tag>
+                      ))}
                     </div>
                   )
                 )}

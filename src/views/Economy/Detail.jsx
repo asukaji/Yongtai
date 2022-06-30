@@ -34,6 +34,8 @@ export default {
   render() {
     const { ranking, instrument } = this.state;
 
+    // console.log('ranking', ranking?.category);
+
     return (
       <div class={styles.detail}>
         <div>
@@ -50,19 +52,19 @@ export default {
                   show: true,
                   position: 'top'
                 },
-                data: [instrument?.ratio]
+                data: [instrument?.cityIncrease]
               },
               {
                 name: '同比增长率',
                 unit: '%',
                 type: 'bar',
-                yAxisIndex: 1,
+                // yAxisIndex: 1,
                 barWidth: '25%',
                 label: {
                   show: true,
                   position: 'top'
                 },
-                data: [instrument?.cityIncrease]
+                data: [instrument?.ratio]
               }
             ]}
             innerTitle

@@ -15,32 +15,58 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      name: null
+    };
+  },
+
+  watch: {
+    projects: {
+      immediate: true,
+
+      handler(projects) {
+        this.name = projects.name;
+      }
+    },
+
+    mark() {
+      this.name = this.mark.dept + this.mark.name;
+    }
   },
 
   methods: {
     onClick(item) {
+      console.log('marker', item);
       this.$emit('change', item);
+    },
+
+    onChange() {
+      this.$emit('open');
     }
   },
 
   render() {
     return (
       <div>
-        {/* {this.mark.map((item) => {
-          return ( */}
-        <img
-          src={card}
-          class={styles.cardIcon}
-          onClick={this.onClick.bind(this, true)}
-        ></img>
-        <div class={styles.card}>
+        <div
+          onClick={this.onClick.bind(this, [true,this.projects])}
+          align="left"
+          class={styles.cards}
+        >
+          <img src={card} class={styles.cardIcon}></img>
+          <span style={{ color: '#fff', fontSize: '10px' }}>
+            项目进度跟踪
+          </span>
+        </div>
+        <div class={styles.card} onClick={this.onChange.bind(this)}>
           <div class={styles.title}></div>
           <div class={styles.second}>
             <div class={styles.data}>
               <div class={styles.textTitle1}>
-                {this.projects.name}
-                {this.mark.name}
+                {this.name}
+                {/* {this.projects.name}
+                {this.mark.dept}
+                {this.mark.name} */}
               </div>
             </div>
           </div>
@@ -62,7 +88,6 @@ export default {
             {this.mark.money}
           </div>
         </div>
-        {/* );})} */}
       </div>
     );
   }

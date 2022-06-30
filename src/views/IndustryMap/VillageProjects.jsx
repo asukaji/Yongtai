@@ -3,6 +3,7 @@ import { Marker, Text } from '@amap/amap-vue';
 import { fetchProjectByVillage } from '@/api';
 import _ from 'lodash';
 
+
 import texts from '../../assets/Effect/bg-ditutext.png';
 import icons from '../../assets/Effect/location.png';
 
@@ -40,7 +41,6 @@ export default {
         }
 
         this.markers = Object.freeze(await fetchProjectByVillage(village));
-        console.log('fffffffffffff', this.markers);
       }
     },
 
@@ -59,7 +59,7 @@ export default {
   methods: {
     handleClick(item) {
       this.$emit('click', item);
-      console.log('qqqqqqqqq', item);
+      console.log('?????',this.markers);
     },
 
     renderMarkers() {
@@ -71,12 +71,12 @@ export default {
     renderText() {
       return _.map(
         this.markers,
-        ({ position, name, areaType, money, dept, proType }) => (
+        ({ position, name, areaType, money, dept, proType, nameCode }) => (
           <Text
             onClick={() =>
               this.handleClick.call(
                 this,
-                { areaType, name, money, dept, proType },
+                { areaType, name, money, dept, proType, nameCode },
                 this.markers
               )
             }
@@ -86,7 +86,7 @@ export default {
             domStyle={{
               color: '#fff',
               fontWeight: 'bolder',
-              fontSize: '12px',
+              fontSize: '10px',
               padding: '15px',
               backgroundImage: `url(${texts})`,
               backgroundSize: 'contain',

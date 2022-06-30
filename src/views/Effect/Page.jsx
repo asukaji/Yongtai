@@ -34,7 +34,6 @@ export default {
 
   methods: {
     async handleClick(item, index) {
-      console.log('qiehuan', item);
       if (this.page !== null) {
         if (index === this.page) {
           //点击同个卡片 ，汇总要关闭，

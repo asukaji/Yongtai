@@ -1,4 +1,4 @@
-import { Form, FormItem, Input, Button } from 'element-ui';
+import { Form, FormItem, Input, Button, Select, Option } from 'element-ui';
 import { withAmap } from '@amap/amap-vue';
 import styles from './CheckForm.module.less';
 
@@ -11,6 +11,7 @@ import _ from 'lodash';
 import upload from '@/assets/Icon/icon-upload.png';
 
 const rules = {
+  finished: [{ required: true, message: '请选择选项' ,trigger: 'blur'}],
   remark: [{ required: true, message: '请输入备注' }]
 };
 
@@ -26,11 +27,22 @@ export default {
         loading: false
       },
       form: {
+        finished: '',
         remark: '',
         nextPlan: '',
         troubles: ''
       },
-      counter: undefined
+      counter: undefined,
+      options: [
+        {
+          value: '0',
+          label: '未竣工'
+        },
+        {
+          value: '1',
+          label: '竣工'
+        }
+      ],
     };
   },
 
@@ -42,6 +54,7 @@ export default {
       'videoList',
       'projectPosition',
       'remark',
+      'finished',
       'nextPlan',
       'troubles'
     ]),
@@ -78,6 +91,7 @@ export default {
   mounted() {
     this.counter = this.setTime();
     this.form.remark = this.remark;
+    this.form.finished = this.finished;
     this.form.nextPlan = this.nextPlan;
     this.form.troubles = this.troubles;
   },
@@ -87,7 +101,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations('mobile', ['setRemark', 'setNextPlan', 'setTroubles']),
+    ...mapMutations('mobile', ['setRemark','setNextPlan', 'setTroubles']),
 
     onSubmit() {
       if (!this.location) {
@@ -102,7 +116,7 @@ export default {
       // HACK 取消打卡范围判定
       // const distance = AMap.GeometryUtil.distance(
       //   this.position,
-      //   this.projectPosition ?? localStorage.getItem(POSITION).split(',')
+      //   // this.projectPosition ?? localStorage.getItem(POSITION).split(',')
       // );
 
       // if (distance > 50) {
@@ -133,10 +147,11 @@ export default {
               fileList: this.fileList,
               projectId: this.$route.params.id,
               remark: this.form.remark,
+              finished: this.form.finished,
               nextPlan: this.form.nextPlan,
               troubles: this.form.troubles,
-              longitudes: this.position[0],
-              latitudes: this.position[1]
+              // longitudes: this.position[0],
+              // latitudes: this.position[1]
             });
 
             this.$message({
@@ -198,6 +213,20 @@ export default {
               rows={1}
             />
           </FormItem>
+
+          <FormItem label="是否竣工" prop="finished">
+            <Select
+              placeholder="请选择是否竣工"
+              vModel={this.form.finished}
+              size="small"
+              style={{ width: '310px' }}
+            >
+              {this.options.map(({ value, label }) => (
+                <Option value={value} label={label} />
+              ))}
+            </Select>
+          </FormItem>
+
           <FormItem label="存在问题" prop="troubles">
             <Input
               vModel={this.form.troubles}

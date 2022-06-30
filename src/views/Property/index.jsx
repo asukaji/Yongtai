@@ -1,5 +1,8 @@
 import Card from './Card';
+import CardTwo from './CardTwo';
+import CardThree from './CardThree';
 import Bar from './Bar';
+import Bars from './Bars';
 import Pie from './Pie';
 import Line from './Line';
 import BarTree from './BarTree';
@@ -11,6 +14,7 @@ import styles from './index.module.less';
 
 import { fetchProperty, fetchPropertyList } from '@/api';
 import _ from 'lodash';
+import BarTreeHZ from './BarTreeHZ';
 
 export default {
   name: 'Property',
@@ -55,8 +59,23 @@ export default {
 
       return (
         <div>
-          {this.renderTitle(title1, title2, titleValue1, titleValue2)}
+          {/* {this.renderTitle(title1, title2, titleValue1, titleValue2)} */}
           <Bar value={list} />
+        </div>
+      );
+    },
+
+    renderBars(props) {
+      if (!props) {
+        return null;
+      }
+
+      const { title1, title2, titleValue1, titleValue2, list } = props;
+
+      return (
+        <div>
+          {/* {this.renderTitle(title1, title2, titleValue1, titleValue2)} */}
+          <Bars value={list} />
         </div>
       );
     },
@@ -146,6 +165,21 @@ export default {
       );
     },
 
+    renderBarTreeHz(props) {
+      if (!props) {
+        return null;
+      }
+
+      const { title1, titleValue1, list } = props.guoyou;
+
+      return (
+        <div>
+          {this.renderTitle(title1, titleValue1, false, true)}
+          <BarTreeHZ value={list} />
+        </div>
+      );
+    },
+
     renderGauge(props) {
       if (!props) {
         return null;
@@ -188,6 +222,15 @@ export default {
       );
 
       return <Table value={value} />;
+    },
+
+    renderDate() {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var time = year + '-' + month + '-' + day;
+      return time;
     }
   },
 
@@ -195,14 +238,13 @@ export default {
     return (
       <div class={styles.container}>
         <div class={styles.header}>
-          <h1>永泰县农村产权交易中心</h1>
+          <h1>永泰县产权流转服务中心</h1>
           <Button
             icon="el-icon-arrow-left"
             style={{
               color: '#fff',
               position: 'absolute',
               left: '12px',
-              bottom: '-8px',
               backgroundColor: 'transparent',
               borderWidth: '0 !important'
             }}
@@ -210,27 +252,41 @@ export default {
           >
             返回
           </Button>
+          <div
+            style={{
+              color: '#fff',
+              fontWeight: 'bold',
+              position: 'absolute',
+              right: '30px',
+              backgroundColor: 'transparent',
+              borderWidth: '0 !important'
+            }}
+          >
+            {this.renderDate()}
+          </div>
         </div>
         <div class={styles.content}>
           <div>
-            <Card
+            <CardTwo
               fetchData={fetchProperty.bind(null, 'guoyouTudi')}
               link="guoyouTudi"
               scopedSlots={{
-                default: this.renderPie
+                default: this.renderBars
               }}
             >
-              <p slot="header">国有建设用地使用权项目</p>
-            </Card>
+              <p slot="header">交易同期动态对比(1-4月份)</p>
+            </CardTwo>
+
             <Card
-              fetchData={fetchProperty.bind(null, 'linquan')}
-              link="linquan"
+              fetchData={fetchProperty.bind(null, 'guozi')}
+              link="guozi"
               scopedSlots={{
-                default: this.renderBarTree
+                default: this.renderBar
               }}
             >
-              <p slot="header">商品林林权</p>
+              <p slot="header">国有资产</p>
             </Card>
+
             <Card
               fetchData={fetchProperty.bind(null, 'nongdi')}
               link="nongdi"
@@ -238,19 +294,21 @@ export default {
                 default: this.renderBar
               }}
             >
-              <p slot="header">农地流转项目</p>
+              <p slot="header">农业资源</p>
             </Card>
           </div>
+
           <div>
             <Center />
-            <Card
+            <CardThree
               fetchData={fetchPropertyList}
               scopedSlots={{
                 default: this.renderTable
               }}
             >
               <div slot="header">
-                永泰县农村产权流转服务中心目前公告清单20220215
+                {/* 永泰县农村产权流转服务中心目前公告清单20220215 */}
+                资源流转信息
                 <span
                   onClick={() => {
                     window.location.href = 'https://www.ytcqlz.com';
@@ -259,27 +317,30 @@ export default {
                   &nbsp;&nbsp;更多&nbsp;&gt;&gt;&gt;
                 </span>
               </div>
-            </Card>
+            </CardThree>
           </div>
+
           <div>
+            <Card
+              fetchData={fetchProperty.bind(null, 'linquan')}
+              link="linquan"
+              scopedSlots={{
+                default: this.renderBar
+              }}
+            >
+              <p slot="header">林业资源</p>
+            </Card>
+
             <Card
               fetchData={fetchProperty.bind(null, 'jitiZichan')}
               link="jitiZichan"
               scopedSlots={{
-                default: this.renderGauge
+                default: this.renderBar
               }}
             >
-              <p slot="header">集体资产流转</p>
+              <p slot="header">村集体资产</p>
             </Card>
-            <Card
-              fetchData={fetchProperty.bind(null, 'guozi')}
-              link="guozi"
-              scopedSlots={{
-                default: this.renderLine
-              }}
-            >
-              <p slot="header">国资项目</p>
-            </Card>
+
             <Card
               fetchData={fetchProperty.bind(null, 'lvyou')}
               link="lvyou"
@@ -287,7 +348,7 @@ export default {
                 default: this.renderBar
               }}
             >
-              <p slot="header">旅游资源项目</p>
+              <p slot="header">旅游资源</p>
             </Card>
           </div>
         </div>

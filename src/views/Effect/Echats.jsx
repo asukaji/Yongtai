@@ -7,7 +7,7 @@ export default {
       type: Array,
       required: true
     },
-    projectClass:{
+    projectClass: {
       type: String,
       required: true
     }
@@ -34,12 +34,21 @@ export default {
       return this.list.map((item) => {
         return item.projectNum;
       });
-      
+    },
+
+    money() {
+      return this.list.map((item) => {
+        return item.money;
+      });
+    },
+
+    finishMoney() {
+      return this.list.map((item) => {
+        return item.finishMoney;
+      });
     },
 
     option() {
-
-      
       return {
         backgroundColor: 'rgba(0, 8, 50, 0)',
         grid: {
@@ -54,7 +63,7 @@ export default {
           top: '-3%',
           right: '20',
           itemGap: 40,
-          data: ['项目个数', '村庄个数'],
+          data: ['项目个数', '村庄个数', '总投资额', '完成投资额'],
           textStyle: {
             fontSize: 8,
             color: '#fff'
@@ -69,7 +78,6 @@ export default {
           }
         },
 
-      
         xAxis: {
           data: this.name,
           axisLine: {
@@ -150,7 +158,65 @@ export default {
                 fontSize: 16
               }
             }
-          }
+          },
+          // {
+          //   type: 'value',
+          //   name: '',
+          //   nameTextStyle: {
+          //     color: '#fff',
+          //     fontSize: 14
+          //   },
+          //   position: 'right',
+          //   splitLine: {
+          //     show: false
+          //   },
+          //   axisTick: {
+          //     show: false
+          //   },
+          //   axisLine: {
+          //     show: false,
+          //     lineStyle: {
+          //       color: '#fff'
+          //     }
+          //   },
+          //   axisLabel: {
+          //     show: false,
+          //     formatter: '{value}',
+          //     textStyle: {
+          //       color: 'rgb(138, 163, 176)',
+          //       fontSize: 16
+          //     }
+          //   }
+          // },
+          // {
+          //   type: 'value',
+          //   name: '',
+          //   nameTextStyle: {
+          //     color: '#fff',
+          //     fontSize: 14
+          //   },
+          //   position: 'right',
+          //   splitLine: {
+          //     show: false
+          //   },
+          //   axisTick: {
+          //     show: false
+          //   },
+          //   axisLine: {
+          //     show: false,
+          //     lineStyle: {
+          //       color: '#fff'
+          //     }
+          //   },
+          //   axisLabel: {
+          //     show: false,
+          //     formatter: '{value}',
+          //     textStyle: {
+          //       color: 'rgb(138, 163, 176)',
+          //       fontSize: 16
+          //     }
+          //   }
+          // }
         ],
         series: [
           {
@@ -187,7 +253,49 @@ export default {
                 fontSize: 12
               }
             }
-          }
+          },
+          // {
+          //   name: '总投资额',
+          //   type: 'line',
+          //   yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个y轴的时候有用
+          //   smooth: true,
+          //   symbol: 'emptyCircle', //标记的图形为实心圆
+          //   itemStyle: {
+          //     normal: {
+          //       color: 'rgb(133,191,212)'
+          //     }
+          //   },
+          //   data: this.money,
+          //   label: {
+          //     show: true,
+          //     position: 'top',
+          //     textStyle: {
+          //       color: '#fff',
+          //       fontSize: 12
+          //     }
+          //   }
+          // },
+          // {
+          //   name: '完成投资额',
+          //   type: 'line',
+          //   yAxisIndex: 1, //使用的 y 轴的 index，在单个图表实例中存在多个y轴的时候有用
+          //   smooth: true,
+          //   symbol: 'emptyCircle', //标记的图形为实心圆
+          //   itemStyle: {
+          //     normal: {
+          //       color: 'rgb(126,0,104)'
+          //     }
+          //   },
+          //   data: this.finishMoney,
+          //   label: {
+          //     show: true,
+          //     position: 'top',
+          //     textStyle: {
+          //       color: '#fff',
+          //       fontSize: 12
+          //     }
+          //   }
+          // }
         ]
       };
     }
@@ -195,7 +303,7 @@ export default {
 
   methods: {
     initChart(item) {
-      const itemList = this.list.find(data => data.name === item.name);
+      const itemList = this.list.find((data) => data.name === item.name);
       this.$emit('click', itemList);
     }
   },
@@ -203,7 +311,7 @@ export default {
   render() {
     return (
       <div class={styles.background}>
-        <VChart option={this.option} onclick={this.initChart.bind(this)}/>
+        <VChart option={this.option} onclick={this.initChart.bind(this)} />
       </div>
     );
   }

@@ -86,7 +86,7 @@ export default {
           left: '30%',
           data: this.legend,
           textStyle: this.inverse ? {color: '#fff'
-          } : undefined,
+          } : {color: '#000'},
           formatter: (name) => `${name} ${_.find(this.data, ['name', name])?.unit ?? ''}`
         },
         yAxis: [{

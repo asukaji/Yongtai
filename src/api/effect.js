@@ -33,11 +33,12 @@ export function fetchProvinceProfile(projectClass, datetime) {
  * 坐标-目录索引
  */
 
-export function fetchCoordProfile(code, type, projectClass) {
+export function fetchCoordProfile(code, type, projectClass,datetime) {
   return instance.post('/work/coordinates', {
     code,
     type,
-    projectClass
+    projectClass,
+    datetime
   }).then(({ result }) => result);
 }
 
@@ -64,11 +65,12 @@ export function cardProject(projectId, projectClass) {
  * 项目-详细信息
  */
 
-export function summaryProject(code, type, projectClass) {
+export function summaryProject(code, type, projectClass, datetime) {
   return instance.post('/work/summary', {
     code,
     type,
-    projectClass
+    projectClass, 
+    datetime
   }).then(({ result }) => result);
 }
 
@@ -91,3 +93,10 @@ export function projectClock(projectId) {
     projectId
   }).then(({ result }) => result);
 }
+
+export function allProjectClass(datetime) {
+  return instance.post('/work/allProjectClass', {
+    datetime
+  }).then(({ result }) => result);
+}
+

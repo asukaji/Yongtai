@@ -8,9 +8,9 @@ import moment from 'moment';
 
 import styles from './Footer.module.less';
 
-import { DatePicker } from 'element-ui';
+import { DatePicker, Select, Option} from 'element-ui';
 
-// import Page from './Page';
+import Page from './Page';
 import Echats from './Echats';
 
 import arrows from '../../assets/Effect/jiantou.png';
@@ -20,25 +20,55 @@ export default {
 
   data() {
     return {
-      type: 'project_szx', // foo, bar, baz, beautyVallage
+      type: 'all', // foo, bar, baz, beautyVallage
       active: 'area', // area, type
       list: {
         area: [],
         type: []
       },
-      state: {
-        date: '2022'
-      }
+      dates: '2022',
+      time: [
+        {
+          value: 'all',
+          label: '全部'
+        },
+        {
+          value: '2019',
+          label: '2019'
+        },
+        {
+          value: '2020',
+          label: '2020'
+        },
+        {
+          value: '2021',
+          label: '2021'
+        },
+        {
+          value: '2022',
+          label: '2022'
+        },
+        {
+          value: '2023',
+          label: '2023'
+        }
+      ]
     };
   },
 
   watch: {
     async type() {
       this.list = await this.getList();
-      // console.log('cardtype',this.type);
     },
     async list() {
       this.value = -1;
+    },
+    dates: {
+      immediate: true,
+      handler(dates) {
+        console.log('aaaa',dates);
+        this.$emit('date', dates);
+      }
     }
   },
 
@@ -49,41 +79,62 @@ export default {
   methods: {
     getList() {
       switch (this.type) {
+        case 'all':
+          return fetchProvinceProfile('all', this.dates);
         case 'project_city':
-          return fetchProvinceProfile('project_city', this.state.date);
+          return fetchProvinceProfile('project_city', this.dates);
         case 'project_sfz':
-          return fetchProvinceProfile('project_sfz', this.state.date);
+          return fetchProvinceProfile('project_sfz', this.dates);
         case 'project_szx':
-          return fetchProvinceProfile('project_szx', this.state.date);
+          return fetchProvinceProfile('project_szx', this.dates);
         case 'beautyVallage':
           return beautyVallage();
       }
     },
+
     async init() {
       _.assign(this.list, await this.getList());
     },
+
     setType(value) {
       this.type = value;
-      console.log('cardtype', this.list);
+      //一级按钮点击事件
+      this.$emit('type');
     },
+
     setActive(value) {
       this.active = value;
+      //二级按钮点击事件
+      this.$emit('active');
     },
+
     handleItemChange(item) {
       this.$emit('change', {
         code: item.nameCode,
         type: this.active,
         projectClass: this.type,
-        treeCard: item.treeCard
+        treeCard: item.treeCard,
+        datetime: this.dates
       });
     },
+
+    handlePageChange(item) {
+      this.$emit('click', {
+        code: item.nameCode,
+        type: this.active,
+        projectClass: this.type,
+        treeCard: item.treeCard,
+        datetime: this.dates
+      });
+    },
+
     setDate(item) {
-      const date =  moment(item).format('YYYY');
-      console.log(date);
-      this.state.date = date;
+      // const date = moment(item).format('YYYY');
+      this.dates = item;
+      console.log('???',item);
+      this.$emit('date', item);
       this.getList();
       this.init();
-      console.log('??????',this.state); 
     }
   },
 
@@ -96,6 +147,12 @@ export default {
             乡村振兴项目
           </div>
           <div class={styles.options}>
+            <p
+              class={[styles.option, this.type === 'all' && styles.chunk]}
+              onClick={this.setType.bind(this, 'all')}
+            >
+              全部
+            </p>
             <p
               class={[
                 styles.option,
@@ -135,7 +192,7 @@ export default {
           </div>
         </div>
         <div class={styles.secondOptions}>
-          <div>
+          <div style={{ display: 'flex' }}>
             <p
               class={[
                 styles.secondOption,
@@ -145,39 +202,56 @@ export default {
             >
               按照地区查询
             </p>
-            {/* <p
-            class={[
-              styles.secondOption,
-              this.active === 'type' && [styles.line]
-            ]}
-            onClick={this.setActive.bind(this, 'type')}
-          >
-            按照项目分类查询
-          </p> */}
+            <p
+              class={[
+                styles.secondOption,
+                this.active === 'type' && [styles.line]
+              ]}
+              onClick={this.setActive.bind(this, 'type')}
+            >
+              按照项目分类查询
+            </p>
           </div>
-          <DatePicker
+          {/* <DatePicker
             type="year"
             placeholder="选择年份"
-            vModel={this.state.date}
+            vModel={this.dates}
             onChange={this.setDate.bind(this)}
-          />
+          /> */}
+          <Select
+            style={{
+              width: '120px'
+            }}
+            placeholder="请选择年份"
+            vModel={this.dates}
+            size="mini"
+            onChange={this.setDate.bind(this)}
+          >
+            {this.time.map(({ value, label }) => (
+              <Option value={value} label={label} />
+            ))}
+          </Select>
         </div>
         {/* page */}
-        <div class={styles.page}>
-          {/* <Page
+        {this.active === 'type' && (
+          <div class={styles.page}>
+            <Page
+              list={this.list[this.active]}
+              onClick={this.handlePageChange.bind(this)}
+              change={this.type}
+              changes={this.active}
+            />
+          </div>
+        )}
+        {this.active === 'area' && (
+          <Echats
             list={this.list[this.active]}
+            projectClass={this.type}
             onClick={this.handleItemChange.bind(this)}
             change={this.type}
             changes={this.active}
-          /> */}
-        </div>
-        <Echats
-          list={this.list[this.active]}
-          projectClass={this.type}
-          onClick={this.handleItemChange.bind(this)}
-          change={this.type}
-          changes={this.active}
-        />
+          />
+        )}
       </div>
     );
   }

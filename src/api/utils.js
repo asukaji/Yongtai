@@ -44,6 +44,7 @@ export function createInstance(config) {
       );
     },
     (error) => {
+      console.dir(error);
       if (error.response.data?.code === 401) {
         location.href = `${location.protocol}//${location.host}/#/login`;
       }

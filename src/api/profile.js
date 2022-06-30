@@ -390,6 +390,12 @@ export function fetchPropertyState() {
     .then(({ result }) => result);
 }
 
+export function fetchPropertyStateHandel() {
+  return instance
+    .get('/chanquan/modi/list')
+    .then(({ result }) => result);
+}
+
 export function fetchPropertyDetailsYears(type) {
   return instance
     .get(`/chanquan/year/${type}`)
@@ -405,10 +411,12 @@ export function fetchPropertyDetailsListByYear(equityType, year) {
     .then(({ result }) => result);
 }
 
-export function fetchPropertyDetailsList(townName) {
+export function fetchPropertyDetailsList(townName, classify, tab) {
   return instance
     .post('/chanquan/sec', {
-      townName
+      townName,
+      classify,
+      tab
     })
     .then(({ result }) => result);
 }

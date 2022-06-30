@@ -11,12 +11,14 @@ import { projectClock } from '@/api';
 import Card from './Card';
 import CardTwo from './CardTwo';
 import CardThree from './CardThree';
+import CardFour from './CardFour';
 import SideBar from './SideBar';
 import SignList from './SignList';
 
 import text from '../../assets/Effect/bg-ditutext.png';
 import icon from '../../assets/Effect/location.png';
 import close from '../../assets/Effect/close.png';
+import back from '../../assets/Effect/back.png';
 
 import _ from 'lodash';
 
@@ -49,6 +51,8 @@ export default {
 
   data() {
     return {
+      zoom: 10.4,
+      centers: [118.987697, 25.768119],
       items: {},
       markers: {},
       mapLocations: [],
@@ -65,10 +69,14 @@ export default {
       sideVisible: true,
       sideBarVisible: false,
       projectId: '',
+      projectClass: '',
       projectName: '',
       step: false,
       record: [],
-      records: []
+      records: [],
+      footSideVisible: true,
+      cardOneVisible: false,
+      cardFourVisible: false
     };
   },
 
@@ -94,7 +102,6 @@ export default {
       this.mapLocations = [];
       this.change = false;
       this.$refs.Map.setCenter(point);
-      console.log('点标记', point);
 
       const { street = VILLAGE_NAME, village } = this.$route.params;
       if (name === village) {
@@ -106,12 +113,19 @@ export default {
       this.cardVisible = false;
       this.cardTwoVisible = false;
       this.cardThreeVisible = false;
+      if (this.footSideVisible === false) {
+        this.sideVisible = false;
+        this.sideBarVisible = false;
+      } else {
+        this.sideVisible = true;
+        this.sideBarVisible = false;
+      }
     },
 
     onStreetClick({ name, point }) {
       if (point) {
         this.$refs.Map.setCenter(point);
-        this.$refs.Map.setZoom(12);
+        this.$refs.Map.setZoom(12.4);
       }
 
       const lastPath = _.last(this.$route.path.split('/'));
@@ -119,13 +133,15 @@ export default {
       this.cardVisible = false;
       this.cardTwoVisible = false;
       this.cardThreeVisible = false;
+      this.sideVisible = true;
+      this.sideBarVisible = false;
 
       this.$router.replace(`/${INDUSTRY_MAP}/${name}/${lastPath}`);
     },
 
     onMapClick() {
-      this.$refs.Map.setCenter(CENTER);
-      this.$refs.Map.setZoom(ZOOM);
+      this.$refs.Map.setCenter([118.987697, 25.768119]);
+      this.$refs.Map.setZoom(10.4);
       const lastPath = _.last(this.$route.path.split('/'));
       this.$router.replace(`/${INDUSTRY_MAP}/${lastPath}`);
     },
@@ -151,6 +167,7 @@ export default {
 
     renderCard() {
       this.cardVisible = true;
+      this.cardOneVisible = true;
       this.cardTwoVisible = false;
       this.cardThreeVisible = false;
     },
@@ -164,6 +181,8 @@ export default {
     handleResource(item) {
       this.name = item.name;
       this.content = item.content;
+      this.cardVisible = false;
+      this.cardOneVisible = false;
       this.cardTwoVisible = true;
     },
 
@@ -173,7 +192,16 @@ export default {
       this.cardThreeVisible = true;
     },
 
-    handleMoveFeature() {
+    handleMoveFeature(item) {
+      this.footSideVisible = item;
+      this.sideVisible = item;
+      if (item === false) {
+        this.zoom = 10.9;
+        this.centers = [118.787697, 25.868119];
+      } else {
+        this.zoom = 10.4;
+        this.centers = [118.987697, 25.768119];
+      }
       this.mapLocations = [];
       this.change = true;
     },
@@ -185,35 +213,74 @@ export default {
     },
 
     handelBack() {
-      this.sideVisible = true;
-      this.sideBarVisible = false;
+      if (this.footSideVisible === false) {
+        this.sideVisible = false;
+        this.sideBarVisible = false;
+      } else {
+        this.sideVisible = true;
+        this.sideBarVisible = false;
+      }
     },
 
     async handelCardOpen(item) {
-      this.step = item;
-      const project = await projectClock(this.projectId);
+      this.step = item[0];
+      this.projectName = item[1].name;
+      const project = await projectClock(item[1].nameCode);
+      console.log('project', project);
       this.record = project.records;
       this.records = this.record.map(
-        ({ createTime, userId_dictText, area, remark, troubles, nextPlan }) => {
+        ({
+          createTime,
+          userId_dictText,
+          area,
+          remark,
+          troubles,
+          nextPlan,
+          finished
+        }) => {
           return Object.assign(
             {},
             {
-              'createTime':createTime,
-              'userId_dictText':userId_dictText,
-              'area':area,
-              'remark':remark,
-              'troubles':troubles,
-              'nextPlan': nextPlan
+              createTime: createTime,
+              userId_dictText: userId_dictText,
+              area: area,
+              remark: remark,
+              troubles: troubles,
+              nextPlan: nextPlan,
+              finished: finished
             }
           );
         }
       );
-      console.log('11111111111', this.records);
-      console.log('222222222222', this.record);
     },
 
     handleCardClose(item) {
       this.step = item;
+    },
+
+    handleSendFeature(item) {
+      console.log('??????', item);
+    },
+
+    handelOpen() {
+      this.cardOneVisible = false;
+      this.cardFourVisible = true;
+    },
+
+    handelKey(item) {
+      this.projectClass = item;
+    },
+
+    backBottom() {
+      this.cardOneVisible = true;
+      this.cardFourVisible = false;
+    },
+
+    handelTabs(item) {
+      this.cardVisible = item;
+      this.cardOneVisible = item;
+      this.cardTwoVisible = item;
+      this.cardThreeVisible = item;
     }
   },
 
@@ -222,24 +289,31 @@ export default {
       <div class={styles.home}>
         <YtMap
           ref="Map"
-          zoom={10.4}
-          center={[118.987697, 25.768119]}
+          zoom={this.zoom}
+          center={this.centers}
           mapStyle="amap://styles/grey"
           // onMapClick={this.onMapClick}
           onChange={this.handleResource.bind(this)}
         >
           {this.street ? (
-            <div onClick={this.onMapClick} class={styles.back}>
+            <div onClick={this.onMapClick} class={styles.backs}>
               返回乡镇地图
             </div>
           ) : null}
           <Header
             onChange={this.handleMoveFeature.bind(this)}
             onClick={this.handleSurveyFeature.bind(this)}
+            onTabs={this.handelTabs.bind(this)}
+            // onSend={this.handleSendFeature.bind(this)}
           />
           {this.sideVisible && <Side />}
 
-          <Footer onChange={this.handleItemChange.bind(this)} />
+          {this.footSideVisible && (
+            <Footer
+              onChange={this.handleItemChange.bind(this)}
+              onActivekey={this.handelKey.bind(this)}
+            />
+          )}
 
           {this.street ? (
             <VillagesPolygon
@@ -302,11 +376,31 @@ export default {
 
         <div class={[styles.card, this.cardVisible && styles.cardVisible]}>
           <img class={styles.close} src={close} onClick={this.close}></img>
-          <Card
-            projects={this.items}
-            mark={this.markers}
-            onChange={this.handelCardOpen.bind(this)}
-          />
+          {this.cardOneVisible && (
+            <Card
+              projects={this.items}
+              mark={this.markers}
+              onChange={this.handelCardOpen.bind(this)}
+              onOpen={this.handelOpen.bind(this)}
+            />
+          )}
+          {this.cardFourVisible && (
+            <div>
+              <div>
+                <CardFour
+                  projectId={this.projectId}
+                  projectClass={this.projectClass}
+                ></CardFour>
+              </div>
+              <div>
+                <img
+                  src={back}
+                  class={styles.back}
+                  onClick={this.backBottom}
+                ></img>
+              </div>
+            </div>
+          )}
         </div>
 
         <div

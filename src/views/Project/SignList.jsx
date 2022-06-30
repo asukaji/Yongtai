@@ -52,6 +52,10 @@ export default {
       this.$emit('changeStep');
     },
 
+    formatter(row) {
+      return row.finished === 1 ? '是' : row.finished === 0 ? '否' : '';
+    },
+
     renderFileList() {
       return _.size(this.fileList) ? (
         <div
@@ -94,6 +98,7 @@ export default {
         <TableColumn type="index" label="序号" width="56" />
         <TableColumn prop="createTime" label="打卡日期" />
         <TableColumn prop="userId_dictText" label="打卡人" />
+        <TableColumn prop="finished" label="是否竣工" formatter={this.formatter}/>
         {this.signType ? (
           <TableColumn prop="itemId_dictText" label="类型" />
         ) : (

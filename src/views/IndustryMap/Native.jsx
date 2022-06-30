@@ -65,11 +65,12 @@ export default {
     },
 
     renderText() {
-      return _.map(this.markers, ({ position, name }) => (
+      return _.map(this.markers, (item) => (
         <Text
-          position={position}
-          text={name}
+          position={item.position}
+          text={item.name}
           offset={[8 - _.size(name) * 6, -24]}
+          onClick={this.onClick.bind(this, item)}
           domStyle={{
             color: '#fff',
             fontWeight: 'bolder',

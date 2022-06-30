@@ -81,7 +81,8 @@ export default {
   render() {
     return (
       <div class={styles.footerItem}>
-        <h4>乡村振兴项目构成</h4>
+        {/* <h4>乡村振兴项目构成</h4> */}
+        <h4>乡村振兴项目</h4>
         <VChart option={this.option} />
       </div>
     );

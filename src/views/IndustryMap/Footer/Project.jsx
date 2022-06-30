@@ -5,7 +5,7 @@ import VueTypes from 'vue-types';
 import _ from 'lodash';
 import { fetchWorkData } from '@/api';
 import moment from 'moment';
-import { DatePicker } from 'element-ui';
+import { DatePicker, Select, Option } from 'element-ui';
 
 const TABS = [
   { label: '省专项', name: 'project_szx' },
@@ -29,7 +29,33 @@ export default {
       },
       states: {
         date: '2022'
-      }
+      },
+      time: [
+        {
+          value: '',
+          label: '全部'
+        },
+        {
+          value: '2019',
+          label: '2019'
+        },
+        {
+          value: '2020',
+          label: '2020'
+        },
+        {
+          value: '2021',
+          label: '2021'
+        },
+        {
+          value: '2022',
+          label: '2022'
+        },
+        {
+          value: '2023',
+          label: '2023'
+        },
+      ]
     };
   },
 
@@ -85,7 +111,10 @@ export default {
 
   methods: {
     handleClick(item) {
-      this.$emit('click', item);
+      if(this.states.date === '2022') {
+        this.$emit('click', item);
+        this.$emit('active', this.state.activeKey);
+      }
     },
     renderProjects() {
       return (
@@ -96,12 +125,13 @@ export default {
             flexWrap: 'wrap',
             overflow: 'scroll',
             height: '130px',
-            width: '436px',
-            marginTop: '10px'
+            width: '100%',
+            marginTop: '20px',
           }}
+          class={styles.scorll}
         >
           {_.map(
-            _.isEmpty(this.state.projects) ? this.value : this.state.projects,
+            this.state.projects,
             (item) => (
               <div
                 key={this.state.projects.nameCode}
@@ -112,7 +142,6 @@ export default {
                   justifyContent: 'center',
                   backgroundColor: '#DBDB8A',
                   width: '130px',
-                  // flex: '128px',
                   fontSize: '12px',
                   height: '64px',
                   minWidth: '128px',
@@ -130,8 +159,8 @@ export default {
     },
 
     async setDate(item) {
-      const date = moment(item).format('YYYY');
-      this.states.date = date;
+      // const date = moment(item).format('YYYY');
+      this.states.date = item;
       const result = await fetchWorkData(
         this.village ?? this.street ?? '一镇一品',
         this.type,
@@ -139,37 +168,62 @@ export default {
         this.states.date
       );
       this.state.projects = result.project;
-
+      const activeKey = this.state.activeKey;
+      this.$emit('date',{item,activeKey});
     }
   },
 
   render() {
     return (
       <div class={styles.footerItem}>
-        <h4>乡村振兴项目</h4>
-        <Tabs
-          tabPosition="bottom"
-          vModel={this.state.activeKey}
-          class={styles.tabs}
-        >
-          {_.map(TABS, ({ name, label }) => (
-            <TabPane key={name} name={name}>
-              <div slot="label">
-                <p>{label}</p>
-              </div>
-            </TabPane>
-          ))}
-        </Tabs>
-        <DatePicker
+        <div
           style={{
-            marginTop: '10px',
-            transform: 'translateX(50%)'
+            display: 'flex',
+            alignItems: 'center'
           }}
-          type="year"
-          placeholder="选择年份"
-          vModel={this.states.date}
-          onChange={this.setDate.bind(this)}
-        />
+        >
+          {/* <h4>乡村振兴项目</h4> */}
+          <Tabs
+            tabPosition="bottom"
+            vModel={this.state.activeKey}
+            class={styles.tabs}
+          >
+            {_.map(TABS, ({ name, label }) => (
+              <TabPane key={name} name={name}>
+                <div slot="label">
+                  <p>{label}</p>
+                </div>
+              </TabPane>
+            ))}
+          </Tabs>
+        </div>
+        <div align="right" style={{ marginRight: '10px', marginTop: '-5px' }}>
+          {/* <span style={{ color: '#fff', fontSize: '10px' }}>选择年份：</span> */}
+          {/* <DatePicker
+            style={{
+              marginTop: '10px',
+              width: '100px'
+            }}
+            type="year"
+            placeholder="选择年份"
+            vModel={this.states.date}
+            onChange={this.setDate.bind(this)}
+          /> */}
+          <Select
+            style={{
+              marginTop: '10px',
+              width: '120px'
+            }}
+            placeholder="请选择年份"
+            vModel={this.states.date}
+            size="mini"
+            onChange={this.setDate.bind(this)}
+          >
+            {this.time.map(({ value, label }) => (
+              <Option value={value} label={label} />
+            ))}
+          </Select>
+        </div>
         {this.renderProjects()}
       </div>
     );

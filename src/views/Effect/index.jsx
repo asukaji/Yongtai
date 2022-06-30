@@ -67,7 +67,7 @@ const featuresMap = new Map([
   ['嵩口镇', sk],
   ['同安镇', ta],
   ['白云乡', by],
-  ['盘古乡', pg],
+  ['盘谷乡', pg],
   ['红星乡', hx],
   ['霞拔乡', xb],
   ['长庆镇', cq],
@@ -92,7 +92,7 @@ export default {
     return {
       activeArea: undefined,
       type: undefined,
-      location: {},
+      location: '',
       mapLocations: [],
       villages: undefined,
       projects: [],
@@ -113,7 +113,8 @@ export default {
       cardInfo: {},
       step: false,
       record: [],
-      records: []
+      records: [],
+      date: undefined
     };
   },
 
@@ -144,40 +145,86 @@ export default {
       this.$router.replace({ name });
     },
 
-    //点击文件夹事件
-    async handleItemChange({ code, type, projectClass, treeCard }) {
-      this.cardInfo = await summaryProject(code, type, projectClass);
+    handleActiveChange() {
+      this.mapLocations = [];
+      this.cardVisible = false;
+      this.cardOneVisible = false;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
+      this.$refs.Map.setCenter([119.06697, 25.768119]);
+      this.$refs.Map.setZoom(10.2);
+    },
 
-      console.log('card', this.cardInfo);
+    handleTypeChange() {
+      this.mapLocations = [];
+      this.cardVisible = false;
+      this.cardOneVisible = false;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
+      this.$refs.Map.setCenter([119.06697, 25.768119]);
+      this.$refs.Map.setZoom(10.2);
+    },
+
+    // 点击文件夹事件
+    async handlePageChange({ code, type, projectClass, treeCard, datetime }) {
+      this.cardInfo = await summaryProject(code, type, projectClass, datetime);
 
       if (this.mapLocations.length !== 0) {
         if (projectClass === 'beautyVallage') {
           this.mapLocations = await fetchVillages(code, type);
         } else {
-          this.mapLocations = await fetchCoordProfile(code, type, projectClass);
+          this.mapLocations = await fetchCoordProfile(
+            code,
+            type,
+            projectClass,
+            datetime
+          );
+          this.point.push(
+            this.mapLocations[0].longitude + 0.105,
+            this.mapLocations[0].latitude
+          );
+          // this.$refs.Map.setCenter(this.point);
+          this.point.splice(0);
+          console.log('11111');
         }
         if (treeCard) {
           //关闭汇总
           this.mapLocations = [];
           this.siderBarVisible = true; //jingji
           this.siderBarThreeVisible = false; // huizong
+          this.cardVisible = false;
+          this.cardOneVisible = false;
+          this.cardTwoVisible = false;
+          this.backVisible = false;
+          this.point.splice(0);
+          this.cardTwoVisible = false;
+          this.backVisible = false;
+          this.$refs.Map.setCenter([119.06697, 25.768119]);
+          this.$refs.Map.setZoom(10.2);
         } else {
           this.siderBarVisible = false;
           this.siderBarThreeVisible = true;
+          this.cardVisible = false;
+          this.cardOneVisible = false;
+          this.cardTwoVisible = false;
+          this.backVisible = false;
+          this.point.push(
+            this.mapLocations[0].longitude + 0.105,
+            this.mapLocations[0].latitude
+          );
+          this.$refs.Map.setCenter(this.point);
+          this.point.splice(0);
         }
-        console.log('zuobiaoValue1:', this.mapLocations.length);
-        this.point.splice(0);
-
-        (this.cardVisible = false), (this.cardOneVisible = false);
-        this.cardTwoVisible = false;
-        this.backVisible = false;
-        this.$refs.Map.setCenter([118.987697, 25.768119]);
-        this.$refs.Map.setZoom(10.4);
       } else {
         if (projectClass === 'beautyVallage') {
           this.mapLocations = await fetchVillages(code, type);
         } else {
-          this.mapLocations = await fetchCoordProfile(code, type, projectClass);
+          this.mapLocations = await fetchCoordProfile(
+            code,
+            type,
+            projectClass,
+            datetime
+          );
         }
         // console.log('mmmmmmmmm',this.summary);
         //刚进入也没有，没有点击卡片执行的顺序
@@ -201,18 +248,88 @@ export default {
       }
     },
 
+    //点击图表事件
+    async handleItemChange({ code, type, projectClass, treeCard, datetime }) {
+      this.cardInfo = await summaryProject(code, type, projectClass, datetime);
+
+      if (this.mapLocations.length !== 0) {
+        if (projectClass === 'beautyVallage') {
+          this.mapLocations = await fetchVillages(code, type);
+        } else {
+          this.mapLocations = await fetchCoordProfile(
+            code,
+            type,
+            projectClass,
+            datetime
+          );
+          this.point.push(
+            this.mapLocations[0].longitude + 0.105,
+            this.mapLocations[0].latitude
+          );
+          this.$refs.Map.setCenter(this.point);
+          this.point.splice(0);
+        }
+        if (treeCard) {
+          //关闭汇总
+          this.mapLocations = [];
+          this.siderBarVisible = true; //jingji
+          this.siderBarThreeVisible = false; // huizong
+        } else {
+          this.siderBarVisible = false;
+          this.siderBarThreeVisible = true;
+        }
+        this.point.splice(0);
+        this.cardVisible = false;
+        this.cardOneVisible = false;
+        this.cardTwoVisible = false;
+        this.backVisible = false;
+        // this.$refs.Map.setCenter([119.06697, 25.768119]);
+        // this.$refs.Map.setZoom(10.2);
+      } else {
+        if (projectClass === 'beautyVallage') {
+          this.mapLocations = await fetchVillages(code, type);
+        } else {
+          this.mapLocations = await fetchCoordProfile(
+            code,
+            type,
+            projectClass,
+            datetime
+          );
+        }
+        // console.log('mmmmmmmmm',this.summary);
+        //刚进入也没有，没有点击卡片执行的顺序
+
+        // if (treeCard) {
+        //   this.siderBarVisible = true; //jingji
+        //   this.siderBarThreeVisible = false; // huizong
+        // } else {
+        //   this.siderBarVisible = false;
+        //   this.siderBarThreeVisible = true;
+        // }
+        this.code = code;
+        this.typed = type;
+        this.projectClass = projectClass;
+        this.point.push(
+          this.mapLocations[0].longitude + 0.105,
+          this.mapLocations[0].latitude
+        );
+        this.$refs.Map.setCenter(this.point);
+        this.point.splice(0);
+      }
+    },
+
     //点击地图点位事件
     async renderCard(location) {
       if (this.projectClass === 'beautyVallage') {
         this.projects = await fetchProjectsByVillages(location.vallage);
       } else {
         this.projects = await fetchProject(
-          this.code,
-          this.typed,
+          location.vallage,
+          'area',
           this.projectClass
         );
       }
-      this.location = location;
+      this.location = location.vallage;
       this.cardVisible = true;
       this.cardOneVisible = true;
       this.cardTwoVisible = false;
@@ -238,8 +355,8 @@ export default {
         this.siderBarThreeVisible = false;
         this.mapLocations = [];
         this.onMapClick();
-        this.$refs.Map.setCenter([118.9878, 25.768119]);
-        this.$refs.Map.setZoom(10.4);
+        this.$refs.Map.setCenter([119.068, 25.768119]);
+        this.$refs.Map.setZoom(10.2);
       } else if (name === 'zbkh') {
         this.siderBarVisible = false;
         this.siderBarTwoVisible = true;
@@ -258,7 +375,6 @@ export default {
     },
 
     onStreetClick({ name, point }) {
-      console.log('乡镇模块点击时间', name);
       this.$refs.Map.setCenter(point);
       this.$refs.Map.setZoom(12);
       const lastPath = _.last(this.$route.path.split('/'));
@@ -271,8 +387,8 @@ export default {
     },
 
     onMapClick() {
-      this.$refs.Map.setCenter(CENTER);
-      this.$refs.Map.setZoom(ZOOM);
+      this.$refs.Map.setCenter([119.06697, 25.768119]);
+      this.$refs.Map.setZoom(10.2);
       const lastPath = _.last(this.$route.path.split('/'));
       this.$router.replace(`/${EFFECT}/${lastPath}`);
     },
@@ -288,26 +404,60 @@ export default {
       const project = await projectClock(this.projectId);
       this.record = project.records;
       this.records = this.record.map(
-        ({ createTime, userId_dictText, area, remark, troubles, nextPlan }) => {
+        ({
+          createTime,
+          userId_dictText,
+          area,
+          remark,
+          troubles,
+          nextPlan,
+          finished
+        }) => {
           return Object.assign(
             {},
             {
-              'createTime':createTime,
-              'userId_dictText':userId_dictText,
-              'area':area,
-              'remark':remark,
-              'troubles':troubles,
-              'nextPlan': nextPlan
+              createTime: createTime,
+              userId_dictText: userId_dictText,
+              area: area,
+              remark: remark,
+              troubles: troubles,
+              nextPlan: nextPlan,
+              finished: finished
             }
           );
         }
       );
-      console.log('11111111111',this.records);
-      console.log('222222222222', this.record);
     },
 
     handleCardClose(item) {
       this.step = item;
+    },
+
+    async listClick(item) {
+      this.projects = await fetchProject(
+        item.projectId,
+        'project',
+        this.projectClass
+      );
+      this.cardVisible = true;
+      this.cardOneVisible = true;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
+      this.location = item.vallage;
+    },
+
+    async villageClick(item) {
+      this.projects = await fetchProject(item, 'area', this.projectClass);
+      this.cardVisible = true;
+      this.cardOneVisible = true;
+      this.cardTwoVisible = false;
+      this.backVisible = false;
+      this.location = item;
+    },
+
+    handelDate(item) {
+      this.date = item;
+      console.log('dateeeeee', item);
     }
   },
 
@@ -315,16 +465,28 @@ export default {
     return (
       <div class={styles.home}>
         <Header onChange={this.change.bind(this)} />
-        <Footer onChange={this.handleItemChange.bind(this)} />
-        {this.siderBarVisible && <SideBar />}
+        <Footer
+          onChange={this.handleItemChange.bind(this)}
+          onClick={this.handlePageChange.bind(this)}
+          onActive={this.handleActiveChange.bind(this)}
+          onType={this.handleTypeChange.bind(this)}
+          onDate={this.handelDate.bind(this)}
+        />
+        {this.siderBarVisible && this.date && <SideBar dates={this.date}/>}
         {this.siderBarTwoVisible && <SideBarTwo />}
-        {this.siderBarThreeVisible && <SideBarThree cardInfo={this.cardInfo} />}
+        {this.siderBarThreeVisible && (
+          <SideBarThree
+            cardInfo={this.cardInfo}
+            onList={this.listClick.bind(this)}
+            onVillage={this.villageClick.bind(this)}
+          />
+        )}
         <YtMap
-          center={[118.987697, 25.768119]}
+          center={[119.06697, 25.768119]}
           offset={[500, 500]}
           ref="Map"
           map-style="amap://styles/grey"
-          zoom={10.4}
+          zoom={10.2}
           // onMapClick={this.onMapClick}
         >
           {this.street ? (
@@ -338,7 +500,7 @@ export default {
               onVillageClick={this.onVillageClick}
             />
           ) : (
-            <StreetsPolygon />
+            <StreetsPolygon onStreetClick={this.onStreetClick} />
           )}
           {this.mapLocations.map((location) => (
             <Marker
@@ -384,12 +546,14 @@ export default {
         >
           <img src={back} class={styles.back} onClick={this.backBottom}></img>
         </div>
-        {this.step && <SignList 
-          onChange={this.handleCardClose} 
-          records={this.records} 
-          name={this.projectName}
-          record={this.record}
-        />}
+        {this.step && (
+          <SignList
+            onChange={this.handleCardClose}
+            records={this.records}
+            name={this.projectName}
+            record={this.record}
+          />
+        )}
       </div>
     );
   }

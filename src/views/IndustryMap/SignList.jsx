@@ -37,6 +37,11 @@ export default {
     onBack() {
       this.card = true;
       this.cardTwo = false;
+    },
+
+    formatter(row) {
+      console.log('222222',row);
+      return row.finished === 1 ? '是' : row.finished === 0 ? '否' : '';
     }
   },
 
@@ -51,10 +56,20 @@ export default {
         </div>
         <div class={styles.table}>
           {this.card && (
-            <Table data={this.records} border height={400}>
+            <Table
+              data={this.records}
+              border
+              height={400}
+              default-sort={{ prop: 'createTime', order: 'descending' }}
+            >
               <TableColumn type="index" label="序号" width="56" />
-              <TableColumn prop="createTime" label="打卡日期" />
+              <TableColumn prop="createTime" label="打卡日期" sortable />
               <TableColumn prop="userId_dictText" label="打卡人" />
+              <TableColumn
+                prop="finished"
+                label="是否竣工"
+                formatter={this.formatter}
+              />
               {this.signType ? (
                 <TableColumn prop="itemId_dictText" label="类型" />
               ) : (
@@ -91,13 +106,15 @@ export default {
               </div>
               <div class={styles.imgs}>
                 {this.record.map((item) => {
-                  return (
-                    item.fileList.map((data) => {
+                  if (item.fileList !== null) {
+                    return item.fileList.map((data) => {
                       return (
                         <img class={styles.img} src={data.filePath} vViewer />
                       );
-                    })
-                  );
+                    });
+                  } else {
+                    return;
+                  }
                 })}
               </div>
             </div>

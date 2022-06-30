@@ -614,9 +614,9 @@ export default {
             <TabPane label="按项目阶段" name="timeline">
               {this.renderFooter()}
             </TabPane>
-            <TabPane label="三察一体" name="Kiana">
+            {/* <TabPane label="三察一体" name="Kiana">
               {this.renderDefaultFooter()}
-            </TabPane>
+            </TabPane> */}
           </Tabs>
         </FooterTabs>
 

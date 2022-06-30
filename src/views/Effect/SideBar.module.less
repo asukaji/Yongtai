@@ -12,8 +12,12 @@
 }
 
 .scroll {
-  height: 40vh;
+  height: 85vh;
+  // background-color: #fff;
   overflow:scroll;
+  &::-webkit-scrollbar {
+      width: 0.1px;
+    }
 }
 
 .top {
@@ -70,7 +74,8 @@
 }
 
 .boxes {
-  display: flex;
+  // display: flex;
+  height: 50%;
   transform: translateY(-10px)
 }
 
@@ -86,10 +91,12 @@
   // height: 146px;
   // background: rgba(16, 53, 86, 0.4);
   // border: 1px solid #FFFFFF;
-  margin-left: 9px;
+  // margin-left: 9px;
+  margin-top: 5px;
 }
 
 .smallboxes {
+  height: 21%;
   display: flex;
 }
 

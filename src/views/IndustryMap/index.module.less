@@ -12,7 +12,7 @@
 }
 .card {
   width: 350px;
-  height: calc(100vh - 580px);
+  // height: calc(100vh - 580px);
   // overflow:scroll;
   background-color: rgba(25, 121, 228, 0.1);
   border: 1px solid #1979E4;
@@ -27,7 +27,8 @@
 
 .cardTwo {
   width: 350px;
-  height: calc(100vh - 245px);
+  // height: calc(100vh - 245px);
+  max-height: calc(100vh - 245px);
   // overflow:scroll;
   background-color: rgba(25, 121, 228, 0.1);
   border: 1px solid #1979E4;
@@ -171,19 +172,21 @@
 .footer {
   position: fixed;
   bottom: 8px;
-  left: 0;
-  height: 210px;
-  width: calc(100% - 473px);
+  left: 8px;
+  height: 220px;
+  width: calc(100% - 482px);
   display: flex;
   align-items: center;
+  background-color: rgba(25, 44, 116, 0.7);
+  border: 0.5px solid #dde0e4;
 
   & > div {
     position: relative;
     height: 100%;
     margin-left: 8px;
     padding: 8px 8px 0;
-    background-color: rgba(25, 44, 116, 0.7);
-  border: 0.5px solid #dde0e4;
+    // background-color: rgba(25, 44, 116, 0.7);
+  // border: 0.5px solid #dde0e4;
 
     &:first-child {
       flex: 1;
@@ -227,8 +230,13 @@
     letter-spacing: 2px;
     max-height: 340px;
     overflow: scroll;
+    // overflow: hidden;
     white-space: pre-wrap;
     word-wrap: break-word;  
+    
+    &::-webkit-scrollbar {
+      width: 0.1px;
+    }
     // overflow-y: auto;
   }
 
@@ -257,13 +265,13 @@
   }
 }
 
-:global p {
-  max-height: 256px;
-  overflow-y: auto;
-}
-
 .footerItem {
   position: relative;
+
+  :global p {
+  max-height: 256px;
+  overflow-y: auto;
+  }
 
   h4 {
     position: relative;
@@ -298,9 +306,11 @@
 
 .tabs {
   position: absolute;
-  right: 8px;
-  top: 8px;
-  width: calc(100% - 180px);
+  // right: 8px;
+  left: 15%;
+  top: 10px;
+  // width: calc(100% - 180px);
+  width: 300px;
 
   &.tabsHeader {
     margin-top: -8px;
@@ -310,7 +320,7 @@
       height: 5px;
       background-color: rgba(0, 255, 255, 0.4);
       width: 4px !important;
-      margin-left: 22px;
+      margin-left: 12%;
       border-radius: 50%;
     }
 
@@ -509,3 +519,43 @@
     right: 0;
     top: 45px;
   }
+
+  :global .index-module_footerItem_24eKa {
+    .el-tabs {
+      right: 170px;
+    }
+
+
+  .el-tabs__nav{
+    .el-tabs__item {
+      padding: 0 10px;
+      line-height: 20px
+    }
+  }
+}
+
+.scorll {
+    
+    &::-webkit-scrollbar {
+      width: 0.1px;
+    }
+}
+
+.bottomback {
+  position: fixed;
+  top: 60px;
+  left: 370px;
+  display: none;
+}
+
+.backs {
+  color: #fff;
+  position: fixed;
+  left: 5%;
+  top: 8%;
+}
+
+.back {
+  left: 30vw;
+  width: 45px;
+}

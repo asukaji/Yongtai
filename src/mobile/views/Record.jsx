@@ -45,13 +45,14 @@ export default {
           {_.size(_.get(this.records, this.projectId)) ? (
             _.map(
               _.get(this.records, this.projectId),
-              ({ createTime, area, remark, nextPlan, troubles }, index) => (
+              ({ createTime, area, finished, remark, nextPlan, troubles }, index) => (
                 <Form labelWidth="120px" labelPosition="left" size="mini">
                   <FormItem label="打卡时间">{createTime}</FormItem>
+                  <FormItem label="是否竣工">{finished === 1 ?'是': finished === 0 ? '否' : ''}</FormItem>
                   <FormItem label="打卡地点">{area}</FormItem>
                   <FormItem label="下一步计划">{nextPlan}</FormItem>
                   <FormItem label="存在问题">{troubles}</FormItem>
-                  <FormItem label="备注">{remark}</FormItem>
+                  <FormItem label="形象进度">{remark}</FormItem>
                   <FormItem>
                     <Button
                       type="primary"

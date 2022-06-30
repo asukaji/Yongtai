@@ -81,13 +81,15 @@ export default {
       ));
     },
 
+    //乡村振兴icon文字点击
     renderText() {
-      return _.map(this.markers, ({ position, name }) => (
+      return _.map(this.markers, ({ position, name, village }) => (
         <Text
           position={position}
           text={name}
           key={name}
           offset={[8 - _.size(name) * 6, -24]}
+          onClick={this.onClick.bind(this, { name: village, point: position })}
           domStyle={{
             color: '#fff',
             fontWeight: 'bolder',

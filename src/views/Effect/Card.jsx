@@ -8,7 +8,7 @@ export default {
       required: true
     },
     village: {
-      type: Object,
+      type: String,
       required: true
     }
   },
@@ -20,7 +20,6 @@ export default {
 
   methods: {
     getSchudlde(item) {
-      console.log('sasasasasa', item);
       this.$emit('send',item);
     },
   },
@@ -28,6 +27,7 @@ export default {
   render() {
     return (
       <div>
+        <h3 style={{color: '#fff'}}>{this.village}</h3>
         {this.projects.map((item) => {
           return (
             <div
@@ -47,7 +47,7 @@ export default {
               </div>
               <hr class={styles.line} />
               <div class={styles.textTitle}>
-              地区：永泰县/{this.village.vallage}
+              地区：永泰县/{this.village}
               </div>
             </div>
           );
